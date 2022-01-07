@@ -1,0 +1,168 @@
+---
+title: "Chapter 1: Preliminaries"
+output: html_notebook
+---
+
+## What Is This Book About?
+
+Covers the nuts and bolts of manipulating, processing, cleaning, and crunching data in Python. Focuses on the Python programming that is needed for data analysis of structured data.
+
+## Essential Python Libraries
+
+### NumPy
+
+NumPy is short for Numerical Python and provides the data structures, algorithms, and library glue needed for most scientific applications involving numerical data in Python. NumPy contains:
+
+-   A fast and efficient multidimensional array object *ndarray*
+
+-   Functions for preforming element-wise computations with arrays or mathematical operations between arrays
+
+-   Tools for reading and writing array-based datasets to disk
+
+-   Linear algebra operations, Fourier transform, and random number generation
+
+-   A mature C API to enable Python extensions and native C or C++ code to access NumPy's data structures and computational facilities
+
+### pandas
+
+pandas provides high-level data structures and functions designed to make working with structured or tabular data fast, easy, and expressive. pandas provides the `DataFrame` functionality.
+
+The `DataFrame` name was named after the similar R `data.frame` object. In R, data frames are built-in, so many of the features found in pandas are typically either part of the R core implementation of provided by additional packages.
+
+### matplotlib
+
+matplotlib is the most popular Python library for producing plots and other two-dimensional data visualizations.
+
+### IPython and Jupyter
+
+IPython is an interactive Python interpreter and Jupyter encompasses much of IPython.
+
+### SciPy
+
+SciPy is a collection of packages addressing a number of different standard problem domains in scientific computing. It contains important packages such as:
+
+-   `scipy.integrate`: numerical integration and differential equation solvers
+
+-   `scipy.linag`: linear algebra routines and matrix decompositions extending beyond those provided in `numpy.linalg`
+
+-   `scipy.optimize`: function optimizers and root finding algorithms
+
+-   `scipy.signal`: signal processing tools
+
+-   `scipy.sparse`: sparse matrices and sparse linear system solvers
+
+-   `scipy.special`: wrapper around SPECFUN, a Fortran library implementing many common mathematical functions, such as the `gamm` function
+
+-   `scipy.stats`: standard continuous and discrete probability distributions, various statistical tests, and more descriptive statistics
+
+Together NumPy and SciPy form a reasonably complete and mature computational foundation for many traditional scientific computing applications.
+
+### scikit-learn
+
+scikit-learn is the premier general-purpose machine learning toolkit for Python programmers. It includes submodules for such models as:
+
+-   Classification: SVM, nearest neighbors, random forest, logistic regression, etc.
+
+-   Regression: Lasso, ridge regression, etc.
+
+-   Clustering: *k*-means, spectral clustering, etc.
+
+-   Dimensionality reduction: PCA, feature selection, matrix factorization, etc.
+
+-   Model selection: Grid search, cross-validation, metrics
+
+-   Preprocessing: Feature extraction, normalization
+
+### statsmodels
+
+statsmodels is a statistical analysis package that brought many of the regression models from R to Python. It includes submodules for:
+
+-   Regression models: linear regression, GLMs, robust linear models, linear mixed effects models, etc.
+
+-   ANOVA
+
+-   Time series analysis: AR, ARIMA, VAR, and others
+
+-   Nonparametric methods: Kernel density estimation, kernel regression
+
+-   Visualization of statistical model results
+
+statsmodels is more focused on statistical inference where scikit-learn is more prediction-focused.
+
+## Installation and Setup
+
+Anaconda is an easy Python installer. Let's verify that things are installed correctly:
+
+```{bash, eval = FALSE}
+python
+```
+
+### Installing or Updating Python Packages
+
+You can install Python packages with the following command:
+
+`conda install package_name`
+
+Or, you can use the pip package management tool:
+
+`pip install package_name`
+
+You can update packages by using the `conda update` command:
+
+`conda update package_name`
+
+Or, with pip:
+
+`pip install –upgrade package_name`
+
+### Python 2 and Python 3
+
+The first version of the Python 3.x line of interpreters was released at the end of 2008. Python 2.x will reach its development end of life in 2020.
+
+### Integrated Development Environments (IDEs) and Text Editors
+
+-   PyDev (free)
+
+-   PyCharm from JetBrains (free option)
+
+-   Python Tools for Visual Studio (Windows only)
+
+-   Spyder (free)
+
+-   Komodo (commercial)
+
+## Community and Conferences
+
+-   pydata: a Google Group list for questions related to Python for data analysis and pandas
+
+-   pystatsmodels: For statsmodels or pandas-related questions
+
+-   mailing list of rscikit-learn
+
+-   numpy-discussion
+
+-   scipy-user
+
+## Navigating This Book
+
+### Import Conventions
+
+The Python community has adopted a number of naming conventions for commonly used modules:
+
+```{python, eval = FALSE}
+import numpy as np
+import matplotlib.pylot as plt
+import pandas as pd
+import seaborn as sns
+import statsmodels as sm
+```
+
+This means that when you see `np.arrange` this is a reference to the `arrage` function in NumPy. This is done because it's considered bad practice in Python software development to import everything(`from numpy import *`) from a large package like NumPy.
+
+### Jargon
+
+-   *munge/munging/wrangling*: describes the overall process of manipulating unstructured and/or messy data into a structured or clean form
+
+-   *Pesudocode*: a description of an algorithm or process that takes a code-like form while likely not being actual valid source code
+
+-   *Syntactic sugar*: programming syntax that does not add new features, but makes something more convenient or easier to type
