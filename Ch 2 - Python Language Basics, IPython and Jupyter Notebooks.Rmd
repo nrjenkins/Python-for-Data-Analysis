@@ -1,0 +1,789 @@
+---
+title: "Chapter 2: Python Language Basics, IPython and Jupyter Notebooks"
+output: html_notebook
+---
+
+In my (*the author's*) opinion, it is *not* necessary to become proficient at building good software in Python to be able to productively to data analysis. This book primarily focuses on table-based analytics and data preparation tools for working with large data sets.
+
+## The Python Interpreter
+
+Python is an *interpreted* language. Running Python programs is as simple as calling `python` with a `.py` file as its first argument. Suppose we had created `hello_world.py` with these contents:
+
+```{python}
+print("Hello world")
+```
+
+You can run it by executing the following command (the `hello_world.py` file must be in your current working terminal directory):
+
+```{bash, eval = FALSE}
+python hello_world.py
+```
+
+Most data scientists execute Python code in IPython or Jupyter notebooks. When you use the `%run` command, IPython executes the code in the specified file in the same process, enabling you to explore the results interactively when it's done:
+
+```{bash, eval = FALSE}
+ipython
+%run hello_world.py
+```
+
+## IPython Basics
+
+### Running the IPython Shell
+
+These commands can be run from Terminal, but I will be using RStudio instead.
+
+```{python}
+import numpy as np
+data = {i : np.random.randn() for i in range(7)}
+data
+```
+
+### Running the Jupyter Notebook
+
+You can start up Jupyter with the `jupyter notebook` command in the terminal. I'll be using RStudio instead for this book.
+
+### Tab Completion
+
+IPython and Jupyter Notebooks offer support for tab completion.
+
+### Introspection
+
+Using a question mark (?) before or after a variable will display some general information about the object:
+
+```{python}
+b = [1, 2, 3]
+b?
+
+print?
+```
+
+This is referred to as *object introspection*. If the object is a function or instance method, the docstring, if defined, will also be shown. Supose we'd written the following function:
+
+```{python}
+def add_numbers(a, b):
+  """
+  Add two numbers together
+  Returns
+  -------
+  the_sum : type or arguments
+  """
+  return a + b
+
+add_numbers?
+```
+
+Using `??` will also show the function's source code if possible.
+
+### The `%run` Command
+
+You can run any file as a Python program inside the environment of your IPython session using the `%run` command. Suppose you had the following simple script stored in `ipython_script_test.py`:
+
+```{python}
+def f(x, y, z):
+  return (x + y) / z
+
+a = 5
+b = 6
+c = 7.5
+
+result = f(a, b, c)
+result
+```
+
+### Executing Code from the Clipboard
+
+Suppose you had the following code in some other application:
+
+```{python}
+x = 5
+y = 7
+if x > 5:
+  x += 1
+  y = 8
+```
+
+The most foolproof methods are the `%paste` and `%cpaste` magic functions. `%paste` takes whatever ext is in the clipboard and executes it as a single block in the shell:
+
+```{bash, eval = FALSE}
+%paste
+```
+
+## Python Language Basics
+
+### Language Semantics
+
+#### Indentation, not braces
+
+Python uses whitespace to structure code instead of using braces as in many other languages like R, C++, Java, and Perl. Consider a `for` look from a sorting algorithm:
+
+```{python}
+for x in array:
+    if x < pivot:
+      less.append(x)
+    else:
+      greater.append(x)
+```
+
+A colon denotes the start of an indented code block after which all of the code must be indented by the same amount until the end of the block.
+
+Semicolons can be used to separate multiple statements on a single line:
+
+```{python, eval = FALSE}
+a = 5; b = 6; c = 7
+```
+
+#### Everything is an object
+
+Every number, strong, data structure, function, class, module, and so on exists in the Python interpreter in its own "box," which is referred to as a *Python object*.
+
+#### Comments
+
+Any text preceded by the hash mark \# is ignored by the Python interpreter.
+
+```{python}
+results = []
+for line in file_handle:
+    # keep the empty lines for now
+    # if len(line) == 0:
+    # continue
+    results.append(line.replace("foo", "bar"))
+```
+
+Comments can also occur after a line of executed code:
+
+```{python}
+print("Reached this line") # Simple status report
+```
+
+#### Function and object method calls
+
+You call functions using parentheses and passing zero or more arguments, optionally assigning the returned value to a variable:
+
+```{python eval = FALSE}
+result = f(x, y, z)
+g()
+```
+
+Almost every object in Python has attached function, known as *methods*, that have access to the object's internal contents. You can call them using the following syntax:
+
+`obj.some_method(Xx, y, z)`
+
+Functions can take both *positional* and *keyword* arguments:
+
+`result = f(a, b, c, d = 5, e = "foo")`
+
+#### Variables and argument passing
+
+When assigning a varialbe (or *name*) in Python, you are creating a *reference* to the object on the righthand side of the equals sign. In practical terms, consider a list of integers:
+
+```{python}
+a = [1, 2, 3]
+```
+
+Suppose we assign `a` to a new variable `b`:
+
+```{python}
+b = a
+```
+
+In some languages, this assignment would cause the data \[1, 2, 3\] to be copied. In Python, `a` and `b` actually now refer to the same object, the original list \[1, 2, 3\]. You can prove this to yourself by appending an element to `a` and then examining `b`:
+
+```{python}
+a.append(4)
+b
+```
+
+When you pass objects as arguments to a function, new local variables are created referencing the original objects without any copying. If you bind a new object to a variable inside a function, that change will not be reflected in the parent scope. It is therefore possible to alter the internals of a mutable argument. Suppose we had the following function:
+
+```{python}
+def append_element(some_list, element):
+    some_list.append(element)
+```
+
+Then we have:
+
+```{python}
+data = [1, 2, 3]
+append_element(data, 4)
+data
+```
+
+#### Dynamic references, strong types
+
+In contrast with many compiled languages, such as Java and C++, object *references* in Python have no type associated with them. There is no problem with the following:
+
+```{python}
+a = 5
+type(a)
+
+a = "foo"
+type(a)
+```
+
+Variables are names for objects within a particular namespace; the type information is stored in the object itself. Some observers might hastily conclude that Python is not a "typed language." This is not true, consider this example:
+
+```{python}
+"5" + 5
+```
+
+In some languages, such as Visual Basic, the string "5" might get implicitly converted to an integer, thus yielding 10. In other languages, such as JavaScript, the integer `5` might be casted to a string yielding the concatenated string `55`. In this regard Python is considered a *strongly typed* language, which means that every object has a specific type (or class), and implicit conversions will occur only in certian obvious circumstances, such as the following:
+
+```{python}
+a = 4.5
+b = 2
+
+# string formatting, to be visited later
+print("a is {0}, b is {1}".format(type(a), type(b)))
+
+a / b
+```
+
+You can check that an object is an instance of a particular type using the `isinstance` function:
+
+```{python}
+a = 5
+
+isinstance(a, int)
+```
+
+`isinstance` can accept a tuple of types if you want to check that an object's type is among those present in the tuple:
+
+```{python}
+a = 5; b = 4.5
+
+isinstance(a, (int, float))
+
+isinstance(b, (int, float))
+```
+
+#### Attributes and methods
+
+Objects in Python typically have both attributes (other Python objects stored "inside" the object) and methods (functions associated with an object that can have access to the object's internal data). Both are accessed via the syntax `obj.attribute_name`:
+
+```{python}
+a = "foo"
+
+a.isalnum()
+```
+
+#### Duck typing
+
+Sometimes you don't care about the type of an object but whether it has certain methods or behavior. This is called "duck typing." For example, you can verify that an object is iterable if it implemented the *iterator protocol*.
+
+```{python}
+def isiterable(obj):
+    try:
+        iter(obj)
+        return True
+    except TypeError: # not iterable
+        return False
+
+isiterable("a string")
+
+isiterable([1, 2, 3])
+
+isiterable(5)
+```
+
+#### Imports
+
+In Python a *module* is simply a file with the `.py` extension containing Python code.
+
+```{python}
+# some_module.py
+PI = 3.14159
+
+def f(x):
+    return x + 2
+
+def g(a, b):
+    return a + b
+```
+
+If we wanted to access the variables and functions defined in `some_module.py`, from another file in the same directory we could do:
+
+```{python, eval = FALSE}
+import some_module
+result = some_module.f(5)
+pi = some_module.PI
+```
+
+#### Binary operators and comparisons
+
+```{python}
+5 - 7
+
+12 + 21.5
+
+5 <= 2
+```
+
+To check if two references refer to the same object, use the `is` keyword. `is not` is also perfectly valid if you want to check that two objects are not the same:
+
+```{python}
+a = [1, 2, 3]
+
+b = a
+
+c = list(a)
+
+a is b
+
+a is not c
+```
+
+Since `list` always creates a new Python list, we can be sure that `c` is distinct from `a`. Comparing with `is` is no the same as the `==` operator, because in this case we have:
+
+```{python}
+a == c
+```
+
+A very common use of `is` and `is not` is to check if a variable is `None`, since there is only one instance of `None`:
+
+```{python}
+a = None
+
+a is None
+
+print(a)
+```
+
+#### Mutable and immutable objects
+
+Most objects in Python, such as lists, dicts, NumPy arrays, and most user-defined types (classes), are mutable. This means that the object or values that they contain can be modified:
+
+```{python}
+a_list = ["foo", 2, [4, 5]]
+
+a_list[2] = (3, 4)
+
+a_list
+```
+
+Others, like strings and tuples, are immutable:
+
+```{python}
+a_tuple = (3, 5, (4, 5))
+a_tuple[1] = "four"
+```
+
+Remember that just because you *can* mutate an object does not mean that you always *should*. Such actions are known as *side effects*.
+
+### Scalar Types
+
+Python along with its standard library has a small set of built-in types for handling numerical data, strings, boolean values, and dates and times. These "single value" types are sometimes called *scalar types* and we refer to them in this book as scalars.
+
++-------------+-----------------------------------------------+
+| **Type**    | **Description**                               |
++=============+===============================================+
+| `None`      | The Python "null" value                       |
++-------------+-----------------------------------------------+
+| `str`       | String type; holds Unicode strings            |
++-------------+-----------------------------------------------+
+| `bytes`     | Raw ASCII bytes (or Unicode encoded as bytes) |
++-------------+-----------------------------------------------+
+| `float`     | Double-precision floating-point number        |
++-------------+-----------------------------------------------+
+| `bool`      | A `True` or `False` value                     |
++-------------+-----------------------------------------------+
+| `int`       | Arbitrary precision signed integer            |
++-------------+-----------------------------------------------+
+
+#### Numeric types
+
+The primary Python types for numbers are `int` and `float`. An `int` can store arbitrarily large numbers:
+
+```{python}
+ival = 17239871
+
+ival ** 6
+```
+
+Floating-point numbers are represented with the Python `float` type.
+
+```{python}
+fval = 7.243
+
+fval2 = 6.78e-5
+```
+
+Integer division not resulting in a whole number will always yield a floating-point number:
+
+```{python}
+3 / 2
+```
+
+To get C-style integer division (which drops the fractional part if the result is not a whole number), use the floor division operator `//`:
+
+```{python}
+3 // 2
+```
+
+#### Strings
+
+You can write *string literals* using either single quotes of double quotes:
+
+```{python}
+a = 'one way of writing a string'
+b = "another way"
+```
+
+For multiline strings with line breaks, you can use triple quotes, either `'''` or `"""`:
+
+```{python}
+c = '''
+This is a longer string that
+spans multiple lines
+'''
+```
+
+We can count the new line characters with the `count` method on `c`:
+
+```{python}
+c.count("\n")
+```
+
+Python strings are immutable; you cannot modify a string:
+
+```{python}
+a = "this is a string"
+a[10] = "f"
+```
+
+Many Python objects can be converted to a string using the `str` function:
+
+```{python}
+a = 5.6
+
+s = str(a)
+
+print(s)
+```
+
+Strings are a sequence of Unicode characters and therefore can be treated like other sequences, such as lists and tuples.
+
+```{python}
+s = "python"
+
+list(s)
+```
+
+The syntax `s[:3]` is called *slicing* and is implemented for many kinds of Python sequences. The backslash character `\` is an *escape character*, meaning that it is used to specify special characters like newline `\n` or Unicode characters. To write a string literal with backslashes, you need to escape them:
+
+```{python}
+s = "12\\34"
+print(s)
+```
+
+If you have a lot of backslashes and no special characters, you can preface the leading quote of the string with `r`, which means that the characters should be interpreted as is:
+
+```{python}
+s = r"this\has\no\special\characters"
+s
+```
+
+The `r` stands for *raw*.
+
+Adding two strings together concatenates them and produces a new string:
+
+```{python}
+a = "this is the first half "
+
+b = "and this is the second half"
+
+a + b
+```
+
+String templating or formatting is another important topic. The number of ways to do so has expanded with the advent of Python 3 and here is the mechanics of one of the main interfaces. String objects have a `format` method that can be used to substitute formatted arguments into the string, producing a new string:
+
+```{python}
+template = "{0:.2f} {1:s} are worth US${2:d}"
+```
+
+In this string,
+
+-   `{0:.2f}` means to format the first argument as a floating-point number with two decimal places
+
+-   `{1:s}` means to format the second argument as a string
+
+-   `{2:d}` means to format the third argument as an exact integer
+
+To substitute arguments for these format parameters, we pass a sequence of arguments tot he `format` method:
+
+```{python}
+template.format(4.5560, "Argentine Pesos", 1)
+```
+
+#### Bytes and Unicode
+
+Unicode has become the first-class string type to enable more consistent handling of ASCII and non-ASCII text.
+
+```{python}
+val = "español"
+val
+```
+
+We can convert this Unicode string to its UTF-8 bytes representation using the `encode` method:
+
+```{python}
+val_utf8 = val.encode("utf-8")
+val_utf8
+
+type(val_utf8)
+```
+
+Assuming you know the Unicode encoding of a `bytes` object, you can go back using the `decode` method:
+
+```{python}
+val_utf8.decode("utf-8")
+```
+
+#### Booleans
+
+The two boolean values in Python are written as `True` and `False`. Comparisons and other conditional expressions evaluate to either `True` or `False`. Boolean values are combined with the `and` and `or` keywords:
+
+```{python}
+True and True
+
+False or True
+```
+
+#### Type casting
+
+The `str`, `bool`, `int`, and `float` types are also functions that can be used to cast values to those types:
+
+```{python}
+s = "3.14159"
+
+fval = float(s)
+
+type(fval)
+
+int(fval)
+
+bool(fval)
+
+bool(0)
+```
+
+#### None
+
+`None` is the Python null value type. If a function does not explicitly return a value, it implicitly returns `None`:
+
+```{python}
+a = None
+
+a is None
+
+b = 5
+
+b is None
+```
+
+`None` is also a common default value for function arguments:
+
+```{python}
+def add_and_maybe_multiply(a, b, c = None):
+    result = a + b
+    
+    if c is not None:
+        result = result * c
+    
+    return result
+```
+
+#### Dates and times
+
+The built-in Python `datetime` module provides `datetime`, `date`, and `time` types. The `datetime` type, as you might imagine, combines the information stored in `date` and `time` and is the most commonly used:
+
+```{python}
+from datetime import datetime, date, time
+
+dt = datetime(2011, 10, 29, 20, 30, 21)
+
+dt.day
+
+dt.minute
+```
+
+Given a `datetime` instance, you can extract the equivalent `date` and `time` objects by calling methods on the `datetime` of the same name:
+
+```{python}
+dt.date()
+
+dt.time()
+```
+
+The `strftime` method formats a `datetime` as a string:
+
+```{python}
+dt.strftime("%m/%d/%Y %H:%M")
+```
+
+Strings can be converted into `datetime` objects with the `strptime` function:
+
+```{python}
+datetime.strptime("20091031", "%Y%m%d")
+```
+
+When you are grouping or aggregating time series data, it will occasionally be useful to replace time fields of a series of `datetimes`. For example, replacing the minute and second fields with zero:
+
+```{python}
+dt.replace(minute = 0, second = 0)
+```
+
+Since `datetime.datetime` is an immutable type, methods like these will always produce new objects. The difference of two `datetime` objects produces a `datetime.timedelta` type:
+
+```{python}
+dt2 = datetime(2011, 11, 15, 22, 30)
+
+delta = dt2 - dt
+
+delta
+
+type(delta)
+```
+
+Adding a `timedelta` to a `datetime` produces a new shifted `datetime`:
+
+```{python}
+dt
+
+dt + delta
+```
+
+### Control Flow
+
+Python has several built-in keywords for conditional logic, loops, and other standard *control flow* concepts found in other programming languages.
+
+#### if, elif, and else
+
+The `if` statement is one of the most well-known control flow statement types. It checks a condition that if `True`, evaluates the code in the block that follows:
+
+```{python}
+if x < 0:
+    print("it's negative")
+```
+
+An `if` statement can be optionally followed by one of more `elif` blocks and a catch-all `else` block if all of the conditions are `False`:
+
+```{python}
+if x < 0:
+    print("it's negative")
+elif x == 0:
+    print("equal to zero")
+elif 0 < x < 5:
+    print("positive but smaller than 5")
+else:
+    print("positive and larger than or equal to 5")
+```
+
+If any of the conditions are `True`, no further `elif` or `else` blocks will be reached.
+
+```{python}
+a = 5; b = 7
+
+c = 8; d = 4
+
+if a < b or c > d:
+    print("made it")
+```
+
+#### for loops
+
+`for` loops are for iterating over a collection or an iterator. The standard syntax for a `for` loop is:
+
+```{python}
+for value in collection:
+    # do something with value
+```
+
+You can advance a `for` loop to the next iteration, skipping the remainder of the block, using the `continue` keyword. Consider this code, which sums up integers in a list and skips `None` values:
+
+```{python}
+sequence = [1, 2, None, 4, None, 5]
+total = 0
+
+for value in sequence:
+    if value is None:
+        continue
+    total += value
+```
+
+A `for` loop can be exited with the `break` keyword. This code sums elements of the list until a 5 is reached:
+
+```{python}
+sequence = [1, 2, 0, 4, 6, 5, 2, 1]
+total_until_5 = 0
+
+for value in sequence:
+    if value == 5:
+        break
+    total_until_5 += value
+```
+
+#### while loops
+
+A `while` lop specifies a condition and a block of code that is to be executed until the condition evaluates to `False` or the loop is explicitly ended with `break`:
+
+```{python}
+x = 256
+total = 0
+while x > 0:
+    if total > 500:
+        break
+    total += x
+    x = x // 2
+```
+
+#### pass
+
+\`pass1 is the "no-op" statement in Python. It can be used in blocks where no action is to be taken; it is only required because Python uses whitespace to delimit blocks:
+
+```{python}
+if x < 0:
+    print("negative!")
+elif x == 0:
+    # TODO: put something smart here
+    pass
+else:
+    print("positive!")
+```
+
+#### range
+
+The `range` function returns an iterator that yields a sequence of evenly spaced integers:
+
+```{python}
+range(10)
+
+list(range(10))
+```
+
+Both a start, end, and step can be given:
+
+```{python}
+list(range(0, 20, 2))
+```
+
+A common use for range is iterating through a sequence by index:
+
+```{python}
+seq = [1, 2, 3, 4]
+for i in range(len(seq)):
+    val = seq[i]
+```
+
+#### Ternary expressions
+
+A *ternary expression* in Python allows you to combine an `if-else` block that produces a value into a single line or expression.
+
+`value = true-expr if condition else false-expr`
+
+Here is an example:
+
+```{python}
+x = 5
+
+"Non-negative" if x >= 0 else "Negative"
+```

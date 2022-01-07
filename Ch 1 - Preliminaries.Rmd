@@ -131,6 +131,8 @@ The first version of the Python 3.x line of interpreters was released at the end
 
 -   Komodo (commercial)
 
+-   *RStudio also has support for Python!*
+
 ## Community and Conferences
 
 -   pydata: a Google Group list for questions related to Python for data analysis and pandas
