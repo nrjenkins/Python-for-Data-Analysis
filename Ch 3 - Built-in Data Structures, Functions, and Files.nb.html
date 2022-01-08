@@ -215,9 +215,411 @@ pre code {
 
 
 <!-- rnb-text-begin -->
+<p>This chapter will cover Pythons main built-in data structures: tuples, lists, dicts, and sets.</p>
+<div id="data-structures-and-sequences" class="section level2">
+<h2>Data Structures and Sequences</h2>
+<div id="tuple" class="section level3">
+<h3>Tuple</h3>
+<p>A tuple is a fixed-length, immutable sequence of Python objects. You can create one with a comma-separated sequences of values:</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG50dXBcblxuYGBgIn0= -->
+<pre class="python"><code>tup
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiKDQsIDUsIDYpXG4ifQ== -->
+<pre><code>(4, 5, 6)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>When you’re defining tuples in more complicated expressions, it’s often necessary to enclose the values in parentheses, as in the example:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5uZXN0ZWRfdHVwID0gKDQsIDUsIDYpLCAoNywgOClcbm5lc3RlZF90dXBcbmBgYCJ9 -->
+<pre class="python"><code>nested_tup = (4, 5, 6), (7, 8)
+nested_tup</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiKCg0LCA1LCA2KSwgKDcsIDgpKVxuIn0= -->
+<pre><code>((4, 5, 6), (7, 8))</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>You can convert any sequence or iterator to a tuple by invoking <code>tuple</code>:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG50dXBcblxuYGBgIn0= -->
+<pre class="python"><code>tup
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiKCdzJywgJ3QnLCAncicsICdpJywgJ24nLCAnZycpXG4ifQ== -->
+<pre><code>(&#39;s&#39;, &#39;t&#39;, &#39;r&#39;, &#39;i&#39;, &#39;n&#39;, &#39;g&#39;)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Elements can be accessed with square brackets <code>[]</code> as with most other sequence types. Python uses 0-indexing:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG50dXBbMF1cblxuYGBgIn0= -->
+<pre class="python"><code>tup[0]
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJ3MnXG4ifQ== -->
+<pre><code>&#39;s&#39;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Once the tuple is created it’s not possible to modify which object is stored in each slot.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG50dXBbMl0gPSBGYWxzZVxuXG5gYGAifQ== -->
+<pre class="python"><code>tup[2] = False
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVHlwZUVycm9yOiAndHVwbGUnIG9iamVjdCBkb2VzIG5vdCBzdXBwb3J0IGl0ZW0gYXNzaWdubWVudFxuIn0= -->
+<pre><code>TypeError: &#39;tuple&#39; object does not support item assignment</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>If an object inside a tuple is mutable, such as a list, you can modify it in-place:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG50dXBcblxuYGBgIn0= -->
+<pre class="python"><code>tup
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiKCdmb28nLCBbMSwgMiwgM10sIFRydWUpXG4ifQ== -->
+<pre><code>(&#39;foo&#39;, [1, 2, 3], True)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>You can concatenate tuples using the <code>+</code> operator to produce longer tuples:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4oNCwgTm9uZSwgXCJmb29cIikgKyAoNiwgMCkgKyAoXCJiYXJcIiwgKVxuXG5gYGAifQ== -->
+<pre class="python"><code>(4, None, &quot;foo&quot;) + (6, 0) + (&quot;bar&quot;, )
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiKDQsIE5vbmUsICdmb28nLCA2LCAwLCAnYmFyJylcbiJ9 -->
+<pre><code>(4, None, &#39;foo&#39;, 6, 0, &#39;bar&#39;)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Multiplying a tuple by an integer, as with lists, has the effect of concatenating together that many copies of the tuple:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4oXCJmb29cIiwgXCJiYXJcIikgKiA0XG5cbmBgYCJ9 -->
+<pre class="python"><code>(&quot;foo&quot;, &quot;bar&quot;) * 4
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiKCdmb28nLCAnYmFyJywgJ2ZvbycsICdiYXInLCAnZm9vJywgJ2JhcicsICdmb28nLCAnYmFyJylcbiJ9 -->
+<pre><code>(&#39;foo&#39;, &#39;bar&#39;, &#39;foo&#39;, &#39;bar&#39;, &#39;foo&#39;, &#39;bar&#39;, &#39;foo&#39;, &#39;bar&#39;)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="unpacking-tuples" class="section level4">
+<h4>Unpacking tuples</h4>
+<p>If you try to <em>assign</em> to a tuple-like expression of variables, Python will attempt to <em>unpack</em> the value on the righthand side of the equals sign:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG50dXAgPSAoNCwgNSwgNilcblxuYSwgYiwgYyA9IHR1cFxuXG5iXG5gYGAifQ== -->
+<pre class="python"><code>tup = (4, 5, 6)
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2hhcHRlciAzOiBCdWlsdC1pbiBEYXRhIFN0cnVjdHVyZXMsIEZ1bmN0aW9ucywgYW5kIEZpbGVzIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgo=</div>
+a, b, c = tup
+
+b</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiNVxuIn0= -->
+<pre><code>5</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>With this functionality you can easily swap variable names. In Python this is done like this:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5iXG5cbmBgYCJ9 -->
+<pre class="python"><code>b
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiMVxuIn0= -->
+<pre><code>1</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>A common use of variable unpacking is iterating over sequences of tuples or lists:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zZXEgPSBbKDEsIDIsIDMpLCAoNCwgNSwgNiksICg3LCA4LCA5KV1cblxuZm9yIGEsIGIsIGMgaW4gc2VxOlxuICAgIHByaW50KFwiYSA9IHswfSwgYiA9IHsxfSwgYyA9IHsyfVwiLmZvcm1hdChhLCBiLCBjKSlcblxuYGBgIn0= -->
+<pre class="python"><code>seq = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
+
+for a, b, c in seq:
+    print(&quot;a = {0}, b = {1}, c = {2}&quot;.format(a, b, c))
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiYSA9IDEsIGIgPSAyLCBjID0gM1xuYSA9IDQsIGIgPSA1LCBjID0gNlxuYSA9IDcsIGIgPSA4LCBjID0gOVxuIn0= -->
+<pre><code>a = 1, b = 2, c = 3
+a = 4, b = 5, c = 6
+a = 7, b = 8, c = 9</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>If you want to pick a few elements from the beginning of tuple you can use the special syntax <code>*rest</code>.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5yZXN0XG5cbmBgYCJ9 -->
+<pre class="python"><code>rest
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzMsIDQsIDVdXG4ifQ== -->
+<pre><code>[3, 4, 5]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Sometimes the <code>_</code> is used for unwanted variables:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5fXG5cbmBgYCJ9 -->
+<pre class="python"><code>_
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzMsIDQsIDVdXG4ifQ== -->
+<pre><code>[3, 4, 5]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="tuple-methods" class="section level4">
+<h4>Tuple methods</h4>
+<p>Tuples have very limited instance methods. One useful one is <code>count</code>, which counts the number of occurrences of a value:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hLmNvdW50KDIpXG5cbmBgYCJ9 -->
+<pre class="python"><code>a.count(2)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiNFxuIn0= -->
+<pre><code>4</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="list" class="section level3">
+<h3>List</h3>
+<p>In contrast with tuples, lists are variable-length and their contents can be modified in-place. You define them using brackets <code>[]</code> or using the <code>list</code> type function:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5iX2xpc3RcblxuYGBgIn0= -->
+<pre class="python"><code>b_list
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWydmb28nLCAncGVla2Fib28nLCAnYmF6J11cbiJ9 -->
+<pre><code>[&#39;foo&#39;, &#39;peekaboo&#39;, &#39;baz&#39;]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The <code>list</code> function is frequently used in data processing as a way to materialize an iterator or generator expression:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5saXN0KGdlbilcblxuYGBgIn0= -->
+<pre class="python"><code>list(gen)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzAsIDEsIDIsIDMsIDQsIDUsIDYsIDcsIDgsIDldXG4ifQ== -->
+<pre><code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="adding-and-removing-elements" class="section level4">
+<h4>Adding and removing elements</h4>
+<p>Elements can be appended to the end of the list with the <code>append</code> method:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5iX2xpc3RcblxuYGBgIn0= -->
+<pre class="python"><code>b_list
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWydmb28nLCAncGVla2Fib28nLCAnYmF6JywgJ2R3YXJmJ11cbiJ9 -->
+<pre><code>[&#39;foo&#39;, &#39;peekaboo&#39;, &#39;baz&#39;, &#39;dwarf&#39;]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Using <code>insert</code> you can insert an element at a specific location in the list:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5iX2xpc3RcblxuYGBgIn0= -->
+<pre class="python"><code>b_list
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWydmb28nLCAncmVkJywgJ3BlZWthYm9vJywgJ2JheicsICdkd2FyZiddXG4ifQ== -->
+<pre><code>[&#39;foo&#39;, &#39;red&#39;, &#39;peekaboo&#39;, &#39;baz&#39;, &#39;dwarf&#39;]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The inverse of <code>insert</code> is <code>pop</code>, which removes and returns an elements at a particular index:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5iX2xpc3QucG9wKDIpXG5cbmBgYCJ9 -->
+<pre class="python"><code>b_list.pop(2)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJ3BlZWthYm9vJ1xuIn0= -->
+<pre><code>&#39;peekaboo&#39;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Elements can be removed by value with <code>remove</code>, which locates the first such value and removes it from the list:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5iX2xpc3RcblxuYGBgIn0= -->
+<pre class="python"><code>b_list
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWydyZWQnLCAnYmF6JywgJ2R3YXJmJywgJ2ZvbyddXG4ifQ== -->
+<pre><code>[&#39;red&#39;, &#39;baz&#39;, &#39;dwarf&#39;, &#39;foo&#39;]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="concatenating-and-combining-lists" class="section level4">
+<h4>Concatenating and combining lists</h4>
+<p>Adding two lists together with <code>+</code> concatenates them:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5bNCwgTm9uZSwgXCJmb29cIl0gKyBbNywgOCwgKDIsIDMpXVxuXG5gYGAifQ== -->
+<pre class="python"><code>[4, None, &quot;foo&quot;] + [7, 8, (2, 3)]
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzQsIE5vbmUsICdmb28nLCA3LCA4LCAoMiwgMyldXG4ifQ== -->
+<pre><code>[4, None, &#39;foo&#39;, 7, 8, (2, 3)]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>You can use <code>extent</code> to append multiple elements to an existing list:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG54XG5cbmBgYCJ9 -->
+<pre class="python"><code>x
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzQsIE5vbmUsICdmb28nLCA3LCA4LCAoMiwgMyldXG4ifQ== -->
+<pre><code>[4, None, &#39;foo&#39;, 7, 8, (2, 3)]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="sorting" class="section level4">
+<h4>Sorting</h4>
+<p>You can sort a list in-place by calling its <code>sort</code> function:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hXG5cbmBgYCJ9 -->
+<pre class="python"><code>a
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzEsIDIsIDMsIDUsIDddXG4ifQ== -->
+<pre><code>[1, 2, 3, 5, 7]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>You can also pass a secondary <em>sort key</em> which is a function that produces a value to use to sort the objects. For example, we could sort a collection of strings by lengths:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5iXG5cbmBgYCJ9 -->
+<pre class="python"><code>b
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWydIZScsICdzYXcnLCAnc2l4JywgJ3NtYWxsJywgJ2ZveGVzJ11cbiJ9 -->
+<pre><code>[&#39;He&#39;, &#39;saw&#39;, &#39;six&#39;, &#39;small&#39;, &#39;foxes&#39;]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="binary-search-and-maintaining-a-sorted-list" class="section level4">
+<h4>Binary search and maintaining a sorted list</h4>
+<p>The built-in <code>bisect</code> module implements binary search and insertion into a sorted list. <code>bisect.bisect</code> finds the location where an element should be inserted to keep it sorted, while <code>bisect.insort</code> actually inserts the element into that location:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5jXG5cbmBgYCJ9 -->
+<pre class="python"><code>c
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzEsIDIsIDIsIDIsIDMsIDQsIDYsIDddXG4ifQ== -->
+<pre><code>[1, 2, 2, 2, 3, 4, 6, 7]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="slicing" class="section level4">
+<h4>Slicing</h4>
+<p>You can select sections of most sequence types by using slice notation, which in its basic form consists of <code>start:stop</code> passed to the indexing operator <code>[]</code>:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zZXFbMTo1XVxuXG5gYGAifQ== -->
+<pre class="python"><code>seq[1:5]
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzIsIDMsIDcsIDVdXG4ifQ== -->
+<pre><code>[2, 3, 7, 5]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Slices can also be assigned to a with sequence:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zZXFcblxuYGBgIn0= -->
+<pre class="python"><code>seq
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzcsIDIsIDMsIDYsIDMsIDUsIDYsIDAsIDFdXG4ifQ== -->
+<pre><code>[7, 2, 3, 6, 3, 5, 6, 0, 1]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>You can also omit the start and stop:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zZXFbMzpdXG5cbmBgYCJ9 -->
+<pre class="python"><code>seq[3:]
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzYsIDMsIDUsIDYsIDAsIDFdXG4ifQ== -->
+<pre><code>[6, 3, 5, 6, 0, 1]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Negative indices slice the sequence relative to the end:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zZXFbLTY6LTJdXG5cbmBgYCJ9 -->
+<pre class="python"><code>seq[-6:-2]
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzYsIDMsIDUsIDZdXG4ifQ== -->
+<pre><code>[6, 3, 5, 6]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>A step is used to take every other element:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zZXFbOjoyXVxuXG5gYGAifQ== -->
+<pre class="python"><code>seq[::2]
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzcsIDMsIDMsIDYsIDFdXG4ifQ== -->
+<pre><code>[7, 3, 3, 6, 1]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="built-in-sequence-functions" class="section level3">
+<h3>Built-in Sequence Functions</h3>
+<!-- rnb-text-end -->
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2hhcHRlciAzOiBCdWlsdC1pbiBEYXRhIFN0cnVjdHVyZXMsIEZ1bmN0aW9ucywgYW5kIEZpbGVzIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgpUaGlzIGNoYXB0ZXIgd2lsbCBjb3ZlciBQeXRob25zIG1haW4gYnVpbHQtaW4gZGF0YSBzdHJ1Y3R1cmVzOiB0dXBsZXMsIGxpc3RzLCBkaWN0cywgYW5kIHNldHMuCgojIyBEYXRhIFN0cnVjdHVyZXMgYW5kIFNlcXVlbmNlcwoKIyMjIFR1cGxlCgpBIHR1cGxlIGlzIGEgZml4ZWQtbGVuZ3RoLCBpbW11dGFibGUgc2VxdWVuY2Ugb2YgUHl0aG9uIG9iamVjdHMuIFlvdSBjYW4gY3JlYXRlIG9uZSB3aXRoIGEgY29tbWEtc2VwYXJhdGVkIHNlcXVlbmNlcyBvZiB2YWx1ZXM6CgpgYGB7cHl0aG9ufQp0dXAgPSA0LCA1LCA2CnR1cApgYGAKCldoZW4geW91J3JlIGRlZmluaW5nIHR1cGxlcyBpbiBtb3JlIGNvbXBsaWNhdGVkIGV4cHJlc3Npb25zLCBpdCdzIG9mdGVuIG5lY2Vzc2FyeSB0byBlbmNsb3NlIHRoZSB2YWx1ZXMgaW4gcGFyZW50aGVzZXMsIGFzIGluIHRoZSBleGFtcGxlOgoKYGBge3B5dGhvbn0KbmVzdGVkX3R1cCA9ICg0LCA1LCA2KSwgKDcsIDgpCm5lc3RlZF90dXAKYGBgCgpZb3UgY2FuIGNvbnZlcnQgYW55IHNlcXVlbmNlIG9yIGl0ZXJhdG9yIHRvIGEgdHVwbGUgYnkgaW52b2tpbmcgYHR1cGxlYDoKCmBgYHtweXRob259CnR1cGxlKFs0LCAwLCAyXSkKCnR1cCA9IHR1cGxlKCJzdHJpbmciKQp0dXAKYGBgCgpFbGVtZW50cyBjYW4gYmUgYWNjZXNzZWQgd2l0aCBzcXVhcmUgYnJhY2tldHMgYFtdYCBhcyB3aXRoIG1vc3Qgb3RoZXIgc2VxdWVuY2UgdHlwZXMuIFB5dGhvbiB1c2VzIDAtaW5kZXhpbmc6CgpgYGB7cHl0aG9ufQp0dXBbMF0KYGBgCgpPbmNlIHRoZSB0dXBsZSBpcyBjcmVhdGVkIGl0J3Mgbm90IHBvc3NpYmxlIHRvIG1vZGlmeSB3aGljaCBvYmplY3QgaXMgc3RvcmVkIGluIGVhY2ggc2xvdC4KCmBgYHtweXRob259CnR1cCA9IHR1cGxlKFsiZm9vIiwgWzEsIDJdLCBUcnVlXSkKCnR1cFsyXSA9IEZhbHNlCmBgYAoKSWYgYW4gb2JqZWN0IGluc2lkZSBhIHR1cGxlIGlzIG11dGFibGUsIHN1Y2ggYXMgYSBsaXN0LCB5b3UgY2FuIG1vZGlmeSBpdCBpbi1wbGFjZToKCmBgYHtweXRob259CnR1cFsxXS5hcHBlbmQoMykKdHVwCmBgYAoKWW91IGNhbiBjb25jYXRlbmF0ZSB0dXBsZXMgdXNpbmcgdGhlIGArYCBvcGVyYXRvciB0byBwcm9kdWNlIGxvbmdlciB0dXBsZXM6CgpgYGB7cHl0aG9ufQooNCwgTm9uZSwgImZvbyIpICsgKDYsIDApICsgKCJiYXIiLCApCmBgYAoKTXVsdGlwbHlpbmcgYSB0dXBsZSBieSBhbiBpbnRlZ2VyLCBhcyB3aXRoIGxpc3RzLCBoYXMgdGhlIGVmZmVjdCBvZiBjb25jYXRlbmF0aW5nIHRvZ2V0aGVyIHRoYXQgbWFueSBjb3BpZXMgb2YgdGhlIHR1cGxlOgoKYGBge3B5dGhvbn0KKCJmb28iLCAiYmFyIikgKiA0CmBgYAoKIyMjIyBVbnBhY2tpbmcgdHVwbGVzCgpJZiB5b3UgdHJ5IHRvICphc3NpZ24qIHRvIGEgdHVwbGUtbGlrZSBleHByZXNzaW9uIG9mIHZhcmlhYmxlcywgUHl0aG9uIHdpbGwgYXR0ZW1wdCB0byAqdW5wYWNrKiB0aGUgdmFsdWUgb24gdGhlIHJpZ2h0aGFuZCBzaWRlIG9mIHRoZSBlcXVhbHMgc2lnbjoKCmBgYHtweXRob259CnR1cCA9ICg0LCA1LCA2KQoKYSwgYiwgYyA9IHR1cAoKYgpgYGAKCldpdGggdGhpcyBmdW5jdGlvbmFsaXR5IHlvdSBjYW4gZWFzaWx5IHN3YXAgdmFyaWFibGUgbmFtZXMuIEluIFB5dGhvbiB0aGlzIGlzIGRvbmUgbGlrZSB0aGlzOgoKYGBge3B5dGhvbn0KYSwgYiA9IDEsIDIKCmEKCmIKCmIsIGEgPSBhLCBiCgphCgpiCmBgYAoKQSBjb21tb24gdXNlIG9mIHZhcmlhYmxlIHVucGFja2luZyBpcyBpdGVyYXRpbmcgb3ZlciBzZXF1ZW5jZXMgb2YgdHVwbGVzIG9yIGxpc3RzOgoKYGBge3B5dGhvbn0Kc2VxID0gWygxLCAyLCAzKSwgKDQsIDUsIDYpLCAoNywgOCwgOSldCgpmb3IgYSwgYiwgYyBpbiBzZXE6CiAgICBwcmludCgiYSA9IHswfSwgYiA9IHsxfSwgYyA9IHsyfSIuZm9ybWF0KGEsIGIsIGMpKQoKYGBgCgpJZiB5b3Ugd2FudCB0byBwaWNrIGEgZmV3IGVsZW1lbnRzIGZyb20gdGhlIGJlZ2lubmluZyBvZiB0dXBsZSB5b3UgY2FuIHVzZSB0aGUgc3BlY2lhbCBzeW50YXggYCpyZXN0YC4KCmBgYHtweXRob259CnZhbHVlcyA9IDEsIDIsIDMsIDQsIDUKCmEsIGIsICpyZXN0ID0gdmFsdWVzCgphLCBiCgpyZXN0CmBgYAoKU29tZXRpbWVzIHRoZSBgX2AgaXMgdXNlZCBmb3IgdW53YW50ZWQgdmFyaWFibGVzOgoKYGBge3B5dGhvbn0KYSwgYiwgKl8gPSB2YWx1ZXMKCl8KYGBgCgojIyMjIFR1cGxlIG1ldGhvZHMKClR1cGxlcyBoYXZlIHZlcnkgbGltaXRlZCBpbnN0YW5jZSBtZXRob2RzLiBPbmUgdXNlZnVsIG9uZSBpcyBgY291bnRgLCB3aGljaCBjb3VudHMgdGhlIG51bWJlciBvZiBvY2N1cnJlbmNlcyBvZiBhIHZhbHVlOgoKYGBge3B5dGhvbn0KYSA9ICgxLCAyLCAyLCAyLCAzLCA0LCAyKQoKYS5jb3VudCgyKQpgYGAKCiMjIyBMaXN0CgpJbiBjb250cmFzdCB3aXRoIHR1cGxlcywgbGlzdHMgYXJlIHZhcmlhYmxlLWxlbmd0aCBhbmQgdGhlaXIgY29udGVudHMgY2FuIGJlIG1vZGlmaWVkIGluLXBsYWNlLiBZb3UgZGVmaW5lIHRoZW0gdXNpbmcgYnJhY2tldHMgYFtdYCBvciB1c2luZyB0aGUgYGxpc3RgIHR5cGUgZnVuY3Rpb246CgpgYGB7cHl0aG9ufQphX2xpc3QgPSBbMiwgMywgNywgTm9uZV0KCnR1cCA9ICgiZm9vIiwgImJhciIsICJiYXoiKQoKYl9saXN0ID0gbGlzdCh0dXApCgpiX2xpc3QKCmJfbGlzdFsxXSA9ICJwZWVrYWJvbyIKCmJfbGlzdApgYGAKClRoZSBgbGlzdGAgZnVuY3Rpb24gaXMgZnJlcXVlbnRseSB1c2VkIGluIGRhdGEgcHJvY2Vzc2luZyBhcyBhIHdheSB0byBtYXRlcmlhbGl6ZSBhbiBpdGVyYXRvciBvciBnZW5lcmF0b3IgZXhwcmVzc2lvbjoKCmBgYHtweXRob259CmdlbiA9IHJhbmdlKDEwKQoKZ2VuCgpsaXN0KGdlbikKYGBgCgojIyMjIEFkZGluZyBhbmQgcmVtb3ZpbmcgZWxlbWVudHMKCkVsZW1lbnRzIGNhbiBiZSBhcHBlbmRlZCB0byB0aGUgZW5kIG9mIHRoZSBsaXN0IHdpdGggdGhlIGBhcHBlbmRgIG1ldGhvZDoKCmBgYHtweXRob259CmJfbGlzdC5hcHBlbmQoImR3YXJmIikKCmJfbGlzdApgYGAKClVzaW5nIGBpbnNlcnRgIHlvdSBjYW4gaW5zZXJ0IGFuIGVsZW1lbnQgYXQgYSBzcGVjaWZpYyBsb2NhdGlvbiBpbiB0aGUgbGlzdDoKCmBgYHtweXRob259CmJfbGlzdC5pbnNlcnQoMSwgInJlZCIpCgpiX2xpc3QKYGBgCgpUaGUgaW52ZXJzZSBvZiBgaW5zZXJ0YCBpcyBgcG9wYCwgd2hpY2ggcmVtb3ZlcyBhbmQgcmV0dXJucyBhbiBlbGVtZW50cyBhdCBhIHBhcnRpY3VsYXIgaW5kZXg6CgpgYGB7cHl0aG9ufQpiX2xpc3QucG9wKDIpCgpiX2xpc3QKYGBgCgpFbGVtZW50cyBjYW4gYmUgcmVtb3ZlZCBieSB2YWx1ZSB3aXRoIGByZW1vdmVgLCB3aGljaCBsb2NhdGVzIHRoZSBmaXJzdCBzdWNoIHZhbHVlIGFuZCByZW1vdmVzIGl0IGZyb20gdGhlIGxpc3Q6CgpgYGB7cHl0aG9ufQpiX2xpc3QuYXBwZW5kKCJmb28iKQoKYl9saXN0CgpiX2xpc3QucmVtb3ZlKCJmb28iKQoKYl9saXN0CmBgYAoKIyMjIyBDb25jYXRlbmF0aW5nIGFuZCBjb21iaW5pbmcgbGlzdHMKCkFkZGluZyB0d28gbGlzdHMgdG9nZXRoZXIgd2l0aCBgK2AgY29uY2F0ZW5hdGVzIHRoZW06CgpgYGB7cHl0aG9ufQpbNCwgTm9uZSwgImZvbyJdICsgWzcsIDgsICgyLCAzKV0KYGBgCgpZb3UgY2FuIHVzZSBgZXh0ZW50YCB0byBhcHBlbmQgbXVsdGlwbGUgZWxlbWVudHMgdG8gYW4gZXhpc3RpbmcgbGlzdDoKCmBgYHtweXRob259CnggPSBbNCwgTm9uZSwgImZvbyJdCgp4LmV4dGVuZChbNywgOCwgKDIsIDMpXSkKCngKYGBgCgojIyMjIFNvcnRpbmcKCllvdSBjYW4gc29ydCBhIGxpc3QgaW4tcGxhY2UgYnkgY2FsbGluZyBpdHMgYHNvcnRgIGZ1bmN0aW9uOgoKYGBge3B5dGhvbn0KYSA9IFs3LCAyLCA1LCAxLCAzXQoKYS5zb3J0KCkKCmEKYGBgCgpZb3UgY2FuIGFsc28gcGFzcyBhIHNlY29uZGFyeSAqc29ydCBrZXkqIHdoaWNoIGlzIGEgZnVuY3Rpb24gdGhhdCBwcm9kdWNlcyBhIHZhbHVlIHRvIHVzZSB0byBzb3J0IHRoZSBvYmplY3RzLiBGb3IgZXhhbXBsZSwgd2UgY291bGQgc29ydCBhIGNvbGxlY3Rpb24gb2Ygc3RyaW5ncyBieSBsZW5ndGhzOgoKYGBge3B5dGhvbn0KYiA9IFsic2F3IiwgInNtYWxsIiwgIkhlIiwgImZveGVzIiwgInNpeCJdCgpiLnNvcnQoa2V5ID0gbGVuKQoKYgpgYGAKCiMjIyMgQmluYXJ5IHNlYXJjaCBhbmQgbWFpbnRhaW5pbmcgYSBzb3J0ZWQgbGlzdAoKVGhlIGJ1aWx0LWluIGBiaXNlY3RgIG1vZHVsZSBpbXBsZW1lbnRzIGJpbmFyeSBzZWFyY2ggYW5kIGluc2VydGlvbiBpbnRvIGEgc29ydGVkIGxpc3QuIGBiaXNlY3QuYmlzZWN0YCBmaW5kcyB0aGUgbG9jYXRpb24gd2hlcmUgYW4gZWxlbWVudCBzaG91bGQgYmUgaW5zZXJ0ZWQgdG8ga2VlcCBpdCBzb3J0ZWQsIHdoaWxlIGBiaXNlY3QuaW5zb3J0YCBhY3R1YWxseSBpbnNlcnRzIHRoZSBlbGVtZW50IGludG8gdGhhdCBsb2NhdGlvbjoKCmBgYHtweXRob259CmltcG9ydCBiaXNlY3QKCmMgPSBbMSwgMiwgMiwgMiwgMywgNCwgN10KCmJpc2VjdC5iaXNlY3QoYywgMikKCmJpc2VjdC5iaXNlY3QoYywgNSkKCmJpc2VjdC5pbnNvcnQoYywgNikKCmMKYGBgCgojIyMjIFNsaWNpbmcKCllvdSBjYW4gc2VsZWN0IHNlY3Rpb25zIG9mIG1vc3Qgc2VxdWVuY2UgdHlwZXMgYnkgdXNpbmcgc2xpY2Ugbm90YXRpb24sIHdoaWNoIGluIGl0cyBiYXNpYyBmb3JtIGNvbnNpc3RzIG9mIGBzdGFydDpzdG9wYCBwYXNzZWQgdG8gdGhlIGluZGV4aW5nIG9wZXJhdG9yIGBbXWA6CgpgYGB7cHl0aG9ufQpzZXEgPSBbNywgMiwgMywgNywgNSwgNiwgMCwgMV0KCnNlcVsxOjVdCmBgYAoKU2xpY2VzIGNhbiBhbHNvIGJlIGFzc2lnbmVkIHRvIGEgd2l0aCBzZXF1ZW5jZToKCmBgYHtweXRob259CnNlcVszOjRdID0gWzYsIDNdCgpzZXEKYGBgCgpZb3UgY2FuIGFsc28gb21pdCB0aGUgc3RhcnQgYW5kIHN0b3A6CgpgYGB7cHl0aG9ufQpzZXFbOjVdCgpzZXFbMzpdCmBgYAoKTmVnYXRpdmUgaW5kaWNlcyBzbGljZSB0aGUgc2VxdWVuY2UgcmVsYXRpdmUgdG8gdGhlIGVuZDoKCmBgYHtweXRob259CnNlcVstNDpdCgpzZXFbLTY6LTJdCmBgYAoKQSBzdGVwIGlzIHVzZWQgdG8gdGFrZSBldmVyeSBvdGhlciBlbGVtZW50OgoKYGBge3B5dGhvbn0Kc2VxWzo6Ml0KYGBgCgojIyMgQnVpbHQtaW4gU2VxdWVuY2UgRnVuY3Rpb25zCg==</div>
 
 
 

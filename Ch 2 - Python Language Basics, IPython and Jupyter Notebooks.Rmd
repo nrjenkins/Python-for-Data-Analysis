@@ -663,6 +663,7 @@ The `if` statement is one of the most well-known control flow statement types. I
 ```{python}
 if x < 0:
     print("it's negative")
+
 ```
 
 An `if` statement can be optionally followed by one of more `elif` blocks and a catch-all `else` block if all of the conditions are `False`:
@@ -676,6 +677,7 @@ elif 0 < x < 5:
     print("positive but smaller than 5")
 else:
     print("positive and larger than or equal to 5")
+
 ```
 
 If any of the conditions are `True`, no further `elif` or `else` blocks will be reached.
@@ -708,6 +710,7 @@ for value in sequence:
     if value is None:
         continue
     total += value
+
 ```
 
 A `for` loop can be exited with the `break` keyword. This code sums elements of the list until a 5 is reached:
@@ -720,6 +723,7 @@ for value in sequence:
     if value == 5:
         break
     total_until_5 += value
+
 ```
 
 #### while loops
@@ -734,6 +738,7 @@ while x > 0:
         break
     total += x
     x = x // 2
+
 ```
 
 #### pass
@@ -748,6 +753,7 @@ elif x == 0:
     pass
 else:
     print("positive!")
+
 ```
 
 #### range
@@ -772,6 +778,7 @@ A common use for range is iterating through a sequence by index:
 seq = [1, 2, 3, 4]
 for i in range(len(seq)):
     val = seq[i]
+
 ```
 
 #### Ternary expressions

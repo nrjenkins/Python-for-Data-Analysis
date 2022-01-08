@@ -3,3 +3,298 @@ title: "Chapter 3: Built-in Data Structures, Functions, and Files"
 output: html_notebook
 ---
 
+This chapter will cover Pythons main built-in data structures: tuples, lists, dicts, and sets.
+
+## Data Structures and Sequences
+
+### Tuple
+
+A tuple is a fixed-length, immutable sequence of Python objects. You can create one with a comma-separated sequences of values:
+
+```{python}
+tup = 4, 5, 6
+tup
+```
+
+When you're defining tuples in more complicated expressions, it's often necessary to enclose the values in parentheses, as in the example:
+
+```{python}
+nested_tup = (4, 5, 6), (7, 8)
+nested_tup
+```
+
+You can convert any sequence or iterator to a tuple by invoking `tuple`:
+
+```{python}
+tuple([4, 0, 2])
+
+tup = tuple("string")
+tup
+```
+
+Elements can be accessed with square brackets `[]` as with most other sequence types. Python uses 0-indexing:
+
+```{python}
+tup[0]
+```
+
+Once the tuple is created it's not possible to modify which object is stored in each slot.
+
+```{python}
+tup = tuple(["foo", [1, 2], True])
+
+tup[2] = False
+```
+
+If an object inside a tuple is mutable, such as a list, you can modify it in-place:
+
+```{python}
+tup[1].append(3)
+tup
+```
+
+You can concatenate tuples using the `+` operator to produce longer tuples:
+
+```{python}
+(4, None, "foo") + (6, 0) + ("bar", )
+```
+
+Multiplying a tuple by an integer, as with lists, has the effect of concatenating together that many copies of the tuple:
+
+```{python}
+("foo", "bar") * 4
+```
+
+#### Unpacking tuples
+
+If you try to *assign* to a tuple-like expression of variables, Python will attempt to *unpack* the value on the righthand side of the equals sign:
+
+```{python}
+tup = (4, 5, 6)
+
+a, b, c = tup
+
+b
+```
+
+With this functionality you can easily swap variable names. In Python this is done like this:
+
+```{python}
+a, b = 1, 2
+
+a
+
+b
+
+b, a = a, b
+
+a
+
+b
+```
+
+A common use of variable unpacking is iterating over sequences of tuples or lists:
+
+```{python}
+seq = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
+
+for a, b, c in seq:
+    print("a = {0}, b = {1}, c = {2}".format(a, b, c))
+
+```
+
+If you want to pick a few elements from the beginning of tuple you can use the special syntax `*rest`.
+
+```{python}
+values = 1, 2, 3, 4, 5
+
+a, b, *rest = values
+
+a, b
+
+rest
+```
+
+Sometimes the `_` is used for unwanted variables:
+
+```{python}
+a, b, *_ = values
+
+_
+```
+
+#### Tuple methods
+
+Tuples have very limited instance methods. One useful one is `count`, which counts the number of occurrences of a value:
+
+```{python}
+a = (1, 2, 2, 2, 3, 4, 2)
+
+a.count(2)
+```
+
+### List
+
+In contrast with tuples, lists are variable-length and their contents can be modified in-place. You define them using brackets `[]` or using the `list` type function:
+
+```{python}
+a_list = [2, 3, 7, None]
+
+tup = ("foo", "bar", "baz")
+
+b_list = list(tup)
+
+b_list
+
+b_list[1] = "peekaboo"
+
+b_list
+```
+
+The `list` function is frequently used in data processing as a way to materialize an iterator or generator expression:
+
+```{python}
+gen = range(10)
+
+gen
+
+list(gen)
+```
+
+#### Adding and removing elements
+
+Elements can be appended to the end of the list with the `append` method:
+
+```{python}
+b_list.append("dwarf")
+
+b_list
+```
+
+Using `insert` you can insert an element at a specific location in the list:
+
+```{python}
+b_list.insert(1, "red")
+
+b_list
+```
+
+The inverse of `insert` is `pop`, which removes and returns an elements at a particular index:
+
+```{python}
+b_list.pop(2)
+
+b_list
+```
+
+Elements can be removed by value with `remove`, which locates the first such value and removes it from the list:
+
+```{python}
+b_list.append("foo")
+
+b_list
+
+b_list.remove("foo")
+
+b_list
+```
+
+#### Concatenating and combining lists
+
+Adding two lists together with `+` concatenates them:
+
+```{python}
+[4, None, "foo"] + [7, 8, (2, 3)]
+```
+
+You can use `extent` to append multiple elements to an existing list:
+
+```{python}
+x = [4, None, "foo"]
+
+x.extend([7, 8, (2, 3)])
+
+x
+```
+
+#### Sorting
+
+You can sort a list in-place by calling its `sort` function:
+
+```{python}
+a = [7, 2, 5, 1, 3]
+
+a.sort()
+
+a
+```
+
+You can also pass a secondary *sort key* which is a function that produces a value to use to sort the objects. For example, we could sort a collection of strings by lengths:
+
+```{python}
+b = ["saw", "small", "He", "foxes", "six"]
+
+b.sort(key = len)
+
+b
+```
+
+#### Binary search and maintaining a sorted list
+
+The built-in `bisect` module implements binary search and insertion into a sorted list. `bisect.bisect` finds the location where an element should be inserted to keep it sorted, while `bisect.insort` actually inserts the element into that location:
+
+```{python}
+import bisect
+
+c = [1, 2, 2, 2, 3, 4, 7]
+
+bisect.bisect(c, 2)
+
+bisect.bisect(c, 5)
+
+bisect.insort(c, 6)
+
+c
+```
+
+#### Slicing
+
+You can select sections of most sequence types by using slice notation, which in its basic form consists of `start:stop` passed to the indexing operator `[]`:
+
+```{python}
+seq = [7, 2, 3, 7, 5, 6, 0, 1]
+
+seq[1:5]
+```
+
+Slices can also be assigned to a with sequence:
+
+```{python}
+seq[3:4] = [6, 3]
+
+seq
+```
+
+You can also omit the start and stop:
+
+```{python}
+seq[:5]
+
+seq[3:]
+```
+
+Negative indices slice the sequence relative to the end:
+
+```{python}
+seq[-4:]
+
+seq[-6:-2]
+```
+
+A step is used to take every other element:
+
+```{python}
+seq[::2]
+```
+
+### Built-in Sequence Functions
