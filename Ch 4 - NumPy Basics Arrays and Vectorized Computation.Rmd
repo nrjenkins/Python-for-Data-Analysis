@@ -1,0 +1,5 @@
+---
+title: "Chapter 4: NumPy Basics: Arrays and Vectorized Computation"
+output: html_notebook
+---
+

@@ -373,21 +373,14 @@ Remember that just because you *can* mutate an object does not mean that you alw
 
 Python along with its standard library has a small set of built-in types for handling numerical data, strings, boolean values, and dates and times. These "single value" types are sometimes called *scalar types* and we refer to them in this book as scalars.
 
-+-------------+-----------------------------------------------+
-| **Type**    | **Description**                               |
-+=============+===============================================+
-| `None`      | The Python "null" value                       |
-+-------------+-----------------------------------------------+
-| `str`       | String type; holds Unicode strings            |
-+-------------+-----------------------------------------------+
-| `bytes`     | Raw ASCII bytes (or Unicode encoded as bytes) |
-+-------------+-----------------------------------------------+
-| `float`     | Double-precision floating-point number        |
-+-------------+-----------------------------------------------+
-| `bool`      | A `True` or `False` value                     |
-+-------------+-----------------------------------------------+
-| `int`       | Arbitrary precision signed integer            |
-+-------------+-----------------------------------------------+
+| **Type** | **Description**                               |
+|----------|-----------------------------------------------|
+| `None`   | The Python "null" value                       |
+| `str`    | String type; holds Unicode strings            |
+| `bytes`  | Raw ASCII bytes (or Unicode encoded as bytes) |
+| `float`  | Double-precision floating-point number        |
+| `bool`   | A `True` or `False` value                     |
+| `int`    | Arbitrary precision signed integer            |
 
 #### Numeric types
 

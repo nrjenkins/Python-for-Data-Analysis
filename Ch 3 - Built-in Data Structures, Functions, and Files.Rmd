@@ -298,3 +298,435 @@ seq[::2]
 ```
 
 ### Built-in Sequence Functions
+
+#### `enumerate`
+
+It's common when iterating over a sequence to want to keep track of the index of the current item:
+
+```{python}
+i = 0
+for value in collection:
+    # do something with value
+    i += 1
+    
+```
+
+Since this is so common, Python has a built-in function, `enumerate`, which returns a sequence of (`i`, `value`) tuples:
+
+```{python}
+for i, value in enumerate(collection):
+    # do something with value
+```
+
+A helpful pattern that uses `enumerate` is computing a `dict` mapping the values of a sequence to their locations in the sequence:
+
+```{python}
+some_list = ["foo", "bar", "baz"]
+mapping = {}
+
+for i, v in enumerate(some_list):
+    mapping[v] = i
+    
+mapping
+```
+
+#### sorted
+
+The `sorted` function returns a new sorted list from the elements of any sequence:
+
+```{python}
+sorted([7, 1, 2, 6, 0, 3, 2])
+
+sorted("horse race")
+```
+
+#### zip
+
+`zip` pairs up elements of a number of lists, tuples, or other sequences to create a list of tuples:
+
+```{python}
+seq1 = ["foo", "bar", "baz"]
+seq2 = ["one", "two", "three"]
+
+zipped = zip(seq1, seq2)
+list(zipped)
+```
+
+A common use of `zip` is simultaneously iterating over multiple sequences, possibly also combined with `enumerate`:
+
+```{python}
+for i, (a, b) in enumerate(zip(seq1, seq2)) :
+    print("{0}: {1}, {2}".format(i, a, b))
+
+```
+
+#### reversed
+
+`reversed` iterates over the elements of a sequence in reverse order:
+
+```{python}
+list(reversed(range(10)))
+```
+
+#### dict
+
+`dict` is likely the most important built-in Python data structure. A more common name for it is *hash map* or *associative array*. It is a flexibly sized collection of *key-value* pairs, where *key* and *value* are Python objects. One approach for creating one is to use curly braces `{}` and colons to separate keys and values:
+
+```{python}
+empyt_dict = {}
+
+d1 = {"a" : "some value", "b" : [1, 2, 3, 4]}
+d1
+```
+
+You can access or insert elements using the same syntax as for the tuple:
+
+```{python}
+d1[7] = "an integer"
+
+d1
+
+d1["b"]
+```
+
+You can check if a `dict` contains a key using the same syntax used for checking whether a list or tuple contains a value:
+
+```{python}
+"b" in d1
+```
+
+You can delete values using the `del` keyword or the `pop` method (which returns the value and deletes the key):
+
+```{python}
+d1[5] = "some value"
+d1
+
+d1["dummy"] = "another value"
+d1
+
+del d1[5]
+d1
+
+ret = d1.pop("dummy")
+ret
+
+d1
+```
+
+The `keys` and `values` method give you iterators of the dict's keys and values, respectively.
+
+```{python}
+list(d1.keys())
+
+list(d1.values())
+```
+
+You can merge one dict into another using the `update` method:
+
+```{python}
+d1.update({"b" : "foo", "c" : 12})
+d1
+```
+
+The `update` method changes dicts in-place, so any existing keys in the data passed to `update` will have their old values discarded.
+
+#### Creating dicts from sequences
+
+It's common to occasionally end up with two sequences that you want to pair up element-wise in a dict.
+
+```{python}
+mapping = {}
+for key, value in zip(key_list, value_list):
+    mapping[key] = value
+
+```
+
+The `dict` function accepts a list of 2-tuples:
+
+```{python}
+mapping = dict(zip(range(5), reversed(range(5))))
+mapping
+```
+
+#### Default values
+
+It's common to have logic like:
+
+```{python}
+if key in some_dict:
+    value = some_dict[key]
+else: 
+    value = default_value
+
+```
+
+The dict methods `get` and `pop` can take a default value to be returned, so that the above `if-else` block can be written simply as:
+
+```{python}
+value = some_dict.get(key, default_value)
+```
+
+`get` by default will return `None` if the key is not present, while `pop` will raise an exception. With *setting* values, a common case is for the values in a dict to be other collections, like lists. For example, you could imagine categorizing a list of words by their first letters as a dict of lists:
+
+```{python}
+words = ["apple", "bat", "bar", "atom", "book"]
+by_letter = {}
+
+for word in words:
+    letter = word[0]
+    if letter not in by_letter:
+        by_letter[letter] = [word]
+    else:
+        by_letter[letter].append(word)
+        
+by_letter
+```
+
+The `setdefault` dict method is for this purpose. We can rewrite this `for` loop as:
+
+```{python}
+for word in words:
+    letter = word[0]
+    by_letter.setdefault(letter, []).append(word)
+    
+by_letter
+```
+
+`defaultdict` from `collections` makes the even easier:
+
+```{python}
+from collections import defaultdict
+by_letter = defaultdict(list)
+for word in words:
+    by_letter[word[0]].append(word)
+    
+by_letter
+```
+
+#### Valid dict key types
+
+You can check if an object is hasable with the `hash` function:
+
+```{python}
+hash("srting")
+```
+
+#### set
+
+A set is an unordered collection of unique elements. A set can be created in two ways:
+
+```{python}
+set([2, 2, 2, 1, 3, 3])
+
+{2, 2, 2, 1, 3, 3}
+```
+
+Sets support *set operations* like union, intersection, difference, and symmetric difference:
+
+```{python}
+a = {1, 2, 3, 4, 5}
+
+b = {3, 4, 5, 6, 7, 8}
+
+a.union(b)
+
+a | b
+```
+
+### List, Set, and Dict Comprehensions
+
+*List comprehensions* allow you to concisely form a new list by filter the elements of a collection.
+
+```{python, eval = FALSE}
+[expr for val in collection if condition]
+```
+
+This is equivalent to the following `for` loop:
+
+```{python}
+result = []
+for val in collection:
+    if condition:
+        result.append(expr)
+        
+
+```
+
+For example, given a list of string, we could filter out strings with length 2 or less and also convert them to uppercase like this:
+
+```{python}
+strings = ["a", "as", "bat", "car", "dove", "python"]
+
+[x.upper() for x in strings if len(x) > 2]
+```
+
+Set and dict comprehensions are a natural extension, producing sets and dicts in an idiomatically similar way instead of lists. A dict comprehension looks like this:
+
+```{python, eval = FALSE}
+dict_comp = {key-expr : value-expr for value in collection if condition}
+```
+
+A set comprehension looks like the equivalent list comprehension except with curly braces instead of square brackets:
+
+```{python, eval = FALSE}
+set_comp = {expr for value in collecrion if condition}
+```
+
+Suppose we wanted a set containing just the lengths of the strings contained in the collection; we can do this with a set comprehension:
+
+```{python}
+unique_lengths = {len(x) for x in strings}
+unique_lengths
+```
+
+We could also express this more functionally using the `map` function:
+
+```{python}
+set(map(len, strings))
+```
+
+We could create a lookup map of these strings to their locations in the list:
+
+```{python}
+loc_mapping = {val : index for index, val in enumerate(strings)}
+loc_mapping
+```
+
+#### Nested list comprehensions
+
+Suppose we have a list of lists containing names:
+
+```{python}
+all_data = [["John", "Emily", "Michael", "Mary", "Steven"],
+            ["Maria", "Juan", "Javier", "Natalia", "Pilar"]]
+```
+
+Suppose we want to get a single list of all names with two or more `e`'s in them. We could do this with a `for` loop:
+
+```{python}
+names_of_interest = []
+for names in all_data:
+    enough_es = [name for name in names if name.count("e") >= 2]
+    names_of_interest.extend(enough_es)
+    
+names_of_interest
+```
+
+But, you can wrap this whole operation in a single *nested list comprehension*:
+
+```{python}
+result = [name for names in all_data for name in names
+          if name.count("e") >= 2]
+
+result
+```
+
+## Functions
+
+Functions are declared with the `def` keyword and returned from with the `return` keyword:
+
+```{python, eval = FALSE}
+def my_function(x, y, z = 1.5):
+    if z > 1:
+        return z * (x + y)
+    else:
+        return z / (x + y)
+      
+```
+
+Functions can have positional arguments and keyword arguments:
+
+```{python}
+my_function(5, 6, z = 0.7)
+my_function(3.14, 7, 3.6)
+my_function(10, 20)
+```
+
+### Namespaces, Scope, and Local Functions
+
+Functions can access variables in two different scopes: *global* and *local*. A more descriptive name describing a variable scope in Python is a *namespace*. Consider this function:
+
+```{python}
+def func():
+    a = []
+    for i in range(5):
+        # TODO: write code...
+        a.append(i)
+        
+```
+
+When `func()` is called, the empty list `a` is created, ive elements are appended, and then `a` is destroyed when the function exits. Suppose instead we had:
+
+```{python}
+a = []
+def func():
+    for i in range(5):
+      a.append(i)
+      
+
+```
+
+Each call to `func` will modify the list `a`:
+
+```{python}
+func()
+
+a
+
+func()
+
+a
+```
+
+Assigning variables outside of the function's scope is possible, but those variables must be declared as global via the `global` keyword:
+
+```{python}
+a = None
+
+def bind_a_variable():
+    global a
+    a = []
+bind_a_variable()
+
+print(a)
+```
+
+### Returning Multiple Values
+
+### Functions are Objects
+
+Suppose we needed to do some data cleaning to this string:
+
+```{python}
+states = ["  Alabama    ", "Georgia!", "Georgia", "georgia", "FlOrIda",
+          "south carolina##", "West virginia?"]
+```
+
+This can be cleaned with the built-in string methods along with the `re` standard library module:
+
+```{python}
+import re
+
+def clean_strings(strings):
+    result = []
+    for value in strings:
+        value = value.strip()
+        value = re.sub("[!#?]", "", value)
+        value = value.title()
+        result.append(value)
+    return result
+  
+clean_strings(states)
+```
+
+### Anonymous (Lambda) Functions
+
+Lambda functions are a way of writing functions consisting of a single statement, the result of which is the return value.
+
+```{python}
+def short_functions(x):
+    return x * 2
+  
+
+equiv_anon = lambda x: x * 2
+```

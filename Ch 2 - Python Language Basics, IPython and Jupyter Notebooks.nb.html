@@ -301,13 +301,6 @@ print(...)
 <p>This is referred to as <em>object introspection</em>. If the object is a function or instance method, the docstring, if defined, will also be shown. Supose we’d written the following function:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5gYGB7cHl0aG9ufVxuXG5gYGAifQ== -->
-<pre class="python"><code>```{python}
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiU3ludGF4RXJyb3I6IGludmFsaWQgc3ludGF4ICg8c3RyaW5nPiwgbGluZSAxKVxuIn0= -->
-<pre><code>SyntaxError: invalid syntax (&lt;string&gt;, line 1)</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kZWYgYWRkX251bWJlcnMoYSwgYik6XG4gIFwiXCJcIlxuICBBZGQgdHdvIG51bWJlcnMgdG9nZXRoZXJcbiAgUmV0dXJuc1xuICAtLS0tLS0tXG4gIHRoZV9zdW0gOiB0eXBlIG9yIGFyZ3VtZW50c1xuICBcIlwiXCJcbiAgcmV0dXJuIGEgKyBiXG5cbmFkZF9udW1iZXJzP1xuYGBgIn0= -->
 <pre class="python"><code>def add_numbers(a, b):
   &quot;&quot;&quot;
@@ -320,11 +313,6 @@ print(...)
 
 add_numbers?</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTm8gUHl0aG9uIGRvY3VtZW50YXRpb24gZm91bmQgZm9yICdhZGRfbnVtYmVycycuXG5Vc2UgaGVscCgpIHRvIGdldCB0aGUgaW50ZXJhY3RpdmUgaGVscCB1dGlsaXR5LlxuVXNlIGhlbHAoc3RyKSBmb3IgaGVscCBvbiB0aGUgc3RyIGNsYXNzLlxuIn0= -->
-<pre><code>No Python documentation found for &#39;add_numbers&#39;.
-Use help() to get the interactive help utility.
-Use help(str) for help on the str class.</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Using <code>??</code> will also show the function’s source code if possible.</p>
@@ -463,6 +451,9 @@ g()</code></pre>
 <p>Suppose we assign <code>a</code> to a new variable <code>b</code>:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5iID0gYVxuYGBgIn0= -->
+<pre class="python"><code>b = a</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>In some languages, this assignment would cause the data <span class="math display">\[1, 2, 3\]</span> to be copied. In Python, <code>a</code> and <code>b</code> actually now refer to the same object, the original list <span class="math display">\[1, 2, 3\]</span>. You can prove this to yourself by appending an element to <code>a</code> and then examining <code>b</code>:</p>
@@ -472,9 +463,6 @@ g()</code></pre>
 <pre class="python"><code>a.append(4)
 b</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzEsIDIsIDMsIDRdXG4ifQ== -->
-<pre><code>[1, 2, 3, 4]</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>When you pass objects as arguments to a function, new local variables are created referencing the original objects without any copying. If you bind a new object to a variable inside a function, that change will not be reflected in the parent scope. It is therefore possible to alter the internals of a mutable argument. Suppose we had the following function:</p>
@@ -494,9 +482,6 @@ b</code></pre>
 append_element(data, 4)
 data</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzEsIDIsIDMsIDRdXG4ifQ== -->
-<pre><code>[1, 2, 3, 4]</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -505,70 +490,57 @@ data</code></pre>
 <p>In contrast with many compiled languages, such as Java and C++, object <em>references</em> in Python have no type associated with them. There is no problem with the following:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gNVxuXG50eXBlKGEpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gNVxudHlwZShhKVxuXG5hID0gXCJmb29cIlxudHlwZShhKVxuYGBgIn0= -->
 <pre class="python"><code>a = 5
+type(a)
 
+a = &quot;foo&quot;
 type(a)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPGNsYXNzICdpbnQnPlxuIn0= -->
-<pre><code>&lt;class &#39;int&#39;&gt;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gXCJmb29cIlxuXG50eXBlKGEpXG5gYGAifQ== -->
-<pre class="python"><code>a = &quot;foo&quot;
-
-type(a)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPGNsYXNzICdzdHInPlxuIn0= -->
-<pre><code>&lt;class &#39;str&#39;&gt;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Variables are names for objects within a particular namespace; the type information is stored in the object itself. Some observers might hastily conclude that Python is not a “typed language.” This is not true, consider this example:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5cIjVcIiArIDVcblxuYGBgIn0= -->
-<pre class="python"><code>&quot;5&quot; + 5
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5cIjVcIiArIDVcbmBgYCJ9 -->
+<pre class="python"><code>&quot;5&quot; + 5</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVHlwZUVycm9yOiBjYW4gb25seSBjb25jYXRlbmF0ZSBzdHIgKG5vdCBcImludFwiKSB0byBzdHJcbiJ9 -->
-<pre><code>TypeError: can only concatenate str (not &quot;int&quot;) to str</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>In some languages, such as Visual Basic, the string “5” might get implicitly converted to an integer, thus yielding 10. In other languages, such as JavaScript, the integer <code>5</code> might be casted to a string yielding the concatenated string <code>55</code>. In this regard Python is considered a <em>strongly typed</em> language, which means that every object has a specific type (or class), and implicit conversions will occur only in certian obvious circumstances, such as the following:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hIC8gYlxuXG5gYGAifQ== -->
-<pre class="python"><code>a / b
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gNC41XG5iID0gMlxuXG4jIHN0cmluZyBmb3JtYXR0aW5nLCB0byBiZSB2aXNpdGVkIGxhdGVyXG5wcmludChcImEgaXMgezB9LCBiIGlzIHsxfVwiLmZvcm1hdCh0eXBlKGEpLCB0eXBlKGIpKSlcblxuYSAvIGJcbmBgYCJ9 -->
+<pre class="python"><code>a = 4.5
+b = 2
+
+# string formatting, to be visited later
+print(&quot;a is {0}, b is {1}&quot;.format(type(a), type(b)))
+
+a / b</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiMi4yNVxuIn0= -->
-<pre><code>2.25</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>You can check that an object is an instance of a particular type using the <code>isinstance</code> function:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pc2luc3RhbmNlKGEsIGludClcblxuYGBgIn0= -->
-<pre class="python"><code>isinstance(a, int)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gNVxuXG5pc2luc3RhbmNlKGEsIGludClcbmBgYCJ9 -->
+<pre class="python"><code>a = 5
+
+isinstance(a, int)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVHJ1ZVxuIn0= -->
-<pre><code>True</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p><code>isinstance</code> can accept a tuple of types if you want to check that an object’s type is among those present in the tuple:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pc2luc3RhbmNlKGIsIChpbnQsIGZsb2F0KSlcblxuYGBgIn0= -->
-<pre class="python"><code>isinstance(b, (int, float))
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gNTsgYiA9IDQuNVxuXG5pc2luc3RhbmNlKGEsIChpbnQsIGZsb2F0KSlcblxuaXNpbnN0YW5jZShiLCAoaW50LCBmbG9hdCkpXG5gYGAifQ== -->
+<pre class="python"><code>a = 5; b = 4.5
+
+isinstance(a, (int, float))
+
+isinstance(b, (int, float))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVHJ1ZVxuIn0= -->
-<pre><code>True</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -577,13 +549,11 @@ type(a)</code></pre>
 <p>Objects in Python typically have both attributes (other Python objects stored “inside” the object) and methods (functions associated with an object that can have access to the object’s internal data). Both are accessed via the syntax <code>obj.attribute_name</code>:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hLmlzYWxudW0oKVxuXG5gYGAifQ== -->
-<pre class="python"><code>a.isalnum()
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gXCJmb29cIlxuXG5hLmlzYWxudW0oKVxuYGBgIn0= -->
+<pre class="python"><code>a = &quot;foo&quot;
+
+a.isalnum()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVHJ1ZVxuIn0= -->
-<pre><code>True</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -592,13 +562,20 @@ type(a)</code></pre>
 <p>Sometimes you don’t care about the type of an object but whether it has certain methods or behavior. This is called “duck typing.” For example, you can verify that an object is iterable if it implemented the <em>iterator protocol</em>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pc2l0ZXJhYmxlKDUpXG5cbmBgYCJ9 -->
-<pre class="python"><code>isiterable(5)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kZWYgaXNpdGVyYWJsZShvYmopOlxuICAgIHRyeTpcbiAgICAgICAgaXRlcihvYmopXG4gICAgICAgIHJldHVybiBUcnVlXG4gICAgZXhjZXB0IFR5cGVFcnJvcjogIyBub3QgaXRlcmFibGVcbiAgICAgICAgcmV0dXJuIEZhbHNlXG5cbmlzaXRlcmFibGUoXCJhIHN0cmluZ1wiKVxuXG5pc2l0ZXJhYmxlKFsxLCAyLCAzXSlcblxuaXNpdGVyYWJsZSg1KVxuYGBgIn0= -->
+<pre class="python"><code>def isiterable(obj):
+    try:
+        iter(obj)
+        return True
+    except TypeError: # not iterable
+        return False
+
+isiterable(&quot;a string&quot;)
+
+isiterable([1, 2, 3])
+
+isiterable(5)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRmFsc2VcbiJ9 -->
-<pre><code>False</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -634,60 +611,49 @@ pi = some_module.PI</code></pre>
 <h4>Binary operators and comparisons</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG41IC0gN1xuYGBgIn0= -->
-<pre class="python"><code>5 - 7</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG41IC0gN1xuXG4xMiArIDIxLjVcblxuNSA8PSAyXG5gYGAifQ== -->
+<pre class="python"><code>5 - 7
+
+12 + 21.5
+
+5 &lt;= 2</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiLTJcbiJ9 -->
-<pre><code>-2</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4xMiArIDIxLjVcbmBgYCJ9 -->
-<pre class="python"><code>12 + 21.5</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiMzMuNVxuIn0= -->
-<pre><code>33.5</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG41IDw9IDJcbmBgYCJ9 -->
-<pre class="python"><code>5 &lt;= 2</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRmFsc2VcbiJ9 -->
-<pre><code>False</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>To check if two references refer to the same object, use the <code>is</code> keyword. <code>is not</code> is also perfectly valid if you want to check that two objects are not the same:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hIGlzIG5vdCBjXG5cbmBgYCJ9 -->
-<pre class="python"><code>a is not c
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gWzEsIDIsIDNdXG5cbmIgPSBhXG5cbmMgPSBsaXN0KGEpXG5cbmEgaXMgYlxuXG5hIGlzIG5vdCBjXG5gYGAifQ== -->
+<pre class="python"><code>a = [1, 2, 3]
+
+b = a
+
+c = list(a)
+
+a is b
+
+a is not c</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVHJ1ZVxuIn0= -->
-<pre><code>True</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Since <code>list</code> always creates a new Python list, we can be sure that <code>c</code> is distinct from <code>a</code>. Comparing with <code>is</code> is no the same as the <code>==</code> operator, because in this case we have:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID09IGNcblxuYGBgIn0= -->
-<pre class="python"><code>a == c
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID09IGNcbmBgYCJ9 -->
+<pre class="python"><code>a == c</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVHJ1ZVxuIn0= -->
-<pre><code>True</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>A very common use of <code>is</code> and <code>is not</code> is to check if a variable is <code>None</code>, since there is only one instance of <code>None</code>:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5wcmludChhKVxuXG5gYGAifQ== -->
-<pre class="python"><code>print(a)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gTm9uZVxuXG5hIGlzIE5vbmVcblxucHJpbnQoYSlcbmBgYCJ9 -->
+<pre class="python"><code>a = None
+
+a is None
+
+print(a)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTm9uZVxuIn0= -->
-<pre><code>None</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -696,25 +662,22 @@ pi = some_module.PI</code></pre>
 <p>Most objects in Python, such as lists, dicts, NumPy arrays, and most user-defined types (classes), are mutable. This means that the object or values that they contain can be modified:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hX2xpc3RcblxuYGBgIn0= -->
-<pre class="python"><code>a_list
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hX2xpc3QgPSBbXCJmb29cIiwgMiwgWzQsIDVdXVxuXG5hX2xpc3RbMl0gPSAoMywgNClcblxuYV9saXN0XG5gYGAifQ== -->
+<pre class="python"><code>a_list = [&quot;foo&quot;, 2, [4, 5]]
+
+a_list[2] = (3, 4)
+
+a_list</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWydmb28nLCAyLCAoMywgNCldXG4ifQ== -->
-<pre><code>[&#39;foo&#39;, 2, (3, 4)]</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Others, like strings and tuples, are immutable:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hX3R1cGxlWzFdID0gXCJmb3VyXCJcblxuYGBgIn0= -->
-<pre class="python"><code>a_tuple[1] = &quot;four&quot;
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hX3R1cGxlID0gKDMsIDUsICg0LCA1KSlcbmFfdHVwbGVbMV0gPSBcImZvdXJcIlxuYGBgIn0= -->
+<pre class="python"><code>a_tuple = (3, 5, (4, 5))
+a_tuple[1] = &quot;four&quot;</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVHlwZUVycm9yOiAndHVwbGUnIG9iamVjdCBkb2VzIG5vdCBzdXBwb3J0IGl0ZW0gYXNzaWdubWVudFxuIn0= -->
-<pre><code>TypeError: &#39;tuple&#39; object does not support item assignment</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Remember that just because you <em>can</em> mutate an object does not mean that you always <em>should</em>. Such actions are known as <em>side effects</em>.</p>
@@ -723,11 +686,7 @@ pi = some_module.PI</code></pre>
 <div id="scalar-types" class="section level3">
 <h3>Scalar Types</h3>
 <p>Python along with its standard library has a small set of built-in types for handling numerical data, strings, boolean values, and dates and times. These “single value” types are sometimes called <em>scalar types</em> and we refer to them in this book as scalars.</p>
-<table style="width:86%;">
-<colgroup>
-<col width="19%" />
-<col width="66%" />
-</colgroup>
+<table>
 <thead>
 <tr class="header">
 <th><strong>Type</strong></th>
@@ -766,42 +725,37 @@ pi = some_module.PI</code></pre>
 <p>The primary Python types for numbers are <code>int</code> and <code>float</code>. An <code>int</code> can store arbitrarily large numbers:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pdmFsICoqIDZcblxuYGBgIn0= -->
-<pre class="python"><code>ival ** 6
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pdmFsID0gMTcyMzk4NzFcblxuaXZhbCAqKiA2XG5gYGAifQ== -->
+<pre class="python"><code>ival = 17239871
+
+ival ** 6</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiMjYyNTQ1MTkyOTEwOTI0NTY1OTY5NjU0NjI5MTMyMzA3Mjk3MDExMDI3MjFcbiJ9 -->
-<pre><code>26254519291092456596965462913230729701102721</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Floating-point numbers are represented with the Python <code>float</code> type.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5mdmFsID0gNy4yNDNcblxuZnZhbDIgPSA2Ljc4ZS01XG5gYGAifQ== -->
+<pre class="python"><code>fval = 7.243
+
+fval2 = 6.78e-5</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Integer division not resulting in a whole number will always yield a floating-point number:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4zIC8gMlxuXG5gYGAifQ== -->
-<pre class="python"><code>3 / 2
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4zIC8gMlxuYGBgIn0= -->
+<pre class="python"><code>3 / 2</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiMS41XG4ifQ== -->
-<pre><code>1.5</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>To get C-style integer division (which drops the fractional part if the result is not a whole number), use the floor division operator <code>//</code>:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4zIC8vIDJcblxuYGBgIn0= -->
-<pre class="python"><code>3 // 2
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4zIC8vIDJcbmBgYCJ9 -->
+<pre class="python"><code>3 // 2</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiMVxuIn0= -->
-<pre><code>1</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -830,91 +784,79 @@ spans multiple lines
 <p>We can count the new line characters with the <code>count</code> method on <code>c</code>:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5jLmNvdW50KFwiXFxuXCIpXG5cbmBgYCJ9 -->
-<pre class="python"><code>c.count(&quot;\n&quot;)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5jLmNvdW50KFwiXFxuXCIpXG5gYGAifQ== -->
+<pre class="python"><code>c.count(&quot;\n&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiM1xuIn0= -->
-<pre><code>3</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Python strings are immutable; you cannot modify a string:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hWzEwXSA9IFwiZlwiXG5cbmBgYCJ9 -->
-<pre class="python"><code>a[10] = &quot;f&quot;
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gXCJ0aGlzIGlzIGEgc3RyaW5nXCJcbmFbMTBdID0gXCJmXCJcbmBgYCJ9 -->
+<pre class="python"><code>a = &quot;this is a string&quot;
+a[10] = &quot;f&quot;</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVHlwZUVycm9yOiAnc3RyJyBvYmplY3QgZG9lcyBub3Qgc3VwcG9ydCBpdGVtIGFzc2lnbm1lbnRcbiJ9 -->
-<pre><code>TypeError: &#39;str&#39; object does not support item assignment</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Many Python objects can be converted to a string using the <code>str</code> function:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5wcmludChzKVxuXG5gYGAifQ== -->
-<pre class="python"><code>print(s)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gNS42XG5cbnMgPSBzdHIoYSlcblxucHJpbnQocylcbmBgYCJ9 -->
+<pre class="python"><code>a = 5.6
+
+s = str(a)
+
+print(s)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiNS42XG4ifQ== -->
-<pre><code>5.6</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Strings are a sequence of Unicode characters and therefore can be treated like other sequences, such as lists and tuples.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5saXN0KHMpXG5cbmBgYCJ9 -->
-<pre class="python"><code>list(s)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zID0gXCJweXRob25cIlxuXG5saXN0KHMpXG5gYGAifQ== -->
+<pre class="python"><code>s = &quot;python&quot;
+
+list(s)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWydwJywgJ3knLCAndCcsICdoJywgJ28nLCAnbiddXG4ifQ== -->
-<pre><code>[&#39;p&#39;, &#39;y&#39;, &#39;t&#39;, &#39;h&#39;, &#39;o&#39;, &#39;n&#39;]</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>The syntax <code>s[:3]</code> is called <em>slicing</em> and is implemented for many kinds of Python sequences. The backslash character <code>\</code> is an <em>escape character</em>, meaning that it is used to specify special characters like newline <code>\n</code> or Unicode characters. To write a string literal with backslashes, you need to escape them:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5wcmludChzKVxuXG5gYGAifQ== -->
-<pre class="python"><code>print(s)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zID0gXCIxMlxcXFwzNFwiXG5wcmludChzKVxuYGBgIn0= -->
+<pre class="python"><code>s = &quot;12\\34&quot;
+print(s)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiMTJcXDM0XG4ifQ== -->
-<pre><code>12\34</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>If you have a lot of backslashes and no special characters, you can preface the leading quote of the string with <code>r</code>, which means that the characters should be interpreted as is:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zXG5cbmBgYCJ9 -->
-<pre class="python"><code>s
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zID0gclwidGhpc1xcaGFzXFxub1xcc3BlY2lhbFxcY2hhcmFjdGVyc1wiXG5zXG5gYGAifQ== -->
+<pre class="python"><code>s = r&quot;this\has\no\special\characters&quot;
+s</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJ3RoaXNcXFxcaGFzXFxcXG5vXFxcXHNwZWNpYWxcXFxcY2hhcmFjdGVycydcbiJ9 -->
-<pre><code>&#39;this\\has\\no\\special\\characters&#39;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>The <code>r</code> stands for <em>raw</em>.</p>
 <p>Adding two strings together concatenates them and produces a new string:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hICsgYlxuXG5gYGAifQ== -->
-<pre class="python"><code>a + b
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gXCJ0aGlzIGlzIHRoZSBmaXJzdCBoYWxmIFwiXG5cbmIgPSBcImFuZCB0aGlzIGlzIHRoZSBzZWNvbmQgaGFsZlwiXG5cbmEgKyBiXG5gYGAifQ== -->
+<pre class="python"><code>a = &quot;this is the first half &quot;
+
+b = &quot;and this is the second half&quot;
+
+a + b</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJ3RoaXMgaXMgdGhlIGZpcnN0IGhhbGYgYW5kIHRoaXMgaXMgdGhlIHNlY29uZCBoYWxmJ1xuIn0= -->
-<pre><code>&#39;this is the first half and this is the second half&#39;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>String templating or formatting is another important topic. The number of ways to do so has expanded with the advent of Python 3 and here is the mechanics of one of the main interfaces. String objects have a <code>format</code> method that can be used to substitute formatted arguments into the string, producing a new string:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG50ZW1wbGF0ZSA9IFwiezA6LjJmfSB7MTpzfSBhcmUgd29ydGggVVMkezI6ZH1cIlxuYGBgIn0= -->
+<pre class="python"><code>template = &quot;{0:.2f} {1:s} are worth US${2:d}&quot;</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>In this string,</p>
@@ -926,13 +868,9 @@ spans multiple lines
 <p>To substitute arguments for these format parameters, we pass a sequence of arguments tot he <code>format</code> method:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG50ZW1wbGF0ZS5mb3JtYXQoNC41NTYwLCBcIkFyZ2VudGluZSBQZXNvc1wiLCAxKVxuXG5gYGAifQ== -->
-<pre class="python"><code>template.format(4.5560, &quot;Argentine Pesos&quot;, 1)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG50ZW1wbGF0ZS5mb3JtYXQoNC41NTYwLCBcIkFyZ2VudGluZSBQZXNvc1wiLCAxKVxuYGBgIn0= -->
+<pre class="python"><code>template.format(4.5560, &quot;Argentine Pesos&quot;, 1)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJzQuNTYgQXJnZW50aW5lIFBlc29zIGFyZSB3b3J0aCBVUyQxJ1xuIn0= -->
-<pre><code>&#39;4.56 Argentine Pesos are worth US$1&#39;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -941,43 +879,29 @@ spans multiple lines
 <p>Unicode has become the first-class string type to enable more consistent handling of ASCII and non-ASCII text.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG52YWxcblxuYGBgIn0= -->
-<pre class="python"><code>val
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG52YWwgPSBcImVzcGHDsW9sXCJcbnZhbFxuYGBgIn0= -->
+<pre class="python"><code>val = &quot;español&quot;
+val</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJ2VzcGHDsW9sJ1xuIn0= -->
-<pre><code>&#39;español&#39;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>We can convert this Unicode string to its UTF-8 bytes representation using the <code>encode</code> method:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG52YWxfdXRmOCA9IHZhbC5lbmNvZGUoXCJ1dGYtOFwiKVxudmFsX3V0ZjhcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG52YWxfdXRmOCA9IHZhbC5lbmNvZGUoXCJ1dGYtOFwiKVxudmFsX3V0ZjhcblxudHlwZSh2YWxfdXRmOClcbmBgYCJ9 -->
 <pre class="python"><code>val_utf8 = val.encode(&quot;utf-8&quot;)
-val_utf8</code></pre>
+val_utf8
+
+type(val_utf8)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiYidlc3BhXFx4YzNcXHhiMW9sJ1xuIn0= -->
-<pre><code>b&#39;espa\xc3\xb1ol&#39;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG50eXBlKHZhbF91dGY4KVxuYGBgIn0= -->
-<pre class="python"><code>type(val_utf8)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPGNsYXNzICdieXRlcyc+XG4ifQ== -->
-<pre><code>&lt;class &#39;bytes&#39;&gt;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Assuming you know the Unicode encoding of a <code>bytes</code> object, you can go back using the <code>decode</code> method:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG52YWxfdXRmOC5kZWNvZGUoXCJ1dGYtOFwiKVxuXG5gYGAifQ== -->
-<pre class="python"><code>val_utf8.decode(&quot;utf-8&quot;)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG52YWxfdXRmOC5kZWNvZGUoXCJ1dGYtOFwiKVxuYGBgIn0= -->
+<pre class="python"><code>val_utf8.decode(&quot;utf-8&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJ2VzcGHDsW9sJ1xuIn0= -->
-<pre><code>&#39;español&#39;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -986,13 +910,11 @@ val_utf8</code></pre>
 <p>The two boolean values in Python are written as <code>True</code> and <code>False</code>. Comparisons and other conditional expressions evaluate to either <code>True</code> or <code>False</code>. Boolean values are combined with the <code>and</code> and <code>or</code> keywords:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5GYWxzZSBvciBUcnVlXG5cbmBgYCJ9 -->
-<pre class="python"><code>False or True
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5UcnVlIGFuZCBUcnVlXG5cbkZhbHNlIG9yIFRydWVcbmBgYCJ9 -->
+<pre class="python"><code>True and True
+
+False or True</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVHJ1ZVxuIn0= -->
-<pre><code>True</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -1001,13 +923,19 @@ val_utf8</code></pre>
 <p>The <code>str</code>, <code>bool</code>, <code>int</code>, and <code>float</code> types are also functions that can be used to cast values to those types:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5ib29sKDApXG5cbmBgYCJ9 -->
-<pre class="python"><code>bool(0)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zID0gXCIzLjE0MTU5XCJcblxuZnZhbCA9IGZsb2F0KHMpXG5cbnR5cGUoZnZhbClcblxuaW50KGZ2YWwpXG5cbmJvb2woZnZhbClcblxuYm9vbCgwKVxuYGBgIn0= -->
+<pre class="python"><code>s = &quot;3.14159&quot;
+
+fval = float(s)
+
+type(fval)
+
+int(fval)
+
+bool(fval)
+
+bool(0)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRmFsc2VcbiJ9 -->
-<pre><code>False</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -1016,13 +944,15 @@ val_utf8</code></pre>
 <p><code>None</code> is the Python null value type. If a function does not explicitly return a value, it implicitly returns <code>None</code>:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5iIGlzIE5vbmVcblxuYGBgIn0= -->
-<pre class="python"><code>b is None
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gTm9uZVxuXG5hIGlzIE5vbmVcblxuYiA9IDVcblxuYiBpcyBOb25lXG5gYGAifQ== -->
+<pre class="python"><code>a = None
+
+a is None
+
+b = 5
+
+b is None</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRmFsc2VcbiJ9 -->
-<pre><code>False</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p><code>None</code> is also a common default value for function arguments:</p>
@@ -1045,90 +975,73 @@ val_utf8</code></pre>
 <p>The built-in Python <code>datetime</code> module provides <code>datetime</code>, <code>date</code>, and <code>time</code> types. The <code>datetime</code> type, as you might imagine, combines the information stored in <code>date</code> and <code>time</code> and is the most commonly used:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kdC5taW51dGVcblxuYGBgIn0= -->
-<pre class="python"><code>dt.minute
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5mcm9tIGRhdGV0aW1lIGltcG9ydCBkYXRldGltZSwgZGF0ZSwgdGltZVxuXG5kdCA9IGRhdGV0aW1lKDIwMTEsIDEwLCAyOSwgMjAsIDMwLCAyMSlcblxuZHQuZGF5XG5cbmR0Lm1pbnV0ZVxuYGBgIn0= -->
+<pre class="python"><code>from datetime import datetime, date, time
+
+dt = datetime(2011, 10, 29, 20, 30, 21)
+
+dt.day
+
+dt.minute</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiMzBcbiJ9 -->
-<pre><code>30</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Given a <code>datetime</code> instance, you can extract the equivalent <code>date</code> and <code>time</code> objects by calling methods on the <code>datetime</code> of the same name:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kdC5kYXRlKClcbmBgYCJ9 -->
-<pre class="python"><code>dt.date()</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kdC5kYXRlKClcblxuZHQudGltZSgpXG5gYGAifQ== -->
+<pre class="python"><code>dt.date()
+
+dt.time()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiZGF0ZXRpbWUuZGF0ZSgyMDExLCAxMCwgMjkpXG4ifQ== -->
-<pre><code>datetime.date(2011, 10, 29)</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kdC50aW1lKClcbmBgYCJ9 -->
-<pre class="python"><code>dt.time()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiZGF0ZXRpbWUudGltZSgyMCwgMzAsIDIxKVxuIn0= -->
-<pre><code>datetime.time(20, 30, 21)</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>The <code>strftime</code> method formats a <code>datetime</code> as a string:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kdC5zdHJmdGltZShcIiVtLyVkLyVZICVIOiVNXCIpXG5cbmBgYCJ9 -->
-<pre class="python"><code>dt.strftime(&quot;%m/%d/%Y %H:%M&quot;)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kdC5zdHJmdGltZShcIiVtLyVkLyVZICVIOiVNXCIpXG5gYGAifQ== -->
+<pre class="python"><code>dt.strftime(&quot;%m/%d/%Y %H:%M&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJzEwLzI5LzIwMTEgMjA6MzAnXG4ifQ== -->
-<pre><code>&#39;10/29/2011 20:30&#39;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Strings can be converted into <code>datetime</code> objects with the <code>strptime</code> function:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kYXRldGltZS5zdHJwdGltZShcIjIwMDkxMDMxXCIsIFwiJVklbSVkXCIpXG5cbmBgYCJ9 -->
-<pre class="python"><code>datetime.strptime(&quot;20091031&quot;, &quot;%Y%m%d&quot;)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kYXRldGltZS5zdHJwdGltZShcIjIwMDkxMDMxXCIsIFwiJVklbSVkXCIpXG5gYGAifQ== -->
+<pre class="python"><code>datetime.strptime(&quot;20091031&quot;, &quot;%Y%m%d&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiZGF0ZXRpbWUuZGF0ZXRpbWUoMjAwOSwgMTAsIDMxLCAwLCAwKVxuIn0= -->
-<pre><code>datetime.datetime(2009, 10, 31, 0, 0)</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>When you are grouping or aggregating time series data, it will occasionally be useful to replace time fields of a series of <code>datetimes</code>. For example, replacing the minute and second fields with zero:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kdC5yZXBsYWNlKG1pbnV0ZSA9IDAsIHNlY29uZCA9IDApXG5cbmBgYCJ9 -->
-<pre class="python"><code>dt.replace(minute = 0, second = 0)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kdC5yZXBsYWNlKG1pbnV0ZSA9IDAsIHNlY29uZCA9IDApXG5gYGAifQ== -->
+<pre class="python"><code>dt.replace(minute = 0, second = 0)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiZGF0ZXRpbWUuZGF0ZXRpbWUoMjAxMSwgMTAsIDI5LCAyMCwgMClcbiJ9 -->
-<pre><code>datetime.datetime(2011, 10, 29, 20, 0)</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Since <code>datetime.datetime</code> is an immutable type, methods like these will always produce new objects. The difference of two <code>datetime</code> objects produces a <code>datetime.timedelta</code> type:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kZWx0YVxuXG5gYGAifQ== -->
-<pre class="python"><code>delta
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kdDIgPSBkYXRldGltZSgyMDExLCAxMSwgMTUsIDIyLCAzMClcblxuZGVsdGEgPSBkdDIgLSBkdFxuXG5kZWx0YVxuXG50eXBlKGRlbHRhKVxuYGBgIn0= -->
+<pre class="python"><code>dt2 = datetime(2011, 11, 15, 22, 30)
+
+delta = dt2 - dt
+
+delta
+
+type(delta)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiZGF0ZXRpbWUudGltZWRlbHRhKGRheXM9MTcsIHNlY29uZHM9NzE3OSlcbiJ9 -->
-<pre><code>datetime.timedelta(days=17, seconds=7179)</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Adding a <code>timedelta</code> to a <code>datetime</code> produces a new shifted <code>datetime</code>:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kdCArIGRlbHRhXG5cbmBgYCJ9 -->
-<pre class="python"><code>dt + delta
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5kdFxuXG5kdCArIGRlbHRhXG5gYGAifQ== -->
+<pre class="python"><code>dt
+
+dt + delta</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiZGF0ZXRpbWUuZGF0ZXRpbWUoMjAxMSwgMTEsIDE1LCAyMiwgMzApXG4ifQ== -->
-<pre><code>datetime.datetime(2011, 11, 15, 22, 30)</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -1162,21 +1075,19 @@ else:
     print(&quot;positive and larger than or equal to 5&quot;)
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicG9zaXRpdmUgYnV0IHNtYWxsZXIgdGhhbiA1XG4ifQ== -->
-<pre><code>positive but smaller than 5</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>If any of the conditions are <code>True</code>, no further <code>elif</code> or <code>else</code> blocks will be reached.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4gICAgcHJpbnQoXCJtYWRlIGl0XCIpXG5cbmBgYCJ9 -->
-<pre class="python"><code>    print(&quot;made it&quot;)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5hID0gNTsgYiA9IDdcblxuYyA9IDg7IGQgPSA0XG5cbmlmIGEgPCBiIG9yIGMgPiBkOlxuICAgIHByaW50KFwibWFkZSBpdFwiKVxuYGBgIn0= -->
+<pre class="python"><code>a = 5; b = 7
+
+c = 8; d = 4
+
+if a &lt; b or c &gt; d:
+    print(&quot;made it&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoibWFkZSBpdFxuIn0= -->
-<pre><code>made it</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -1194,14 +1105,15 @@ else:
 <p>You can advance a <code>for</code> loop to the next iteration, skipping the remainder of the block, using the <code>continue</code> keyword. Consider this code, which sums up integers in a list and skips <code>None</code> values:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zZXF1ZW5jZSA9IFsxLCAyLCBOb25lLCA0LCBOb25lLCA1XVxudG90YWwgPSAwXG5cbmZvciB2YWx1ZSBpbiBzZXF1ZW5jZTpcbiAgICBpZiB2YWx1ZSBpcyBOb25lOlxuICAgICAgICBjb250aW51ZVxuICAgIHRvdGFsICs9IHZhbHVlXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zZXF1ZW5jZSA9IFsxLCAyLCBOb25lLCA0LCBOb25lLCA1XVxudG90YWwgPSAwXG5cbmZvciB2YWx1ZSBpbiBzZXF1ZW5jZTpcbiAgICBpZiB2YWx1ZSBpcyBOb25lOlxuICAgICAgICBjb250aW51ZVxuICAgIHRvdGFsICs9IHZhbHVlXG5cbmBgYCJ9 -->
 <pre class="python"><code>sequence = [1, 2, None, 4, None, 5]
 total = 0
 
 for value in sequence:
     if value is None:
         continue
-    total += value</code></pre>
+    total += value
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1254,9 +1166,6 @@ else:
     print(&quot;positive!&quot;)
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicG9zaXRpdmUhXG4ifQ== -->
-<pre><code>positive!</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -1265,34 +1174,29 @@ else:
 <p>The <code>range</code> function returns an iterator that yields a sequence of evenly spaced integers:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5saXN0KHJhbmdlKDEwKSlcblxuYGBgIn0= -->
-<pre class="python"><code>list(range(10))
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5yYW5nZSgxMClcblxubGlzdChyYW5nZSgxMCkpXG5gYGAifQ== -->
+<pre class="python"><code>range(10)
+
+list(range(10))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzAsIDEsIDIsIDMsIDQsIDUsIDYsIDcsIDgsIDldXG4ifQ== -->
-<pre><code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Both a start, end, and step can be given:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5saXN0KHJhbmdlKDAsIDIwLCAyKSlcblxuYGBgIn0= -->
-<pre class="python"><code>list(range(0, 20, 2))
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5saXN0KHJhbmdlKDAsIDIwLCAyKSlcbmBgYCJ9 -->
+<pre class="python"><code>list(range(0, 20, 2))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzAsIDIsIDQsIDYsIDgsIDEwLCAxMiwgMTQsIDE2LCAxOF1cbiJ9 -->
-<pre><code>[0, 2, 4, 6, 8, 10, 12, 14, 16, 18]</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>A common use for range is iterating through a sequence by index:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zZXEgPSBbMSwgMiwgMywgNF1cbmZvciBpIGluIHJhbmdlKGxlbihzZXEpKTpcbiAgICB2YWwgPSBzZXFbaV1cbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5zZXEgPSBbMSwgMiwgMywgNF1cbmZvciBpIGluIHJhbmdlKGxlbihzZXEpKTpcbiAgICB2YWwgPSBzZXFbaV1cblxuYGBgIn0= -->
 <pre class="python"><code>seq = [1, 2, 3, 4]
 for i in range(len(seq)):
-    val = seq[i]</code></pre>
+    val = seq[i]
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1304,19 +1208,17 @@ for i in range(len(seq)):
 <p>Here is an example:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5cIk5vbi1uZWdhdGl2ZVwiIGlmIHggPj0gMCBlbHNlIFwiTmVnYXRpdmVcIlxuXG5gYGAifQ== -->
-<pre class="python"><code>&quot;Non-negative&quot; if x &gt;= 0 else &quot;Negative&quot;
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG54ID0gNVxuXG5cIk5vbi1uZWdhdGl2ZVwiIGlmIHggPj0gMCBlbHNlIFwiTmVnYXRpdmVcIlxuYGBgIn0= -->
+<pre class="python"><code>x = 5
+
+&quot;Non-negative&quot; if x &gt;= 0 else &quot;Negative&quot;</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJ05vbi1uZWdhdGl2ZSdcbiJ9 -->
-<pre><code>&#39;Non-negative&#39;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 </div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2hhcHRlciAyOiBQeXRob24gTGFuZ3VhZ2UgQmFzaWNzLCBJUHl0aG9uIGFuZCBKdXB5dGVyIE5vdGVib29rcyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKSW4gbXkgKCp0aGUgYXV0aG9yJ3MqKSBvcGluaW9uLCBpdCBpcyAqbm90KiBuZWNlc3NhcnkgdG8gYmVjb21lIHByb2ZpY2llbnQgYXQgYnVpbGRpbmcgZ29vZCBzb2Z0d2FyZSBpbiBQeXRob24gdG8gYmUgYWJsZSB0byBwcm9kdWN0aXZlbHkgdG8gZGF0YSBhbmFseXNpcy4gVGhpcyBib29rIHByaW1hcmlseSBmb2N1c2VzIG9uIHRhYmxlLWJhc2VkIGFuYWx5dGljcyBhbmQgZGF0YSBwcmVwYXJhdGlvbiB0b29scyBmb3Igd29ya2luZyB3aXRoIGxhcmdlIGRhdGEgc2V0cy4KCiMjIFRoZSBQeXRob24gSW50ZXJwcmV0ZXIKClB5dGhvbiBpcyBhbiAqaW50ZXJwcmV0ZWQqIGxhbmd1YWdlLiBSdW5uaW5nIFB5dGhvbiBwcm9ncmFtcyBpcyBhcyBzaW1wbGUgYXMgY2FsbGluZyBgcHl0aG9uYCB3aXRoIGEgYC5weWAgZmlsZSBhcyBpdHMgZmlyc3QgYXJndW1lbnQuIFN1cHBvc2Ugd2UgaGFkIGNyZWF0ZWQgYGhlbGxvX3dvcmxkLnB5YCB3aXRoIHRoZXNlIGNvbnRlbnRzOgoKYGBge3B5dGhvbn0KcHJpbnQoIkhlbGxvIHdvcmxkIikKYGBgCgpZb3UgY2FuIHJ1biBpdCBieSBleGVjdXRpbmcgdGhlIGZvbGxvd2luZyBjb21tYW5kICh0aGUgYGhlbGxvX3dvcmxkLnB5YCBmaWxlIG11c3QgYmUgaW4geW91ciBjdXJyZW50IHdvcmtpbmcgdGVybWluYWwgZGlyZWN0b3J5KToKCmBgYHtiYXNoLCBldmFsID0gRkFMU0V9CnB5dGhvbiBoZWxsb193b3JsZC5weQpgYGAKCk1vc3QgZGF0YSBzY2llbnRpc3RzIGV4ZWN1dGUgUHl0aG9uIGNvZGUgaW4gSVB5dGhvbiBvciBKdXB5dGVyIG5vdGVib29rcy4gV2hlbiB5b3UgdXNlIHRoZSBgJXJ1bmAgY29tbWFuZCwgSVB5dGhvbiBleGVjdXRlcyB0aGUgY29kZSBpbiB0aGUgc3BlY2lmaWVkIGZpbGUgaW4gdGhlIHNhbWUgcHJvY2VzcywgZW5hYmxpbmcgeW91IHRvIGV4cGxvcmUgdGhlIHJlc3VsdHMgaW50ZXJhY3RpdmVseSB3aGVuIGl0J3MgZG9uZToKCmBgYHtiYXNoLCBldmFsID0gRkFMU0V9CmlweXRob24KJXJ1biBoZWxsb193b3JsZC5weQpgYGAKCiMjIElQeXRob24gQmFzaWNzCgojIyMgUnVubmluZyB0aGUgSVB5dGhvbiBTaGVsbAoKVGhlc2UgY29tbWFuZHMgY2FuIGJlIHJ1biBmcm9tIFRlcm1pbmFsLCBidXQgSSB3aWxsIGJlIHVzaW5nIFJTdHVkaW8gaW5zdGVhZC4KCmBgYHtweXRob259CmltcG9ydCBudW1weSBhcyBucApkYXRhID0ge2kgOiBucC5yYW5kb20ucmFuZG4oKSBmb3IgaSBpbiByYW5nZSg3KX0KZGF0YQpgYGAKCiMjIyBSdW5uaW5nIHRoZSBKdXB5dGVyIE5vdGVib29rCgpZb3UgY2FuIHN0YXJ0IHVwIEp1cHl0ZXIgd2l0aCB0aGUgYGp1cHl0ZXIgbm90ZWJvb2tgIGNvbW1hbmQgaW4gdGhlIHRlcm1pbmFsLiBJJ2xsIGJlIHVzaW5nIFJTdHVkaW8gaW5zdGVhZCBmb3IgdGhpcyBib29rLgoKIyMjIFRhYiBDb21wbGV0aW9uCgpJUHl0aG9uIGFuZCBKdXB5dGVyIE5vdGVib29rcyBvZmZlciBzdXBwb3J0IGZvciB0YWIgY29tcGxldGlvbi4KCiMjIyBJbnRyb3NwZWN0aW9uCgpVc2luZyBhIHF1ZXN0aW9uIG1hcmsgKD8pIGJlZm9yZSBvciBhZnRlciBhIHZhcmlhYmxlIHdpbGwgZGlzcGxheSBzb21lIGdlbmVyYWwgaW5mb3JtYXRpb24gYWJvdXQgdGhlIG9iamVjdDoKCmBgYHtweXRob259CmIgPSBbMSwgMiwgM10KYj8KCnByaW50PwpgYGAKClRoaXMgaXMgcmVmZXJyZWQgdG8gYXMgKm9iamVjdCBpbnRyb3NwZWN0aW9uKi4gSWYgdGhlIG9iamVjdCBpcyBhIGZ1bmN0aW9uIG9yIGluc3RhbmNlIG1ldGhvZCwgdGhlIGRvY3N0cmluZywgaWYgZGVmaW5lZCwgd2lsbCBhbHNvIGJlIHNob3duLiBTdXBvc2Ugd2UnZCB3cml0dGVuIHRoZSBmb2xsb3dpbmcgZnVuY3Rpb246CgpgYGB7cHl0aG9ufQpkZWYgYWRkX251bWJlcnMoYSwgYik6CiAgIiIiCiAgQWRkIHR3byBudW1iZXJzIHRvZ2V0aGVyCiAgUmV0dXJucwogIC0tLS0tLS0KICB0aGVfc3VtIDogdHlwZSBvciBhcmd1bWVudHMKICAiIiIKICByZXR1cm4gYSArIGIKCmFkZF9udW1iZXJzPwpgYGAKClVzaW5nIGA/P2Agd2lsbCBhbHNvIHNob3cgdGhlIGZ1bmN0aW9uJ3Mgc291cmNlIGNvZGUgaWYgcG9zc2libGUuCgojIyMgVGhlIGAlcnVuYCBDb21tYW5kCgpZb3UgY2FuIHJ1biBhbnkgZmlsZSBhcyBhIFB5dGhvbiBwcm9ncmFtIGluc2lkZSB0aGUgZW52aXJvbm1lbnQgb2YgeW91ciBJUHl0aG9uIHNlc3Npb24gdXNpbmcgdGhlIGAlcnVuYCBjb21tYW5kLiBTdXBwb3NlIHlvdSBoYWQgdGhlIGZvbGxvd2luZyBzaW1wbGUgc2NyaXB0IHN0b3JlZCBpbiBgaXB5dGhvbl9zY3JpcHRfdGVzdC5weWA6CgpgYGB7cHl0aG9ufQpkZWYgZih4LCB5LCB6KToKICByZXR1cm4gKHggKyB5KSAvIHoKCmEgPSA1CmIgPSA2CmMgPSA3LjUKCnJlc3VsdCA9IGYoYSwgYiwgYykKcmVzdWx0CmBgYAoKIyMjIEV4ZWN1dGluZyBDb2RlIGZyb20gdGhlIENsaXBib2FyZAoKU3VwcG9zZSB5b3UgaGFkIHRoZSBmb2xsb3dpbmcgY29kZSBpbiBzb21lIG90aGVyIGFwcGxpY2F0aW9uOgoKYGBge3B5dGhvbn0KeCA9IDUKeSA9IDcKaWYgeCA+IDU6CiAgeCArPSAxCiAgeSA9IDgKYGBgCgpUaGUgbW9zdCBmb29scHJvb2YgbWV0aG9kcyBhcmUgdGhlIGAlcGFzdGVgIGFuZCBgJWNwYXN0ZWAgbWFnaWMgZnVuY3Rpb25zLiBgJXBhc3RlYCB0YWtlcyB3aGF0ZXZlciBleHQgaXMgaW4gdGhlIGNsaXBib2FyZCBhbmQgZXhlY3V0ZXMgaXQgYXMgYSBzaW5nbGUgYmxvY2sgaW4gdGhlIHNoZWxsOgoKYGBge2Jhc2gsIGV2YWwgPSBGQUxTRX0KJXBhc3RlCmBgYAoKIyMgUHl0aG9uIExhbmd1YWdlIEJhc2ljcwoKIyMjIExhbmd1YWdlIFNlbWFudGljcwoKIyMjIyBJbmRlbnRhdGlvbiwgbm90IGJyYWNlcwoKUHl0aG9uIHVzZXMgd2hpdGVzcGFjZSB0byBzdHJ1Y3R1cmUgY29kZSBpbnN0ZWFkIG9mIHVzaW5nIGJyYWNlcyBhcyBpbiBtYW55IG90aGVyIGxhbmd1YWdlcyBsaWtlIFIsIEMrKywgSmF2YSwgYW5kIFBlcmwuIENvbnNpZGVyIGEgYGZvcmAgbG9vayBmcm9tIGEgc29ydGluZyBhbGdvcml0aG06CgpgYGB7cHl0aG9ufQpmb3IgeCBpbiBhcnJheToKICAgIGlmIHggPCBwaXZvdDoKICAgICAgbGVzcy5hcHBlbmQoeCkKICAgIGVsc2U6CiAgICAgIGdyZWF0ZXIuYXBwZW5kKHgpCmBgYAoKQSBjb2xvbiBkZW5vdGVzIHRoZSBzdGFydCBvZiBhbiBpbmRlbnRlZCBjb2RlIGJsb2NrIGFmdGVyIHdoaWNoIGFsbCBvZiB0aGUgY29kZSBtdXN0IGJlIGluZGVudGVkIGJ5IHRoZSBzYW1lIGFtb3VudCB1bnRpbCB0aGUgZW5kIG9mIHRoZSBibG9jay4KClNlbWljb2xvbnMgY2FuIGJlIHVzZWQgdG8gc2VwYXJhdGUgbXVsdGlwbGUgc3RhdGVtZW50cyBvbiBhIHNpbmdsZSBsaW5lOgoKYGBge3B5dGhvbiwgZXZhbCA9IEZBTFNFfQphID0gNTsgYiA9IDY7IGMgPSA3CmBgYAoKIyMjIyBFdmVyeXRoaW5nIGlzIGFuIG9iamVjdAoKRXZlcnkgbnVtYmVyLCBzdHJvbmcsIGRhdGEgc3RydWN0dXJlLCBmdW5jdGlvbiwgY2xhc3MsIG1vZHVsZSwgYW5kIHNvIG9uIGV4aXN0cyBpbiB0aGUgUHl0aG9uIGludGVycHJldGVyIGluIGl0cyBvd24gImJveCwiIHdoaWNoIGlzIHJlZmVycmVkIHRvIGFzIGEgKlB5dGhvbiBvYmplY3QqLgoKIyMjIyBDb21tZW50cwoKQW55IHRleHQgcHJlY2VkZWQgYnkgdGhlIGhhc2ggbWFyayBcIyBpcyBpZ25vcmVkIGJ5IHRoZSBQeXRob24gaW50ZXJwcmV0ZXIuCgpgYGB7cHl0aG9ufQpyZXN1bHRzID0gW10KZm9yIGxpbmUgaW4gZmlsZV9oYW5kbGU6CiAgICAjIGtlZXAgdGhlIGVtcHR5IGxpbmVzIGZvciBub3cKICAgICMgaWYgbGVuKGxpbmUpID09IDA6CiAgICAjIGNvbnRpbnVlCiAgICByZXN1bHRzLmFwcGVuZChsaW5lLnJlcGxhY2UoImZvbyIsICJiYXIiKSkKYGBgCgpDb21tZW50cyBjYW4gYWxzbyBvY2N1ciBhZnRlciBhIGxpbmUgb2YgZXhlY3V0ZWQgY29kZToKCmBgYHtweXRob259CnByaW50KCJSZWFjaGVkIHRoaXMgbGluZSIpICMgU2ltcGxlIHN0YXR1cyByZXBvcnQKYGBgCgojIyMjIEZ1bmN0aW9uIGFuZCBvYmplY3QgbWV0aG9kIGNhbGxzCgpZb3UgY2FsbCBmdW5jdGlvbnMgdXNpbmcgcGFyZW50aGVzZXMgYW5kIHBhc3NpbmcgemVybyBvciBtb3JlIGFyZ3VtZW50cywgb3B0aW9uYWxseSBhc3NpZ25pbmcgdGhlIHJldHVybmVkIHZhbHVlIHRvIGEgdmFyaWFibGU6CgpgYGB7cHl0aG9uIGV2YWwgPSBGQUxTRX0KcmVzdWx0ID0gZih4LCB5LCB6KQpnKCkKYGBgCgpBbG1vc3QgZXZlcnkgb2JqZWN0IGluIFB5dGhvbiBoYXMgYXR0YWNoZWQgZnVuY3Rpb24sIGtub3duIGFzICptZXRob2RzKiwgdGhhdCBoYXZlIGFjY2VzcyB0byB0aGUgb2JqZWN0J3MgaW50ZXJuYWwgY29udGVudHMuIFlvdSBjYW4gY2FsbCB0aGVtIHVzaW5nIHRoZSBmb2xsb3dpbmcgc3ludGF4OgoKYG9iai5zb21lX21ldGhvZChYeCwgeSwgeilgCgpGdW5jdGlvbnMgY2FuIHRha2UgYm90aCAqcG9zaXRpb25hbCogYW5kICprZXl3b3JkKiBhcmd1bWVudHM6CgpgcmVzdWx0ID0gZihhLCBiLCBjLCBkID0gNSwgZSA9ICJmb28iKWAKCiMjIyMgVmFyaWFibGVzIGFuZCBhcmd1bWVudCBwYXNzaW5nCgpXaGVuIGFzc2lnbmluZyBhIHZhcmlhbGJlIChvciAqbmFtZSopIGluIFB5dGhvbiwgeW91IGFyZSBjcmVhdGluZyBhICpyZWZlcmVuY2UqIHRvIHRoZSBvYmplY3Qgb24gdGhlIHJpZ2h0aGFuZCBzaWRlIG9mIHRoZSBlcXVhbHMgc2lnbi4gSW4gcHJhY3RpY2FsIHRlcm1zLCBjb25zaWRlciBhIGxpc3Qgb2YgaW50ZWdlcnM6CgpgYGB7cHl0aG9ufQphID0gWzEsIDIsIDNdCmBgYAoKU3VwcG9zZSB3ZSBhc3NpZ24gYGFgIHRvIGEgbmV3IHZhcmlhYmxlIGBiYDoKCmBgYHtweXRob259CmIgPSBhCmBgYAoKSW4gc29tZSBsYW5ndWFnZXMsIHRoaXMgYXNzaWdubWVudCB3b3VsZCBjYXVzZSB0aGUgZGF0YSBcWzEsIDIsIDNcXSB0byBiZSBjb3BpZWQuIEluIFB5dGhvbiwgYGFgIGFuZCBgYmAgYWN0dWFsbHkgbm93IHJlZmVyIHRvIHRoZSBzYW1lIG9iamVjdCwgdGhlIG9yaWdpbmFsIGxpc3QgXFsxLCAyLCAzXF0uIFlvdSBjYW4gcHJvdmUgdGhpcyB0byB5b3Vyc2VsZiBieSBhcHBlbmRpbmcgYW4gZWxlbWVudCB0byBgYWAgYW5kIHRoZW4gZXhhbWluaW5nIGBiYDoKCmBgYHtweXRob259CmEuYXBwZW5kKDQpCmIKYGBgCgpXaGVuIHlvdSBwYXNzIG9iamVjdHMgYXMgYXJndW1lbnRzIHRvIGEgZnVuY3Rpb24sIG5ldyBsb2NhbCB2YXJpYWJsZXMgYXJlIGNyZWF0ZWQgcmVmZXJlbmNpbmcgdGhlIG9yaWdpbmFsIG9iamVjdHMgd2l0aG91dCBhbnkgY29weWluZy4gSWYgeW91IGJpbmQgYSBuZXcgb2JqZWN0IHRvIGEgdmFyaWFibGUgaW5zaWRlIGEgZnVuY3Rpb24sIHRoYXQgY2hhbmdlIHdpbGwgbm90IGJlIHJlZmxlY3RlZCBpbiB0aGUgcGFyZW50IHNjb3BlLiBJdCBpcyB0aGVyZWZvcmUgcG9zc2libGUgdG8gYWx0ZXIgdGhlIGludGVybmFscyBvZiBhIG11dGFibGUgYXJndW1lbnQuIFN1cHBvc2Ugd2UgaGFkIHRoZSBmb2xsb3dpbmcgZnVuY3Rpb246CgpgYGB7cHl0aG9ufQpkZWYgYXBwZW5kX2VsZW1lbnQoc29tZV9saXN0LCBlbGVtZW50KToKICAgIHNvbWVfbGlzdC5hcHBlbmQoZWxlbWVudCkKYGBgCgpUaGVuIHdlIGhhdmU6CgpgYGB7cHl0aG9ufQpkYXRhID0gWzEsIDIsIDNdCmFwcGVuZF9lbGVtZW50KGRhdGEsIDQpCmRhdGEKYGBgCgojIyMjIER5bmFtaWMgcmVmZXJlbmNlcywgc3Ryb25nIHR5cGVzCgpJbiBjb250cmFzdCB3aXRoIG1hbnkgY29tcGlsZWQgbGFuZ3VhZ2VzLCBzdWNoIGFzIEphdmEgYW5kIEMrKywgb2JqZWN0ICpyZWZlcmVuY2VzKiBpbiBQeXRob24gaGF2ZSBubyB0eXBlIGFzc29jaWF0ZWQgd2l0aCB0aGVtLiBUaGVyZSBpcyBubyBwcm9ibGVtIHdpdGggdGhlIGZvbGxvd2luZzoKCmBgYHtweXRob259CmEgPSA1CnR5cGUoYSkKCmEgPSAiZm9vIgp0eXBlKGEpCmBgYAoKVmFyaWFibGVzIGFyZSBuYW1lcyBmb3Igb2JqZWN0cyB3aXRoaW4gYSBwYXJ0aWN1bGFyIG5hbWVzcGFjZTsgdGhlIHR5cGUgaW5mb3JtYXRpb24gaXMgc3RvcmVkIGluIHRoZSBvYmplY3QgaXRzZWxmLiBTb21lIG9ic2VydmVycyBtaWdodCBoYXN0aWx5IGNvbmNsdWRlIHRoYXQgUHl0aG9uIGlzIG5vdCBhICJ0eXBlZCBsYW5ndWFnZS4iIFRoaXMgaXMgbm90IHRydWUsIGNvbnNpZGVyIHRoaXMgZXhhbXBsZToKCmBgYHtweXRob259CiI1IiArIDUKYGBgCgpJbiBzb21lIGxhbmd1YWdlcywgc3VjaCBhcyBWaXN1YWwgQmFzaWMsIHRoZSBzdHJpbmcgIjUiIG1pZ2h0IGdldCBpbXBsaWNpdGx5IGNvbnZlcnRlZCB0byBhbiBpbnRlZ2VyLCB0aHVzIHlpZWxkaW5nIDEwLiBJbiBvdGhlciBsYW5ndWFnZXMsIHN1Y2ggYXMgSmF2YVNjcmlwdCwgdGhlIGludGVnZXIgYDVgIG1pZ2h0IGJlIGNhc3RlZCB0byBhIHN0cmluZyB5aWVsZGluZyB0aGUgY29uY2F0ZW5hdGVkIHN0cmluZyBgNTVgLiBJbiB0aGlzIHJlZ2FyZCBQeXRob24gaXMgY29uc2lkZXJlZCBhICpzdHJvbmdseSB0eXBlZCogbGFuZ3VhZ2UsIHdoaWNoIG1lYW5zIHRoYXQgZXZlcnkgb2JqZWN0IGhhcyBhIHNwZWNpZmljIHR5cGUgKG9yIGNsYXNzKSwgYW5kIGltcGxpY2l0IGNvbnZlcnNpb25zIHdpbGwgb2NjdXIgb25seSBpbiBjZXJ0aWFuIG9idmlvdXMgY2lyY3Vtc3RhbmNlcywgc3VjaCBhcyB0aGUgZm9sbG93aW5nOgoKYGBge3B5dGhvbn0KYSA9IDQuNQpiID0gMgoKIyBzdHJpbmcgZm9ybWF0dGluZywgdG8gYmUgdmlzaXRlZCBsYXRlcgpwcmludCgiYSBpcyB7MH0sIGIgaXMgezF9Ii5mb3JtYXQodHlwZShhKSwgdHlwZShiKSkpCgphIC8gYgpgYGAKCllvdSBjYW4gY2hlY2sgdGhhdCBhbiBvYmplY3QgaXMgYW4gaW5zdGFuY2Ugb2YgYSBwYXJ0aWN1bGFyIHR5cGUgdXNpbmcgdGhlIGBpc2luc3RhbmNlYCBmdW5jdGlvbjoKCmBgYHtweXRob259CmEgPSA1Cgppc2luc3RhbmNlKGEsIGludCkKYGBgCgpgaXNpbnN0YW5jZWAgY2FuIGFjY2VwdCBhIHR1cGxlIG9mIHR5cGVzIGlmIHlvdSB3YW50IHRvIGNoZWNrIHRoYXQgYW4gb2JqZWN0J3MgdHlwZSBpcyBhbW9uZyB0aG9zZSBwcmVzZW50IGluIHRoZSB0dXBsZToKCmBgYHtweXRob259CmEgPSA1OyBiID0gNC41Cgppc2luc3RhbmNlKGEsIChpbnQsIGZsb2F0KSkKCmlzaW5zdGFuY2UoYiwgKGludCwgZmxvYXQpKQpgYGAKCiMjIyMgQXR0cmlidXRlcyBhbmQgbWV0aG9kcwoKT2JqZWN0cyBpbiBQeXRob24gdHlwaWNhbGx5IGhhdmUgYm90aCBhdHRyaWJ1dGVzIChvdGhlciBQeXRob24gb2JqZWN0cyBzdG9yZWQgImluc2lkZSIgdGhlIG9iamVjdCkgYW5kIG1ldGhvZHMgKGZ1bmN0aW9ucyBhc3NvY2lhdGVkIHdpdGggYW4gb2JqZWN0IHRoYXQgY2FuIGhhdmUgYWNjZXNzIHRvIHRoZSBvYmplY3QncyBpbnRlcm5hbCBkYXRhKS4gQm90aCBhcmUgYWNjZXNzZWQgdmlhIHRoZSBzeW50YXggYG9iai5hdHRyaWJ1dGVfbmFtZWA6CgpgYGB7cHl0aG9ufQphID0gImZvbyIKCmEuaXNhbG51bSgpCmBgYAoKIyMjIyBEdWNrIHR5cGluZwoKU29tZXRpbWVzIHlvdSBkb24ndCBjYXJlIGFib3V0IHRoZSB0eXBlIG9mIGFuIG9iamVjdCBidXQgd2hldGhlciBpdCBoYXMgY2VydGFpbiBtZXRob2RzIG9yIGJlaGF2aW9yLiBUaGlzIGlzIGNhbGxlZCAiZHVjayB0eXBpbmcuIiBGb3IgZXhhbXBsZSwgeW91IGNhbiB2ZXJpZnkgdGhhdCBhbiBvYmplY3QgaXMgaXRlcmFibGUgaWYgaXQgaW1wbGVtZW50ZWQgdGhlICppdGVyYXRvciBwcm90b2NvbCouCgpgYGB7cHl0aG9ufQpkZWYgaXNpdGVyYWJsZShvYmopOgogICAgdHJ5OgogICAgICAgIGl0ZXIob2JqKQogICAgICAgIHJldHVybiBUcnVlCiAgICBleGNlcHQgVHlwZUVycm9yOiAjIG5vdCBpdGVyYWJsZQogICAgICAgIHJldHVybiBGYWxzZQoKaXNpdGVyYWJsZSgiYSBzdHJpbmciKQoKaXNpdGVyYWJsZShbMSwgMiwgM10pCgppc2l0ZXJhYmxlKDUpCmBgYAoKIyMjIyBJbXBvcnRzCgpJbiBQeXRob24gYSAqbW9kdWxlKiBpcyBzaW1wbHkgYSBmaWxlIHdpdGggdGhlIGAucHlgIGV4dGVuc2lvbiBjb250YWluaW5nIFB5dGhvbiBjb2RlLgoKYGBge3B5dGhvbn0KIyBzb21lX21vZHVsZS5weQpQSSA9IDMuMTQxNTkKCmRlZiBmKHgpOgogICAgcmV0dXJuIHggKyAyCgpkZWYgZyhhLCBiKToKICAgIHJldHVybiBhICsgYgpgYGAKCklmIHdlIHdhbnRlZCB0byBhY2Nlc3MgdGhlIHZhcmlhYmxlcyBhbmQgZnVuY3Rpb25zIGRlZmluZWQgaW4gYHNvbWVfbW9kdWxlLnB5YCwgZnJvbSBhbm90aGVyIGZpbGUgaW4gdGhlIHNhbWUgZGlyZWN0b3J5IHdlIGNvdWxkIGRvOgoKYGBge3B5dGhvbiwgZXZhbCA9IEZBTFNFfQppbXBvcnQgc29tZV9tb2R1bGUKcmVzdWx0ID0gc29tZV9tb2R1bGUuZig1KQpwaSA9IHNvbWVfbW9kdWxlLlBJCmBgYAoKIyMjIyBCaW5hcnkgb3BlcmF0b3JzIGFuZCBjb21wYXJpc29ucwoKYGBge3B5dGhvbn0KNSAtIDcKCjEyICsgMjEuNQoKNSA8PSAyCmBgYAoKVG8gY2hlY2sgaWYgdHdvIHJlZmVyZW5jZXMgcmVmZXIgdG8gdGhlIHNhbWUgb2JqZWN0LCB1c2UgdGhlIGBpc2Aga2V5d29yZC4gYGlzIG5vdGAgaXMgYWxzbyBwZXJmZWN0bHkgdmFsaWQgaWYgeW91IHdhbnQgdG8gY2hlY2sgdGhhdCB0d28gb2JqZWN0cyBhcmUgbm90IHRoZSBzYW1lOgoKYGBge3B5dGhvbn0KYSA9IFsxLCAyLCAzXQoKYiA9IGEKCmMgPSBsaXN0KGEpCgphIGlzIGIKCmEgaXMgbm90IGMKYGBgCgpTaW5jZSBgbGlzdGAgYWx3YXlzIGNyZWF0ZXMgYSBuZXcgUHl0aG9uIGxpc3QsIHdlIGNhbiBiZSBzdXJlIHRoYXQgYGNgIGlzIGRpc3RpbmN0IGZyb20gYGFgLiBDb21wYXJpbmcgd2l0aCBgaXNgIGlzIG5vIHRoZSBzYW1lIGFzIHRoZSBgPT1gIG9wZXJhdG9yLCBiZWNhdXNlIGluIHRoaXMgY2FzZSB3ZSBoYXZlOgoKYGBge3B5dGhvbn0KYSA9PSBjCmBgYAoKQSB2ZXJ5IGNvbW1vbiB1c2Ugb2YgYGlzYCBhbmQgYGlzIG5vdGAgaXMgdG8gY2hlY2sgaWYgYSB2YXJpYWJsZSBpcyBgTm9uZWAsIHNpbmNlIHRoZXJlIGlzIG9ubHkgb25lIGluc3RhbmNlIG9mIGBOb25lYDoKCmBgYHtweXRob259CmEgPSBOb25lCgphIGlzIE5vbmUKCnByaW50KGEpCmBgYAoKIyMjIyBNdXRhYmxlIGFuZCBpbW11dGFibGUgb2JqZWN0cwoKTW9zdCBvYmplY3RzIGluIFB5dGhvbiwgc3VjaCBhcyBsaXN0cywgZGljdHMsIE51bVB5IGFycmF5cywgYW5kIG1vc3QgdXNlci1kZWZpbmVkIHR5cGVzIChjbGFzc2VzKSwgYXJlIG11dGFibGUuIFRoaXMgbWVhbnMgdGhhdCB0aGUgb2JqZWN0IG9yIHZhbHVlcyB0aGF0IHRoZXkgY29udGFpbiBjYW4gYmUgbW9kaWZpZWQ6CgpgYGB7cHl0aG9ufQphX2xpc3QgPSBbImZvbyIsIDIsIFs0LCA1XV0KCmFfbGlzdFsyXSA9ICgzLCA0KQoKYV9saXN0CmBgYAoKT3RoZXJzLCBsaWtlIHN0cmluZ3MgYW5kIHR1cGxlcywgYXJlIGltbXV0YWJsZToKCmBgYHtweXRob259CmFfdHVwbGUgPSAoMywgNSwgKDQsIDUpKQphX3R1cGxlWzFdID0gImZvdXIiCmBgYAoKUmVtZW1iZXIgdGhhdCBqdXN0IGJlY2F1c2UgeW91ICpjYW4qIG11dGF0ZSBhbiBvYmplY3QgZG9lcyBub3QgbWVhbiB0aGF0IHlvdSBhbHdheXMgKnNob3VsZCouIFN1Y2ggYWN0aW9ucyBhcmUga25vd24gYXMgKnNpZGUgZWZmZWN0cyouCgojIyMgU2NhbGFyIFR5cGVzCgpQeXRob24gYWxvbmcgd2l0aCBpdHMgc3RhbmRhcmQgbGlicmFyeSBoYXMgYSBzbWFsbCBzZXQgb2YgYnVpbHQtaW4gdHlwZXMgZm9yIGhhbmRsaW5nIG51bWVyaWNhbCBkYXRhLCBzdHJpbmdzLCBib29sZWFuIHZhbHVlcywgYW5kIGRhdGVzIGFuZCB0aW1lcy4gVGhlc2UgInNpbmdsZSB2YWx1ZSIgdHlwZXMgYXJlIHNvbWV0aW1lcyBjYWxsZWQgKnNjYWxhciB0eXBlcyogYW5kIHdlIHJlZmVyIHRvIHRoZW0gaW4gdGhpcyBib29rIGFzIHNjYWxhcnMuCgorLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKfCAqKlR5cGUqKiAgICB8ICoqRGVzY3JpcHRpb24qKiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8Cis9PT09PT09PT09PT09Kz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Kwp8IGBOb25lYCAgICAgIHwgVGhlIFB5dGhvbiAibnVsbCIgdmFsdWUgICAgICAgICAgICAgICAgICAgICAgIHwKKy0tLS0tLS0tLS0tLS0rLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCnwgYHN0cmAgICAgICAgfCBTdHJpbmcgdHlwZTsgaG9sZHMgVW5pY29kZSBzdHJpbmdzICAgICAgICAgICAgfAorLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKfCBgYnl0ZXNgICAgICB8IFJhdyBBU0NJSSBieXRlcyAob3IgVW5pY29kZSBlbmNvZGVkIGFzIGJ5dGVzKSB8CistLS0tLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKwp8IGBmbG9hdGAgICAgIHwgRG91YmxlLXByZWNpc2lvbiBmbG9hdGluZy1wb2ludCBudW1iZXIgICAgICAgIHwKKy0tLS0tLS0tLS0tLS0rLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCnwgYGJvb2xgICAgICAgfCBBIGBUcnVlYCBvciBgRmFsc2VgIHZhbHVlICAgICAgICAgICAgICAgICAgICAgfAorLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKfCBgaW50YCAgICAgICB8IEFyYml0cmFyeSBwcmVjaXNpb24gc2lnbmVkIGludGVnZXIgICAgICAgICAgICB8CistLS0tLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKwoKIyMjIyBOdW1lcmljIHR5cGVzCgpUaGUgcHJpbWFyeSBQeXRob24gdHlwZXMgZm9yIG51bWJlcnMgYXJlIGBpbnRgIGFuZCBgZmxvYXRgLiBBbiBgaW50YCBjYW4gc3RvcmUgYXJiaXRyYXJpbHkgbGFyZ2UgbnVtYmVyczoKCmBgYHtweXRob259Cml2YWwgPSAxNzIzOTg3MQoKaXZhbCAqKiA2CmBgYAoKRmxvYXRpbmctcG9pbnQgbnVtYmVycyBhcmUgcmVwcmVzZW50ZWQgd2l0aCB0aGUgUHl0aG9uIGBmbG9hdGAgdHlwZS4KCmBgYHtweXRob259CmZ2YWwgPSA3LjI0MwoKZnZhbDIgPSA2Ljc4ZS01CmBgYAoKSW50ZWdlciBkaXZpc2lvbiBub3QgcmVzdWx0aW5nIGluIGEgd2hvbGUgbnVtYmVyIHdpbGwgYWx3YXlzIHlpZWxkIGEgZmxvYXRpbmctcG9pbnQgbnVtYmVyOgoKYGBge3B5dGhvbn0KMyAvIDIKYGBgCgpUbyBnZXQgQy1zdHlsZSBpbnRlZ2VyIGRpdmlzaW9uICh3aGljaCBkcm9wcyB0aGUgZnJhY3Rpb25hbCBwYXJ0IGlmIHRoZSByZXN1bHQgaXMgbm90IGEgd2hvbGUgbnVtYmVyKSwgdXNlIHRoZSBmbG9vciBkaXZpc2lvbiBvcGVyYXRvciBgLy9gOgoKYGBge3B5dGhvbn0KMyAvLyAyCmBgYAoKIyMjIyBTdHJpbmdzCgpZb3UgY2FuIHdyaXRlICpzdHJpbmcgbGl0ZXJhbHMqIHVzaW5nIGVpdGhlciBzaW5nbGUgcXVvdGVzIG9mIGRvdWJsZSBxdW90ZXM6CgpgYGB7cHl0aG9ufQphID0gJ29uZSB3YXkgb2Ygd3JpdGluZyBhIHN0cmluZycKYiA9ICJhbm90aGVyIHdheSIKYGBgCgpGb3IgbXVsdGlsaW5lIHN0cmluZ3Mgd2l0aCBsaW5lIGJyZWFrcywgeW91IGNhbiB1c2UgdHJpcGxlIHF1b3RlcywgZWl0aGVyIGAnJydgIG9yIGAiIiJgOgoKYGBge3B5dGhvbn0KYyA9ICcnJwpUaGlzIGlzIGEgbG9uZ2VyIHN0cmluZyB0aGF0CnNwYW5zIG11bHRpcGxlIGxpbmVzCicnJwpgYGAKCldlIGNhbiBjb3VudCB0aGUgbmV3IGxpbmUgY2hhcmFjdGVycyB3aXRoIHRoZSBgY291bnRgIG1ldGhvZCBvbiBgY2A6CgpgYGB7cHl0aG9ufQpjLmNvdW50KCJcbiIpCmBgYAoKUHl0aG9uIHN0cmluZ3MgYXJlIGltbXV0YWJsZTsgeW91IGNhbm5vdCBtb2RpZnkgYSBzdHJpbmc6CgpgYGB7cHl0aG9ufQphID0gInRoaXMgaXMgYSBzdHJpbmciCmFbMTBdID0gImYiCmBgYAoKTWFueSBQeXRob24gb2JqZWN0cyBjYW4gYmUgY29udmVydGVkIHRvIGEgc3RyaW5nIHVzaW5nIHRoZSBgc3RyYCBmdW5jdGlvbjoKCmBgYHtweXRob259CmEgPSA1LjYKCnMgPSBzdHIoYSkKCnByaW50KHMpCmBgYAoKU3RyaW5ncyBhcmUgYSBzZXF1ZW5jZSBvZiBVbmljb2RlIGNoYXJhY3RlcnMgYW5kIHRoZXJlZm9yZSBjYW4gYmUgdHJlYXRlZCBsaWtlIG90aGVyIHNlcXVlbmNlcywgc3VjaCBhcyBsaXN0cyBhbmQgdHVwbGVzLgoKYGBge3B5dGhvbn0KcyA9ICJweXRob24iCgpsaXN0KHMpCmBgYAoKVGhlIHN5bnRheCBgc1s6M11gIGlzIGNhbGxlZCAqc2xpY2luZyogYW5kIGlzIGltcGxlbWVudGVkIGZvciBtYW55IGtpbmRzIG9mIFB5dGhvbiBzZXF1ZW5jZXMuIFRoZSBiYWNrc2xhc2ggY2hhcmFjdGVyIGBcYCBpcyBhbiAqZXNjYXBlIGNoYXJhY3RlciosIG1lYW5pbmcgdGhhdCBpdCBpcyB1c2VkIHRvIHNwZWNpZnkgc3BlY2lhbCBjaGFyYWN0ZXJzIGxpa2UgbmV3bGluZSBgXG5gIG9yIFVuaWNvZGUgY2hhcmFjdGVycy4gVG8gd3JpdGUgYSBzdHJpbmcgbGl0ZXJhbCB3aXRoIGJhY2tzbGFzaGVzLCB5b3UgbmVlZCB0byBlc2NhcGUgdGhlbToKCmBgYHtweXRob259CnMgPSAiMTJcXDM0IgpwcmludChzKQpgYGAKCklmIHlvdSBoYXZlIGEgbG90IG9mIGJhY2tzbGFzaGVzIGFuZCBubyBzcGVjaWFsIGNoYXJhY3RlcnMsIHlvdSBjYW4gcHJlZmFjZSB0aGUgbGVhZGluZyBxdW90ZSBvZiB0aGUgc3RyaW5nIHdpdGggYHJgLCB3aGljaCBtZWFucyB0aGF0IHRoZSBjaGFyYWN0ZXJzIHNob3VsZCBiZSBpbnRlcnByZXRlZCBhcyBpczoKCmBgYHtweXRob259CnMgPSByInRoaXNcaGFzXG5vXHNwZWNpYWxcY2hhcmFjdGVycyIKcwpgYGAKClRoZSBgcmAgc3RhbmRzIGZvciAqcmF3Ki4KCkFkZGluZyB0d28gc3RyaW5ncyB0b2dldGhlciBjb25jYXRlbmF0ZXMgdGhlbSBhbmQgcHJvZHVjZXMgYSBuZXcgc3RyaW5nOgoKYGBge3B5dGhvbn0KYSA9ICJ0aGlzIGlzIHRoZSBmaXJzdCBoYWxmICIKCmIgPSAiYW5kIHRoaXMgaXMgdGhlIHNlY29uZCBoYWxmIgoKYSArIGIKYGBgCgpTdHJpbmcgdGVtcGxhdGluZyBvciBmb3JtYXR0aW5nIGlzIGFub3RoZXIgaW1wb3J0YW50IHRvcGljLiBUaGUgbnVtYmVyIG9mIHdheXMgdG8gZG8gc28gaGFzIGV4cGFuZGVkIHdpdGggdGhlIGFkdmVudCBvZiBQeXRob24gMyBhbmQgaGVyZSBpcyB0aGUgbWVjaGFuaWNzIG9mIG9uZSBvZiB0aGUgbWFpbiBpbnRlcmZhY2VzLiBTdHJpbmcgb2JqZWN0cyBoYXZlIGEgYGZvcm1hdGAgbWV0aG9kIHRoYXQgY2FuIGJlIHVzZWQgdG8gc3Vic3RpdHV0ZSBmb3JtYXR0ZWQgYXJndW1lbnRzIGludG8gdGhlIHN0cmluZywgcHJvZHVjaW5nIGEgbmV3IHN0cmluZzoKCmBgYHtweXRob259CnRlbXBsYXRlID0gInswOi4yZn0gezE6c30gYXJlIHdvcnRoIFVTJHsyOmR9IgpgYGAKCkluIHRoaXMgc3RyaW5nLAoKLSAgIGB7MDouMmZ9YCBtZWFucyB0byBmb3JtYXQgdGhlIGZpcnN0IGFyZ3VtZW50IGFzIGEgZmxvYXRpbmctcG9pbnQgbnVtYmVyIHdpdGggdHdvIGRlY2ltYWwgcGxhY2VzCgotICAgYHsxOnN9YCBtZWFucyB0byBmb3JtYXQgdGhlIHNlY29uZCBhcmd1bWVudCBhcyBhIHN0cmluZwoKLSAgIGB7MjpkfWAgbWVhbnMgdG8gZm9ybWF0IHRoZSB0aGlyZCBhcmd1bWVudCBhcyBhbiBleGFjdCBpbnRlZ2VyCgpUbyBzdWJzdGl0dXRlIGFyZ3VtZW50cyBmb3IgdGhlc2UgZm9ybWF0IHBhcmFtZXRlcnMsIHdlIHBhc3MgYSBzZXF1ZW5jZSBvZiBhcmd1bWVudHMgdG90IGhlIGBmb3JtYXRgIG1ldGhvZDoKCmBgYHtweXRob259CnRlbXBsYXRlLmZvcm1hdCg0LjU1NjAsICJBcmdlbnRpbmUgUGVzb3MiLCAxKQpgYGAKCiMjIyMgQnl0ZXMgYW5kIFVuaWNvZGUKClVuaWNvZGUgaGFzIGJlY29tZSB0aGUgZmlyc3QtY2xhc3Mgc3RyaW5nIHR5cGUgdG8gZW5hYmxlIG1vcmUgY29uc2lzdGVudCBoYW5kbGluZyBvZiBBU0NJSSBhbmQgbm9uLUFTQ0lJIHRleHQuCgpgYGB7cHl0aG9ufQp2YWwgPSAiZXNwYcOxb2wiCnZhbApgYGAKCldlIGNhbiBjb252ZXJ0IHRoaXMgVW5pY29kZSBzdHJpbmcgdG8gaXRzIFVURi04IGJ5dGVzIHJlcHJlc2VudGF0aW9uIHVzaW5nIHRoZSBgZW5jb2RlYCBtZXRob2Q6CgpgYGB7cHl0aG9ufQp2YWxfdXRmOCA9IHZhbC5lbmNvZGUoInV0Zi04IikKdmFsX3V0ZjgKCnR5cGUodmFsX3V0ZjgpCmBgYAoKQXNzdW1pbmcgeW91IGtub3cgdGhlIFVuaWNvZGUgZW5jb2Rpbmcgb2YgYSBgYnl0ZXNgIG9iamVjdCwgeW91IGNhbiBnbyBiYWNrIHVzaW5nIHRoZSBgZGVjb2RlYCBtZXRob2Q6CgpgYGB7cHl0aG9ufQp2YWxfdXRmOC5kZWNvZGUoInV0Zi04IikKYGBgCgojIyMjIEJvb2xlYW5zCgpUaGUgdHdvIGJvb2xlYW4gdmFsdWVzIGluIFB5dGhvbiBhcmUgd3JpdHRlbiBhcyBgVHJ1ZWAgYW5kIGBGYWxzZWAuIENvbXBhcmlzb25zIGFuZCBvdGhlciBjb25kaXRpb25hbCBleHByZXNzaW9ucyBldmFsdWF0ZSB0byBlaXRoZXIgYFRydWVgIG9yIGBGYWxzZWAuIEJvb2xlYW4gdmFsdWVzIGFyZSBjb21iaW5lZCB3aXRoIHRoZSBgYW5kYCBhbmQgYG9yYCBrZXl3b3JkczoKCmBgYHtweXRob259ClRydWUgYW5kIFRydWUKCkZhbHNlIG9yIFRydWUKYGBgCgojIyMjIFR5cGUgY2FzdGluZwoKVGhlIGBzdHJgLCBgYm9vbGAsIGBpbnRgLCBhbmQgYGZsb2F0YCB0eXBlcyBhcmUgYWxzbyBmdW5jdGlvbnMgdGhhdCBjYW4gYmUgdXNlZCB0byBjYXN0IHZhbHVlcyB0byB0aG9zZSB0eXBlczoKCmBgYHtweXRob259CnMgPSAiMy4xNDE1OSIKCmZ2YWwgPSBmbG9hdChzKQoKdHlwZShmdmFsKQoKaW50KGZ2YWwpCgpib29sKGZ2YWwpCgpib29sKDApCmBgYAoKIyMjIyBOb25lCgpgTm9uZWAgaXMgdGhlIFB5dGhvbiBudWxsIHZhbHVlIHR5cGUuIElmIGEgZnVuY3Rpb24gZG9lcyBub3QgZXhwbGljaXRseSByZXR1cm4gYSB2YWx1ZSwgaXQgaW1wbGljaXRseSByZXR1cm5zIGBOb25lYDoKCmBgYHtweXRob259CmEgPSBOb25lCgphIGlzIE5vbmUKCmIgPSA1CgpiIGlzIE5vbmUKYGBgCgpgTm9uZWAgaXMgYWxzbyBhIGNvbW1vbiBkZWZhdWx0IHZhbHVlIGZvciBmdW5jdGlvbiBhcmd1bWVudHM6CgpgYGB7cHl0aG9ufQpkZWYgYWRkX2FuZF9tYXliZV9tdWx0aXBseShhLCBiLCBjID0gTm9uZSk6CiAgICByZXN1bHQgPSBhICsgYgogICAgCiAgICBpZiBjIGlzIG5vdCBOb25lOgogICAgICAgIHJlc3VsdCA9IHJlc3VsdCAqIGMKICAgIAogICAgcmV0dXJuIHJlc3VsdApgYGAKCiMjIyMgRGF0ZXMgYW5kIHRpbWVzCgpUaGUgYnVpbHQtaW4gUHl0aG9uIGBkYXRldGltZWAgbW9kdWxlIHByb3ZpZGVzIGBkYXRldGltZWAsIGBkYXRlYCwgYW5kIGB0aW1lYCB0eXBlcy4gVGhlIGBkYXRldGltZWAgdHlwZSwgYXMgeW91IG1pZ2h0IGltYWdpbmUsIGNvbWJpbmVzIHRoZSBpbmZvcm1hdGlvbiBzdG9yZWQgaW4gYGRhdGVgIGFuZCBgdGltZWAgYW5kIGlzIHRoZSBtb3N0IGNvbW1vbmx5IHVzZWQ6CgpgYGB7cHl0aG9ufQpmcm9tIGRhdGV0aW1lIGltcG9ydCBkYXRldGltZSwgZGF0ZSwgdGltZQoKZHQgPSBkYXRldGltZSgyMDExLCAxMCwgMjksIDIwLCAzMCwgMjEpCgpkdC5kYXkKCmR0Lm1pbnV0ZQpgYGAKCkdpdmVuIGEgYGRhdGV0aW1lYCBpbnN0YW5jZSwgeW91IGNhbiBleHRyYWN0IHRoZSBlcXVpdmFsZW50IGBkYXRlYCBhbmQgYHRpbWVgIG9iamVjdHMgYnkgY2FsbGluZyBtZXRob2RzIG9uIHRoZSBgZGF0ZXRpbWVgIG9mIHRoZSBzYW1lIG5hbWU6CgpgYGB7cHl0aG9ufQpkdC5kYXRlKCkKCmR0LnRpbWUoKQpgYGAKClRoZSBgc3RyZnRpbWVgIG1ldGhvZCBmb3JtYXRzIGEgYGRhdGV0aW1lYCBhcyBhIHN0cmluZzoKCmBgYHtweXRob259CmR0LnN0cmZ0aW1lKCIlbS8lZC8lWSAlSDolTSIpCmBgYAoKU3RyaW5ncyBjYW4gYmUgY29udmVydGVkIGludG8gYGRhdGV0aW1lYCBvYmplY3RzIHdpdGggdGhlIGBzdHJwdGltZWAgZnVuY3Rpb246CgpgYGB7cHl0aG9ufQpkYXRldGltZS5zdHJwdGltZSgiMjAwOTEwMzEiLCAiJVklbSVkIikKYGBgCgpXaGVuIHlvdSBhcmUgZ3JvdXBpbmcgb3IgYWdncmVnYXRpbmcgdGltZSBzZXJpZXMgZGF0YSwgaXQgd2lsbCBvY2Nhc2lvbmFsbHkgYmUgdXNlZnVsIHRvIHJlcGxhY2UgdGltZSBmaWVsZHMgb2YgYSBzZXJpZXMgb2YgYGRhdGV0aW1lc2AuIEZvciBleGFtcGxlLCByZXBsYWNpbmcgdGhlIG1pbnV0ZSBhbmQgc2Vjb25kIGZpZWxkcyB3aXRoIHplcm86CgpgYGB7cHl0aG9ufQpkdC5yZXBsYWNlKG1pbnV0ZSA9IDAsIHNlY29uZCA9IDApCmBgYAoKU2luY2UgYGRhdGV0aW1lLmRhdGV0aW1lYCBpcyBhbiBpbW11dGFibGUgdHlwZSwgbWV0aG9kcyBsaWtlIHRoZXNlIHdpbGwgYWx3YXlzIHByb2R1Y2UgbmV3IG9iamVjdHMuIFRoZSBkaWZmZXJlbmNlIG9mIHR3byBgZGF0ZXRpbWVgIG9iamVjdHMgcHJvZHVjZXMgYSBgZGF0ZXRpbWUudGltZWRlbHRhYCB0eXBlOgoKYGBge3B5dGhvbn0KZHQyID0gZGF0ZXRpbWUoMjAxMSwgMTEsIDE1LCAyMiwgMzApCgpkZWx0YSA9IGR0MiAtIGR0CgpkZWx0YQoKdHlwZShkZWx0YSkKYGBgCgpBZGRpbmcgYSBgdGltZWRlbHRhYCB0byBhIGBkYXRldGltZWAgcHJvZHVjZXMgYSBuZXcgc2hpZnRlZCBgZGF0ZXRpbWVgOgoKYGBge3B5dGhvbn0KZHQKCmR0ICsgZGVsdGEKYGBgCgojIyMgQ29udHJvbCBGbG93CgpQeXRob24gaGFzIHNldmVyYWwgYnVpbHQtaW4ga2V5d29yZHMgZm9yIGNvbmRpdGlvbmFsIGxvZ2ljLCBsb29wcywgYW5kIG90aGVyIHN0YW5kYXJkICpjb250cm9sIGZsb3cqIGNvbmNlcHRzIGZvdW5kIGluIG90aGVyIHByb2dyYW1taW5nIGxhbmd1YWdlcy4KCiMjIyMgaWYsIGVsaWYsIGFuZCBlbHNlCgpUaGUgYGlmYCBzdGF0ZW1lbnQgaXMgb25lIG9mIHRoZSBtb3N0IHdlbGwta25vd24gY29udHJvbCBmbG93IHN0YXRlbWVudCB0eXBlcy4gSXQgY2hlY2tzIGEgY29uZGl0aW9uIHRoYXQgaWYgYFRydWVgLCBldmFsdWF0ZXMgdGhlIGNvZGUgaW4gdGhlIGJsb2NrIHRoYXQgZm9sbG93czoKCmBgYHtweXRob259CmlmIHggPCAwOgogICAgcHJpbnQoIml0J3MgbmVnYXRpdmUiKQoKYGBgCgpBbiBgaWZgIHN0YXRlbWVudCBjYW4gYmUgb3B0aW9uYWxseSBmb2xsb3dlZCBieSBvbmUgb2YgbW9yZSBgZWxpZmAgYmxvY2tzIGFuZCBhIGNhdGNoLWFsbCBgZWxzZWAgYmxvY2sgaWYgYWxsIG9mIHRoZSBjb25kaXRpb25zIGFyZSBgRmFsc2VgOgoKYGBge3B5dGhvbn0KaWYgeCA8IDA6CiAgICBwcmludCgiaXQncyBuZWdhdGl2ZSIpCmVsaWYgeCA9PSAwOgogICAgcHJpbnQoImVxdWFsIHRvIHplcm8iKQplbGlmIDAgPCB4IDwgNToKICAgIHByaW50KCJwb3NpdGl2ZSBidXQgc21hbGxlciB0aGFuIDUiKQplbHNlOgogICAgcHJpbnQoInBvc2l0aXZlIGFuZCBsYXJnZXIgdGhhbiBvciBlcXVhbCB0byA1IikKCmBgYAoKSWYgYW55IG9mIHRoZSBjb25kaXRpb25zIGFyZSBgVHJ1ZWAsIG5vIGZ1cnRoZXIgYGVsaWZgIG9yIGBlbHNlYCBibG9ja3Mgd2lsbCBiZSByZWFjaGVkLgoKYGBge3B5dGhvbn0KYSA9IDU7IGIgPSA3CgpjID0gODsgZCA9IDQKCmlmIGEgPCBiIG9yIGMgPiBkOgogICAgcHJpbnQoIm1hZGUgaXQiKQpgYGAKCiMjIyMgZm9yIGxvb3BzCgpgZm9yYCBsb29wcyBhcmUgZm9yIGl0ZXJhdGluZyBvdmVyIGEgY29sbGVjdGlvbiBvciBhbiBpdGVyYXRvci4gVGhlIHN0YW5kYXJkIHN5bnRheCBmb3IgYSBgZm9yYCBsb29wIGlzOgoKYGBge3B5dGhvbn0KZm9yIHZhbHVlIGluIGNvbGxlY3Rpb246CiAgICAjIGRvIHNvbWV0aGluZyB3aXRoIHZhbHVlCmBgYAoKWW91IGNhbiBhZHZhbmNlIGEgYGZvcmAgbG9vcCB0byB0aGUgbmV4dCBpdGVyYXRpb24sIHNraXBwaW5nIHRoZSByZW1haW5kZXIgb2YgdGhlIGJsb2NrLCB1c2luZyB0aGUgYGNvbnRpbnVlYCBrZXl3b3JkLiBDb25zaWRlciB0aGlzIGNvZGUsIHdoaWNoIHN1bXMgdXAgaW50ZWdlcnMgaW4gYSBsaXN0IGFuZCBza2lwcyBgTm9uZWAgdmFsdWVzOgoKYGBge3B5dGhvbn0Kc2VxdWVuY2UgPSBbMSwgMiwgTm9uZSwgNCwgTm9uZSwgNV0KdG90YWwgPSAwCgpmb3IgdmFsdWUgaW4gc2VxdWVuY2U6CiAgICBpZiB2YWx1ZSBpcyBOb25lOgogICAgICAgIGNvbnRpbnVlCiAgICB0b3RhbCArPSB2YWx1ZQoKYGBgCgpBIGBmb3JgIGxvb3AgY2FuIGJlIGV4aXRlZCB3aXRoIHRoZSBgYnJlYWtgIGtleXdvcmQuIFRoaXMgY29kZSBzdW1zIGVsZW1lbnRzIG9mIHRoZSBsaXN0IHVudGlsIGEgNSBpcyByZWFjaGVkOgoKYGBge3B5dGhvbn0Kc2VxdWVuY2UgPSBbMSwgMiwgMCwgNCwgNiwgNSwgMiwgMV0KdG90YWxfdW50aWxfNSA9IDAKCmZvciB2YWx1ZSBpbiBzZXF1ZW5jZToKICAgIGlmIHZhbHVlID09IDU6CiAgICAgICAgYnJlYWsKICAgIHRvdGFsX3VudGlsXzUgKz0gdmFsdWUKCmBgYAoKIyMjIyB3aGlsZSBsb29wcwoKQSBgd2hpbGVgIGxvcCBzcGVjaWZpZXMgYSBjb25kaXRpb24gYW5kIGEgYmxvY2sgb2YgY29kZSB0aGF0IGlzIHRvIGJlIGV4ZWN1dGVkIHVudGlsIHRoZSBjb25kaXRpb24gZXZhbHVhdGVzIHRvIGBGYWxzZWAgb3IgdGhlIGxvb3AgaXMgZXhwbGljaXRseSBlbmRlZCB3aXRoIGBicmVha2A6CgpgYGB7cHl0aG9ufQp4ID0gMjU2CnRvdGFsID0gMAp3aGlsZSB4ID4gMDoKICAgIGlmIHRvdGFsID4gNTAwOgogICAgICAgIGJyZWFrCiAgICB0b3RhbCArPSB4CiAgICB4ID0geCAvLyAyCgpgYGAKCiMjIyMgcGFzcwoKXGBwYXNzMSBpcyB0aGUgIm5vLW9wIiBzdGF0ZW1lbnQgaW4gUHl0aG9uLiBJdCBjYW4gYmUgdXNlZCBpbiBibG9ja3Mgd2hlcmUgbm8gYWN0aW9uIGlzIHRvIGJlIHRha2VuOyBpdCBpcyBvbmx5IHJlcXVpcmVkIGJlY2F1c2UgUHl0aG9uIHVzZXMgd2hpdGVzcGFjZSB0byBkZWxpbWl0IGJsb2NrczoKCmBgYHtweXRob259CmlmIHggPCAwOgogICAgcHJpbnQoIm5lZ2F0aXZlISIpCmVsaWYgeCA9PSAwOgogICAgIyBUT0RPOiBwdXQgc29tZXRoaW5nIHNtYXJ0IGhlcmUKICAgIHBhc3MKZWxzZToKICAgIHByaW50KCJwb3NpdGl2ZSEiKQoKYGBgCgojIyMjIHJhbmdlCgpUaGUgYHJhbmdlYCBmdW5jdGlvbiByZXR1cm5zIGFuIGl0ZXJhdG9yIHRoYXQgeWllbGRzIGEgc2VxdWVuY2Ugb2YgZXZlbmx5IHNwYWNlZCBpbnRlZ2VyczoKCmBgYHtweXRob259CnJhbmdlKDEwKQoKbGlzdChyYW5nZSgxMCkpCmBgYAoKQm90aCBhIHN0YXJ0LCBlbmQsIGFuZCBzdGVwIGNhbiBiZSBnaXZlbjoKCmBgYHtweXRob259Cmxpc3QocmFuZ2UoMCwgMjAsIDIpKQpgYGAKCkEgY29tbW9uIHVzZSBmb3IgcmFuZ2UgaXMgaXRlcmF0aW5nIHRocm91Z2ggYSBzZXF1ZW5jZSBieSBpbmRleDoKCmBgYHtweXRob259CnNlcSA9IFsxLCAyLCAzLCA0XQpmb3IgaSBpbiByYW5nZShsZW4oc2VxKSk6CiAgICB2YWwgPSBzZXFbaV0KCmBgYAoKIyMjIyBUZXJuYXJ5IGV4cHJlc3Npb25zCgpBICp0ZXJuYXJ5IGV4cHJlc3Npb24qIGluIFB5dGhvbiBhbGxvd3MgeW91IHRvIGNvbWJpbmUgYW4gYGlmLWVsc2VgIGJsb2NrIHRoYXQgcHJvZHVjZXMgYSB2YWx1ZSBpbnRvIGEgc2luZ2xlIGxpbmUgb3IgZXhwcmVzc2lvbi4KCmB2YWx1ZSA9IHRydWUtZXhwciBpZiBjb25kaXRpb24gZWxzZSBmYWxzZS1leHByYAoKSGVyZSBpcyBhbiBleGFtcGxlOgoKYGBge3B5dGhvbn0KeCA9IDUKCiJOb24tbmVnYXRpdmUiIGlmIHggPj0gMCBlbHNlICJOZWdhdGl2ZSIKYGBgCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2hhcHRlciAyOiBQeXRob24gTGFuZ3VhZ2UgQmFzaWNzLCBJUHl0aG9uIGFuZCBKdXB5dGVyIE5vdGVib29rcyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKSW4gbXkgKCp0aGUgYXV0aG9yJ3MqKSBvcGluaW9uLCBpdCBpcyAqbm90KiBuZWNlc3NhcnkgdG8gYmVjb21lIHByb2ZpY2llbnQgYXQgYnVpbGRpbmcgZ29vZCBzb2Z0d2FyZSBpbiBQeXRob24gdG8gYmUgYWJsZSB0byBwcm9kdWN0aXZlbHkgdG8gZGF0YSBhbmFseXNpcy4gVGhpcyBib29rIHByaW1hcmlseSBmb2N1c2VzIG9uIHRhYmxlLWJhc2VkIGFuYWx5dGljcyBhbmQgZGF0YSBwcmVwYXJhdGlvbiB0b29scyBmb3Igd29ya2luZyB3aXRoIGxhcmdlIGRhdGEgc2V0cy4KCiMjIFRoZSBQeXRob24gSW50ZXJwcmV0ZXIKClB5dGhvbiBpcyBhbiAqaW50ZXJwcmV0ZWQqIGxhbmd1YWdlLiBSdW5uaW5nIFB5dGhvbiBwcm9ncmFtcyBpcyBhcyBzaW1wbGUgYXMgY2FsbGluZyBgcHl0aG9uYCB3aXRoIGEgYC5weWAgZmlsZSBhcyBpdHMgZmlyc3QgYXJndW1lbnQuIFN1cHBvc2Ugd2UgaGFkIGNyZWF0ZWQgYGhlbGxvX3dvcmxkLnB5YCB3aXRoIHRoZXNlIGNvbnRlbnRzOgoKYGBge3B5dGhvbn0KcHJpbnQoIkhlbGxvIHdvcmxkIikKYGBgCgpZb3UgY2FuIHJ1biBpdCBieSBleGVjdXRpbmcgdGhlIGZvbGxvd2luZyBjb21tYW5kICh0aGUgYGhlbGxvX3dvcmxkLnB5YCBmaWxlIG11c3QgYmUgaW4geW91ciBjdXJyZW50IHdvcmtpbmcgdGVybWluYWwgZGlyZWN0b3J5KToKCmBgYHtiYXNoLCBldmFsID0gRkFMU0V9CnB5dGhvbiBoZWxsb193b3JsZC5weQpgYGAKCk1vc3QgZGF0YSBzY2llbnRpc3RzIGV4ZWN1dGUgUHl0aG9uIGNvZGUgaW4gSVB5dGhvbiBvciBKdXB5dGVyIG5vdGVib29rcy4gV2hlbiB5b3UgdXNlIHRoZSBgJXJ1bmAgY29tbWFuZCwgSVB5dGhvbiBleGVjdXRlcyB0aGUgY29kZSBpbiB0aGUgc3BlY2lmaWVkIGZpbGUgaW4gdGhlIHNhbWUgcHJvY2VzcywgZW5hYmxpbmcgeW91IHRvIGV4cGxvcmUgdGhlIHJlc3VsdHMgaW50ZXJhY3RpdmVseSB3aGVuIGl0J3MgZG9uZToKCmBgYHtiYXNoLCBldmFsID0gRkFMU0V9CmlweXRob24KJXJ1biBoZWxsb193b3JsZC5weQpgYGAKCiMjIElQeXRob24gQmFzaWNzCgojIyMgUnVubmluZyB0aGUgSVB5dGhvbiBTaGVsbAoKVGhlc2UgY29tbWFuZHMgY2FuIGJlIHJ1biBmcm9tIFRlcm1pbmFsLCBidXQgSSB3aWxsIGJlIHVzaW5nIFJTdHVkaW8gaW5zdGVhZC4KCmBgYHtweXRob259CmltcG9ydCBudW1weSBhcyBucApkYXRhID0ge2kgOiBucC5yYW5kb20ucmFuZG4oKSBmb3IgaSBpbiByYW5nZSg3KX0KZGF0YQpgYGAKCiMjIyBSdW5uaW5nIHRoZSBKdXB5dGVyIE5vdGVib29rCgpZb3UgY2FuIHN0YXJ0IHVwIEp1cHl0ZXIgd2l0aCB0aGUgYGp1cHl0ZXIgbm90ZWJvb2tgIGNvbW1hbmQgaW4gdGhlIHRlcm1pbmFsLiBJJ2xsIGJlIHVzaW5nIFJTdHVkaW8gaW5zdGVhZCBmb3IgdGhpcyBib29rLgoKIyMjIFRhYiBDb21wbGV0aW9uCgpJUHl0aG9uIGFuZCBKdXB5dGVyIE5vdGVib29rcyBvZmZlciBzdXBwb3J0IGZvciB0YWIgY29tcGxldGlvbi4KCiMjIyBJbnRyb3NwZWN0aW9uCgpVc2luZyBhIHF1ZXN0aW9uIG1hcmsgKD8pIGJlZm9yZSBvciBhZnRlciBhIHZhcmlhYmxlIHdpbGwgZGlzcGxheSBzb21lIGdlbmVyYWwgaW5mb3JtYXRpb24gYWJvdXQgdGhlIG9iamVjdDoKCmBgYHtweXRob259CmIgPSBbMSwgMiwgM10KYj8KCnByaW50PwpgYGAKClRoaXMgaXMgcmVmZXJyZWQgdG8gYXMgKm9iamVjdCBpbnRyb3NwZWN0aW9uKi4gSWYgdGhlIG9iamVjdCBpcyBhIGZ1bmN0aW9uIG9yIGluc3RhbmNlIG1ldGhvZCwgdGhlIGRvY3N0cmluZywgaWYgZGVmaW5lZCwgd2lsbCBhbHNvIGJlIHNob3duLiBTdXBvc2Ugd2UnZCB3cml0dGVuIHRoZSBmb2xsb3dpbmcgZnVuY3Rpb246CgpgYGB7cHl0aG9ufQpkZWYgYWRkX251bWJlcnMoYSwgYik6CiAgIiIiCiAgQWRkIHR3byBudW1iZXJzIHRvZ2V0aGVyCiAgUmV0dXJucwogIC0tLS0tLS0KICB0aGVfc3VtIDogdHlwZSBvciBhcmd1bWVudHMKICAiIiIKICByZXR1cm4gYSArIGIKCmFkZF9udW1iZXJzPwpgYGAKClVzaW5nIGA/P2Agd2lsbCBhbHNvIHNob3cgdGhlIGZ1bmN0aW9uJ3Mgc291cmNlIGNvZGUgaWYgcG9zc2libGUuCgojIyMgVGhlIGAlcnVuYCBDb21tYW5kCgpZb3UgY2FuIHJ1biBhbnkgZmlsZSBhcyBhIFB5dGhvbiBwcm9ncmFtIGluc2lkZSB0aGUgZW52aXJvbm1lbnQgb2YgeW91ciBJUHl0aG9uIHNlc3Npb24gdXNpbmcgdGhlIGAlcnVuYCBjb21tYW5kLiBTdXBwb3NlIHlvdSBoYWQgdGhlIGZvbGxvd2luZyBzaW1wbGUgc2NyaXB0IHN0b3JlZCBpbiBgaXB5dGhvbl9zY3JpcHRfdGVzdC5weWA6CgpgYGB7cHl0aG9ufQpkZWYgZih4LCB5LCB6KToKICByZXR1cm4gKHggKyB5KSAvIHoKCmEgPSA1CmIgPSA2CmMgPSA3LjUKCnJlc3VsdCA9IGYoYSwgYiwgYykKcmVzdWx0CmBgYAoKIyMjIEV4ZWN1dGluZyBDb2RlIGZyb20gdGhlIENsaXBib2FyZAoKU3VwcG9zZSB5b3UgaGFkIHRoZSBmb2xsb3dpbmcgY29kZSBpbiBzb21lIG90aGVyIGFwcGxpY2F0aW9uOgoKYGBge3B5dGhvbn0KeCA9IDUKeSA9IDcKaWYgeCA+IDU6CiAgeCArPSAxCiAgeSA9IDgKYGBgCgpUaGUgbW9zdCBmb29scHJvb2YgbWV0aG9kcyBhcmUgdGhlIGAlcGFzdGVgIGFuZCBgJWNwYXN0ZWAgbWFnaWMgZnVuY3Rpb25zLiBgJXBhc3RlYCB0YWtlcyB3aGF0ZXZlciBleHQgaXMgaW4gdGhlIGNsaXBib2FyZCBhbmQgZXhlY3V0ZXMgaXQgYXMgYSBzaW5nbGUgYmxvY2sgaW4gdGhlIHNoZWxsOgoKYGBge2Jhc2gsIGV2YWwgPSBGQUxTRX0KJXBhc3RlCmBgYAoKIyMgUHl0aG9uIExhbmd1YWdlIEJhc2ljcwoKIyMjIExhbmd1YWdlIFNlbWFudGljcwoKIyMjIyBJbmRlbnRhdGlvbiwgbm90IGJyYWNlcwoKUHl0aG9uIHVzZXMgd2hpdGVzcGFjZSB0byBzdHJ1Y3R1cmUgY29kZSBpbnN0ZWFkIG9mIHVzaW5nIGJyYWNlcyBhcyBpbiBtYW55IG90aGVyIGxhbmd1YWdlcyBsaWtlIFIsIEMrKywgSmF2YSwgYW5kIFBlcmwuIENvbnNpZGVyIGEgYGZvcmAgbG9vayBmcm9tIGEgc29ydGluZyBhbGdvcml0aG06CgpgYGB7cHl0aG9ufQpmb3IgeCBpbiBhcnJheToKICAgIGlmIHggPCBwaXZvdDoKICAgICAgbGVzcy5hcHBlbmQoeCkKICAgIGVsc2U6CiAgICAgIGdyZWF0ZXIuYXBwZW5kKHgpCmBgYAoKQSBjb2xvbiBkZW5vdGVzIHRoZSBzdGFydCBvZiBhbiBpbmRlbnRlZCBjb2RlIGJsb2NrIGFmdGVyIHdoaWNoIGFsbCBvZiB0aGUgY29kZSBtdXN0IGJlIGluZGVudGVkIGJ5IHRoZSBzYW1lIGFtb3VudCB1bnRpbCB0aGUgZW5kIG9mIHRoZSBibG9jay4KClNlbWljb2xvbnMgY2FuIGJlIHVzZWQgdG8gc2VwYXJhdGUgbXVsdGlwbGUgc3RhdGVtZW50cyBvbiBhIHNpbmdsZSBsaW5lOgoKYGBge3B5dGhvbiwgZXZhbCA9IEZBTFNFfQphID0gNTsgYiA9IDY7IGMgPSA3CmBgYAoKIyMjIyBFdmVyeXRoaW5nIGlzIGFuIG9iamVjdAoKRXZlcnkgbnVtYmVyLCBzdHJvbmcsIGRhdGEgc3RydWN0dXJlLCBmdW5jdGlvbiwgY2xhc3MsIG1vZHVsZSwgYW5kIHNvIG9uIGV4aXN0cyBpbiB0aGUgUHl0aG9uIGludGVycHJldGVyIGluIGl0cyBvd24gImJveCwiIHdoaWNoIGlzIHJlZmVycmVkIHRvIGFzIGEgKlB5dGhvbiBvYmplY3QqLgoKIyMjIyBDb21tZW50cwoKQW55IHRleHQgcHJlY2VkZWQgYnkgdGhlIGhhc2ggbWFyayBcIyBpcyBpZ25vcmVkIGJ5IHRoZSBQeXRob24gaW50ZXJwcmV0ZXIuCgpgYGB7cHl0aG9ufQpyZXN1bHRzID0gW10KZm9yIGxpbmUgaW4gZmlsZV9oYW5kbGU6CiAgICAjIGtlZXAgdGhlIGVtcHR5IGxpbmVzIGZvciBub3cKICAgICMgaWYgbGVuKGxpbmUpID09IDA6CiAgICAjIGNvbnRpbnVlCiAgICByZXN1bHRzLmFwcGVuZChsaW5lLnJlcGxhY2UoImZvbyIsICJiYXIiKSkKYGBgCgpDb21tZW50cyBjYW4gYWxzbyBvY2N1ciBhZnRlciBhIGxpbmUgb2YgZXhlY3V0ZWQgY29kZToKCmBgYHtweXRob259CnByaW50KCJSZWFjaGVkIHRoaXMgbGluZSIpICMgU2ltcGxlIHN0YXR1cyByZXBvcnQKYGBgCgojIyMjIEZ1bmN0aW9uIGFuZCBvYmplY3QgbWV0aG9kIGNhbGxzCgpZb3UgY2FsbCBmdW5jdGlvbnMgdXNpbmcgcGFyZW50aGVzZXMgYW5kIHBhc3NpbmcgemVybyBvciBtb3JlIGFyZ3VtZW50cywgb3B0aW9uYWxseSBhc3NpZ25pbmcgdGhlIHJldHVybmVkIHZhbHVlIHRvIGEgdmFyaWFibGU6CgpgYGB7cHl0aG9uIGV2YWwgPSBGQUxTRX0KcmVzdWx0ID0gZih4LCB5LCB6KQpnKCkKYGBgCgpBbG1vc3QgZXZlcnkgb2JqZWN0IGluIFB5dGhvbiBoYXMgYXR0YWNoZWQgZnVuY3Rpb24sIGtub3duIGFzICptZXRob2RzKiwgdGhhdCBoYXZlIGFjY2VzcyB0byB0aGUgb2JqZWN0J3MgaW50ZXJuYWwgY29udGVudHMuIFlvdSBjYW4gY2FsbCB0aGVtIHVzaW5nIHRoZSBmb2xsb3dpbmcgc3ludGF4OgoKYG9iai5zb21lX21ldGhvZChYeCwgeSwgeilgCgpGdW5jdGlvbnMgY2FuIHRha2UgYm90aCAqcG9zaXRpb25hbCogYW5kICprZXl3b3JkKiBhcmd1bWVudHM6CgpgcmVzdWx0ID0gZihhLCBiLCBjLCBkID0gNSwgZSA9ICJmb28iKWAKCiMjIyMgVmFyaWFibGVzIGFuZCBhcmd1bWVudCBwYXNzaW5nCgpXaGVuIGFzc2lnbmluZyBhIHZhcmlhbGJlIChvciAqbmFtZSopIGluIFB5dGhvbiwgeW91IGFyZSBjcmVhdGluZyBhICpyZWZlcmVuY2UqIHRvIHRoZSBvYmplY3Qgb24gdGhlIHJpZ2h0aGFuZCBzaWRlIG9mIHRoZSBlcXVhbHMgc2lnbi4gSW4gcHJhY3RpY2FsIHRlcm1zLCBjb25zaWRlciBhIGxpc3Qgb2YgaW50ZWdlcnM6CgpgYGB7cHl0aG9ufQphID0gWzEsIDIsIDNdCmBgYAoKU3VwcG9zZSB3ZSBhc3NpZ24gYGFgIHRvIGEgbmV3IHZhcmlhYmxlIGBiYDoKCmBgYHtweXRob259CmIgPSBhCmBgYAoKSW4gc29tZSBsYW5ndWFnZXMsIHRoaXMgYXNzaWdubWVudCB3b3VsZCBjYXVzZSB0aGUgZGF0YSBcWzEsIDIsIDNcXSB0byBiZSBjb3BpZWQuIEluIFB5dGhvbiwgYGFgIGFuZCBgYmAgYWN0dWFsbHkgbm93IHJlZmVyIHRvIHRoZSBzYW1lIG9iamVjdCwgdGhlIG9yaWdpbmFsIGxpc3QgXFsxLCAyLCAzXF0uIFlvdSBjYW4gcHJvdmUgdGhpcyB0byB5b3Vyc2VsZiBieSBhcHBlbmRpbmcgYW4gZWxlbWVudCB0byBgYWAgYW5kIHRoZW4gZXhhbWluaW5nIGBiYDoKCmBgYHtweXRob259CmEuYXBwZW5kKDQpCmIKYGBgCgpXaGVuIHlvdSBwYXNzIG9iamVjdHMgYXMgYXJndW1lbnRzIHRvIGEgZnVuY3Rpb24sIG5ldyBsb2NhbCB2YXJpYWJsZXMgYXJlIGNyZWF0ZWQgcmVmZXJlbmNpbmcgdGhlIG9yaWdpbmFsIG9iamVjdHMgd2l0aG91dCBhbnkgY29weWluZy4gSWYgeW91IGJpbmQgYSBuZXcgb2JqZWN0IHRvIGEgdmFyaWFibGUgaW5zaWRlIGEgZnVuY3Rpb24sIHRoYXQgY2hhbmdlIHdpbGwgbm90IGJlIHJlZmxlY3RlZCBpbiB0aGUgcGFyZW50IHNjb3BlLiBJdCBpcyB0aGVyZWZvcmUgcG9zc2libGUgdG8gYWx0ZXIgdGhlIGludGVybmFscyBvZiBhIG11dGFibGUgYXJndW1lbnQuIFN1cHBvc2Ugd2UgaGFkIHRoZSBmb2xsb3dpbmcgZnVuY3Rpb246CgpgYGB7cHl0aG9ufQpkZWYgYXBwZW5kX2VsZW1lbnQoc29tZV9saXN0LCBlbGVtZW50KToKICAgIHNvbWVfbGlzdC5hcHBlbmQoZWxlbWVudCkKYGBgCgpUaGVuIHdlIGhhdmU6CgpgYGB7cHl0aG9ufQpkYXRhID0gWzEsIDIsIDNdCmFwcGVuZF9lbGVtZW50KGRhdGEsIDQpCmRhdGEKYGBgCgojIyMjIER5bmFtaWMgcmVmZXJlbmNlcywgc3Ryb25nIHR5cGVzCgpJbiBjb250cmFzdCB3aXRoIG1hbnkgY29tcGlsZWQgbGFuZ3VhZ2VzLCBzdWNoIGFzIEphdmEgYW5kIEMrKywgb2JqZWN0ICpyZWZlcmVuY2VzKiBpbiBQeXRob24gaGF2ZSBubyB0eXBlIGFzc29jaWF0ZWQgd2l0aCB0aGVtLiBUaGVyZSBpcyBubyBwcm9ibGVtIHdpdGggdGhlIGZvbGxvd2luZzoKCmBgYHtweXRob259CmEgPSA1CnR5cGUoYSkKCmEgPSAiZm9vIgp0eXBlKGEpCmBgYAoKVmFyaWFibGVzIGFyZSBuYW1lcyBmb3Igb2JqZWN0cyB3aXRoaW4gYSBwYXJ0aWN1bGFyIG5hbWVzcGFjZTsgdGhlIHR5cGUgaW5mb3JtYXRpb24gaXMgc3RvcmVkIGluIHRoZSBvYmplY3QgaXRzZWxmLiBTb21lIG9ic2VydmVycyBtaWdodCBoYXN0aWx5IGNvbmNsdWRlIHRoYXQgUHl0aG9uIGlzIG5vdCBhICJ0eXBlZCBsYW5ndWFnZS4iIFRoaXMgaXMgbm90IHRydWUsIGNvbnNpZGVyIHRoaXMgZXhhbXBsZToKCmBgYHtweXRob259CiI1IiArIDUKYGBgCgpJbiBzb21lIGxhbmd1YWdlcywgc3VjaCBhcyBWaXN1YWwgQmFzaWMsIHRoZSBzdHJpbmcgIjUiIG1pZ2h0IGdldCBpbXBsaWNpdGx5IGNvbnZlcnRlZCB0byBhbiBpbnRlZ2VyLCB0aHVzIHlpZWxkaW5nIDEwLiBJbiBvdGhlciBsYW5ndWFnZXMsIHN1Y2ggYXMgSmF2YVNjcmlwdCwgdGhlIGludGVnZXIgYDVgIG1pZ2h0IGJlIGNhc3RlZCB0byBhIHN0cmluZyB5aWVsZGluZyB0aGUgY29uY2F0ZW5hdGVkIHN0cmluZyBgNTVgLiBJbiB0aGlzIHJlZ2FyZCBQeXRob24gaXMgY29uc2lkZXJlZCBhICpzdHJvbmdseSB0eXBlZCogbGFuZ3VhZ2UsIHdoaWNoIG1lYW5zIHRoYXQgZXZlcnkgb2JqZWN0IGhhcyBhIHNwZWNpZmljIHR5cGUgKG9yIGNsYXNzKSwgYW5kIGltcGxpY2l0IGNvbnZlcnNpb25zIHdpbGwgb2NjdXIgb25seSBpbiBjZXJ0aWFuIG9idmlvdXMgY2lyY3Vtc3RhbmNlcywgc3VjaCBhcyB0aGUgZm9sbG93aW5nOgoKYGBge3B5dGhvbn0KYSA9IDQuNQpiID0gMgoKIyBzdHJpbmcgZm9ybWF0dGluZywgdG8gYmUgdmlzaXRlZCBsYXRlcgpwcmludCgiYSBpcyB7MH0sIGIgaXMgezF9Ii5mb3JtYXQodHlwZShhKSwgdHlwZShiKSkpCgphIC8gYgpgYGAKCllvdSBjYW4gY2hlY2sgdGhhdCBhbiBvYmplY3QgaXMgYW4gaW5zdGFuY2Ugb2YgYSBwYXJ0aWN1bGFyIHR5cGUgdXNpbmcgdGhlIGBpc2luc3RhbmNlYCBmdW5jdGlvbjoKCmBgYHtweXRob259CmEgPSA1Cgppc2luc3RhbmNlKGEsIGludCkKYGBgCgpgaXNpbnN0YW5jZWAgY2FuIGFjY2VwdCBhIHR1cGxlIG9mIHR5cGVzIGlmIHlvdSB3YW50IHRvIGNoZWNrIHRoYXQgYW4gb2JqZWN0J3MgdHlwZSBpcyBhbW9uZyB0aG9zZSBwcmVzZW50IGluIHRoZSB0dXBsZToKCmBgYHtweXRob259CmEgPSA1OyBiID0gNC41Cgppc2luc3RhbmNlKGEsIChpbnQsIGZsb2F0KSkKCmlzaW5zdGFuY2UoYiwgKGludCwgZmxvYXQpKQpgYGAKCiMjIyMgQXR0cmlidXRlcyBhbmQgbWV0aG9kcwoKT2JqZWN0cyBpbiBQeXRob24gdHlwaWNhbGx5IGhhdmUgYm90aCBhdHRyaWJ1dGVzIChvdGhlciBQeXRob24gb2JqZWN0cyBzdG9yZWQgImluc2lkZSIgdGhlIG9iamVjdCkgYW5kIG1ldGhvZHMgKGZ1bmN0aW9ucyBhc3NvY2lhdGVkIHdpdGggYW4gb2JqZWN0IHRoYXQgY2FuIGhhdmUgYWNjZXNzIHRvIHRoZSBvYmplY3QncyBpbnRlcm5hbCBkYXRhKS4gQm90aCBhcmUgYWNjZXNzZWQgdmlhIHRoZSBzeW50YXggYG9iai5hdHRyaWJ1dGVfbmFtZWA6CgpgYGB7cHl0aG9ufQphID0gImZvbyIKCmEuaXNhbG51bSgpCmBgYAoKIyMjIyBEdWNrIHR5cGluZwoKU29tZXRpbWVzIHlvdSBkb24ndCBjYXJlIGFib3V0IHRoZSB0eXBlIG9mIGFuIG9iamVjdCBidXQgd2hldGhlciBpdCBoYXMgY2VydGFpbiBtZXRob2RzIG9yIGJlaGF2aW9yLiBUaGlzIGlzIGNhbGxlZCAiZHVjayB0eXBpbmcuIiBGb3IgZXhhbXBsZSwgeW91IGNhbiB2ZXJpZnkgdGhhdCBhbiBvYmplY3QgaXMgaXRlcmFibGUgaWYgaXQgaW1wbGVtZW50ZWQgdGhlICppdGVyYXRvciBwcm90b2NvbCouCgpgYGB7cHl0aG9ufQpkZWYgaXNpdGVyYWJsZShvYmopOgogICAgdHJ5OgogICAgICAgIGl0ZXIob2JqKQogICAgICAgIHJldHVybiBUcnVlCiAgICBleGNlcHQgVHlwZUVycm9yOiAjIG5vdCBpdGVyYWJsZQogICAgICAgIHJldHVybiBGYWxzZQoKaXNpdGVyYWJsZSgiYSBzdHJpbmciKQoKaXNpdGVyYWJsZShbMSwgMiwgM10pCgppc2l0ZXJhYmxlKDUpCmBgYAoKIyMjIyBJbXBvcnRzCgpJbiBQeXRob24gYSAqbW9kdWxlKiBpcyBzaW1wbHkgYSBmaWxlIHdpdGggdGhlIGAucHlgIGV4dGVuc2lvbiBjb250YWluaW5nIFB5dGhvbiBjb2RlLgoKYGBge3B5dGhvbn0KIyBzb21lX21vZHVsZS5weQpQSSA9IDMuMTQxNTkKCmRlZiBmKHgpOgogICAgcmV0dXJuIHggKyAyCgpkZWYgZyhhLCBiKToKICAgIHJldHVybiBhICsgYgpgYGAKCklmIHdlIHdhbnRlZCB0byBhY2Nlc3MgdGhlIHZhcmlhYmxlcyBhbmQgZnVuY3Rpb25zIGRlZmluZWQgaW4gYHNvbWVfbW9kdWxlLnB5YCwgZnJvbSBhbm90aGVyIGZpbGUgaW4gdGhlIHNhbWUgZGlyZWN0b3J5IHdlIGNvdWxkIGRvOgoKYGBge3B5dGhvbiwgZXZhbCA9IEZBTFNFfQppbXBvcnQgc29tZV9tb2R1bGUKcmVzdWx0ID0gc29tZV9tb2R1bGUuZig1KQpwaSA9IHNvbWVfbW9kdWxlLlBJCmBgYAoKIyMjIyBCaW5hcnkgb3BlcmF0b3JzIGFuZCBjb21wYXJpc29ucwoKYGBge3B5dGhvbn0KNSAtIDcKCjEyICsgMjEuNQoKNSA8PSAyCmBgYAoKVG8gY2hlY2sgaWYgdHdvIHJlZmVyZW5jZXMgcmVmZXIgdG8gdGhlIHNhbWUgb2JqZWN0LCB1c2UgdGhlIGBpc2Aga2V5d29yZC4gYGlzIG5vdGAgaXMgYWxzbyBwZXJmZWN0bHkgdmFsaWQgaWYgeW91IHdhbnQgdG8gY2hlY2sgdGhhdCB0d28gb2JqZWN0cyBhcmUgbm90IHRoZSBzYW1lOgoKYGBge3B5dGhvbn0KYSA9IFsxLCAyLCAzXQoKYiA9IGEKCmMgPSBsaXN0KGEpCgphIGlzIGIKCmEgaXMgbm90IGMKYGBgCgpTaW5jZSBgbGlzdGAgYWx3YXlzIGNyZWF0ZXMgYSBuZXcgUHl0aG9uIGxpc3QsIHdlIGNhbiBiZSBzdXJlIHRoYXQgYGNgIGlzIGRpc3RpbmN0IGZyb20gYGFgLiBDb21wYXJpbmcgd2l0aCBgaXNgIGlzIG5vIHRoZSBzYW1lIGFzIHRoZSBgPT1gIG9wZXJhdG9yLCBiZWNhdXNlIGluIHRoaXMgY2FzZSB3ZSBoYXZlOgoKYGBge3B5dGhvbn0KYSA9PSBjCmBgYAoKQSB2ZXJ5IGNvbW1vbiB1c2Ugb2YgYGlzYCBhbmQgYGlzIG5vdGAgaXMgdG8gY2hlY2sgaWYgYSB2YXJpYWJsZSBpcyBgTm9uZWAsIHNpbmNlIHRoZXJlIGlzIG9ubHkgb25lIGluc3RhbmNlIG9mIGBOb25lYDoKCmBgYHtweXRob259CmEgPSBOb25lCgphIGlzIE5vbmUKCnByaW50KGEpCmBgYAoKIyMjIyBNdXRhYmxlIGFuZCBpbW11dGFibGUgb2JqZWN0cwoKTW9zdCBvYmplY3RzIGluIFB5dGhvbiwgc3VjaCBhcyBsaXN0cywgZGljdHMsIE51bVB5IGFycmF5cywgYW5kIG1vc3QgdXNlci1kZWZpbmVkIHR5cGVzIChjbGFzc2VzKSwgYXJlIG11dGFibGUuIFRoaXMgbWVhbnMgdGhhdCB0aGUgb2JqZWN0IG9yIHZhbHVlcyB0aGF0IHRoZXkgY29udGFpbiBjYW4gYmUgbW9kaWZpZWQ6CgpgYGB7cHl0aG9ufQphX2xpc3QgPSBbImZvbyIsIDIsIFs0LCA1XV0KCmFfbGlzdFsyXSA9ICgzLCA0KQoKYV9saXN0CmBgYAoKT3RoZXJzLCBsaWtlIHN0cmluZ3MgYW5kIHR1cGxlcywgYXJlIGltbXV0YWJsZToKCmBgYHtweXRob259CmFfdHVwbGUgPSAoMywgNSwgKDQsIDUpKQphX3R1cGxlWzFdID0gImZvdXIiCmBgYAoKUmVtZW1iZXIgdGhhdCBqdXN0IGJlY2F1c2UgeW91ICpjYW4qIG11dGF0ZSBhbiBvYmplY3QgZG9lcyBub3QgbWVhbiB0aGF0IHlvdSBhbHdheXMgKnNob3VsZCouIFN1Y2ggYWN0aW9ucyBhcmUga25vd24gYXMgKnNpZGUgZWZmZWN0cyouCgojIyMgU2NhbGFyIFR5cGVzCgpQeXRob24gYWxvbmcgd2l0aCBpdHMgc3RhbmRhcmQgbGlicmFyeSBoYXMgYSBzbWFsbCBzZXQgb2YgYnVpbHQtaW4gdHlwZXMgZm9yIGhhbmRsaW5nIG51bWVyaWNhbCBkYXRhLCBzdHJpbmdzLCBib29sZWFuIHZhbHVlcywgYW5kIGRhdGVzIGFuZCB0aW1lcy4gVGhlc2UgInNpbmdsZSB2YWx1ZSIgdHlwZXMgYXJlIHNvbWV0aW1lcyBjYWxsZWQgKnNjYWxhciB0eXBlcyogYW5kIHdlIHJlZmVyIHRvIHRoZW0gaW4gdGhpcyBib29rIGFzIHNjYWxhcnMuCgp8ICoqVHlwZSoqIHwgKipEZXNjcmlwdGlvbioqICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKfC0tLS0tLS0tLS18LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS18CnwgYE5vbmVgICAgfCBUaGUgUHl0aG9uICJudWxsIiB2YWx1ZSAgICAgICAgICAgICAgICAgICAgICAgfAp8IGBzdHJgICAgIHwgU3RyaW5nIHR5cGU7IGhvbGRzIFVuaWNvZGUgc3RyaW5ncyAgICAgICAgICAgIHwKfCBgYnl0ZXNgICB8IFJhdyBBU0NJSSBieXRlcyAob3IgVW5pY29kZSBlbmNvZGVkIGFzIGJ5dGVzKSB8CnwgYGZsb2F0YCAgfCBEb3VibGUtcHJlY2lzaW9uIGZsb2F0aW5nLXBvaW50IG51bWJlciAgICAgICAgfAp8IGBib29sYCAgIHwgQSBgVHJ1ZWAgb3IgYEZhbHNlYCB2YWx1ZSAgICAgICAgICAgICAgICAgICAgIHwKfCBgaW50YCAgICB8IEFyYml0cmFyeSBwcmVjaXNpb24gc2lnbmVkIGludGVnZXIgICAgICAgICAgICB8CgojIyMjIE51bWVyaWMgdHlwZXMKClRoZSBwcmltYXJ5IFB5dGhvbiB0eXBlcyBmb3IgbnVtYmVycyBhcmUgYGludGAgYW5kIGBmbG9hdGAuIEFuIGBpbnRgIGNhbiBzdG9yZSBhcmJpdHJhcmlseSBsYXJnZSBudW1iZXJzOgoKYGBge3B5dGhvbn0KaXZhbCA9IDE3MjM5ODcxCgppdmFsICoqIDYKYGBgCgpGbG9hdGluZy1wb2ludCBudW1iZXJzIGFyZSByZXByZXNlbnRlZCB3aXRoIHRoZSBQeXRob24gYGZsb2F0YCB0eXBlLgoKYGBge3B5dGhvbn0KZnZhbCA9IDcuMjQzCgpmdmFsMiA9IDYuNzhlLTUKYGBgCgpJbnRlZ2VyIGRpdmlzaW9uIG5vdCByZXN1bHRpbmcgaW4gYSB3aG9sZSBudW1iZXIgd2lsbCBhbHdheXMgeWllbGQgYSBmbG9hdGluZy1wb2ludCBudW1iZXI6CgpgYGB7cHl0aG9ufQozIC8gMgpgYGAKClRvIGdldCBDLXN0eWxlIGludGVnZXIgZGl2aXNpb24gKHdoaWNoIGRyb3BzIHRoZSBmcmFjdGlvbmFsIHBhcnQgaWYgdGhlIHJlc3VsdCBpcyBub3QgYSB3aG9sZSBudW1iZXIpLCB1c2UgdGhlIGZsb29yIGRpdmlzaW9uIG9wZXJhdG9yIGAvL2A6CgpgYGB7cHl0aG9ufQozIC8vIDIKYGBgCgojIyMjIFN0cmluZ3MKCllvdSBjYW4gd3JpdGUgKnN0cmluZyBsaXRlcmFscyogdXNpbmcgZWl0aGVyIHNpbmdsZSBxdW90ZXMgb2YgZG91YmxlIHF1b3RlczoKCmBgYHtweXRob259CmEgPSAnb25lIHdheSBvZiB3cml0aW5nIGEgc3RyaW5nJwpiID0gImFub3RoZXIgd2F5IgpgYGAKCkZvciBtdWx0aWxpbmUgc3RyaW5ncyB3aXRoIGxpbmUgYnJlYWtzLCB5b3UgY2FuIHVzZSB0cmlwbGUgcXVvdGVzLCBlaXRoZXIgYCcnJ2Agb3IgYCIiImA6CgpgYGB7cHl0aG9ufQpjID0gJycnClRoaXMgaXMgYSBsb25nZXIgc3RyaW5nIHRoYXQKc3BhbnMgbXVsdGlwbGUgbGluZXMKJycnCmBgYAoKV2UgY2FuIGNvdW50IHRoZSBuZXcgbGluZSBjaGFyYWN0ZXJzIHdpdGggdGhlIGBjb3VudGAgbWV0aG9kIG9uIGBjYDoKCmBgYHtweXRob259CmMuY291bnQoIlxuIikKYGBgCgpQeXRob24gc3RyaW5ncyBhcmUgaW1tdXRhYmxlOyB5b3UgY2Fubm90IG1vZGlmeSBhIHN0cmluZzoKCmBgYHtweXRob259CmEgPSAidGhpcyBpcyBhIHN0cmluZyIKYVsxMF0gPSAiZiIKYGBgCgpNYW55IFB5dGhvbiBvYmplY3RzIGNhbiBiZSBjb252ZXJ0ZWQgdG8gYSBzdHJpbmcgdXNpbmcgdGhlIGBzdHJgIGZ1bmN0aW9uOgoKYGBge3B5dGhvbn0KYSA9IDUuNgoKcyA9IHN0cihhKQoKcHJpbnQocykKYGBgCgpTdHJpbmdzIGFyZSBhIHNlcXVlbmNlIG9mIFVuaWNvZGUgY2hhcmFjdGVycyBhbmQgdGhlcmVmb3JlIGNhbiBiZSB0cmVhdGVkIGxpa2Ugb3RoZXIgc2VxdWVuY2VzLCBzdWNoIGFzIGxpc3RzIGFuZCB0dXBsZXMuCgpgYGB7cHl0aG9ufQpzID0gInB5dGhvbiIKCmxpc3QocykKYGBgCgpUaGUgc3ludGF4IGBzWzozXWAgaXMgY2FsbGVkICpzbGljaW5nKiBhbmQgaXMgaW1wbGVtZW50ZWQgZm9yIG1hbnkga2luZHMgb2YgUHl0aG9uIHNlcXVlbmNlcy4gVGhlIGJhY2tzbGFzaCBjaGFyYWN0ZXIgYFxgIGlzIGFuICplc2NhcGUgY2hhcmFjdGVyKiwgbWVhbmluZyB0aGF0IGl0IGlzIHVzZWQgdG8gc3BlY2lmeSBzcGVjaWFsIGNoYXJhY3RlcnMgbGlrZSBuZXdsaW5lIGBcbmAgb3IgVW5pY29kZSBjaGFyYWN0ZXJzLiBUbyB3cml0ZSBhIHN0cmluZyBsaXRlcmFsIHdpdGggYmFja3NsYXNoZXMsIHlvdSBuZWVkIHRvIGVzY2FwZSB0aGVtOgoKYGBge3B5dGhvbn0KcyA9ICIxMlxcMzQiCnByaW50KHMpCmBgYAoKSWYgeW91IGhhdmUgYSBsb3Qgb2YgYmFja3NsYXNoZXMgYW5kIG5vIHNwZWNpYWwgY2hhcmFjdGVycywgeW91IGNhbiBwcmVmYWNlIHRoZSBsZWFkaW5nIHF1b3RlIG9mIHRoZSBzdHJpbmcgd2l0aCBgcmAsIHdoaWNoIG1lYW5zIHRoYXQgdGhlIGNoYXJhY3RlcnMgc2hvdWxkIGJlIGludGVycHJldGVkIGFzIGlzOgoKYGBge3B5dGhvbn0KcyA9IHIidGhpc1xoYXNcbm9cc3BlY2lhbFxjaGFyYWN0ZXJzIgpzCmBgYAoKVGhlIGByYCBzdGFuZHMgZm9yICpyYXcqLgoKQWRkaW5nIHR3byBzdHJpbmdzIHRvZ2V0aGVyIGNvbmNhdGVuYXRlcyB0aGVtIGFuZCBwcm9kdWNlcyBhIG5ldyBzdHJpbmc6CgpgYGB7cHl0aG9ufQphID0gInRoaXMgaXMgdGhlIGZpcnN0IGhhbGYgIgoKYiA9ICJhbmQgdGhpcyBpcyB0aGUgc2Vjb25kIGhhbGYiCgphICsgYgpgYGAKClN0cmluZyB0ZW1wbGF0aW5nIG9yIGZvcm1hdHRpbmcgaXMgYW5vdGhlciBpbXBvcnRhbnQgdG9waWMuIFRoZSBudW1iZXIgb2Ygd2F5cyB0byBkbyBzbyBoYXMgZXhwYW5kZWQgd2l0aCB0aGUgYWR2ZW50IG9mIFB5dGhvbiAzIGFuZCBoZXJlIGlzIHRoZSBtZWNoYW5pY3Mgb2Ygb25lIG9mIHRoZSBtYWluIGludGVyZmFjZXMuIFN0cmluZyBvYmplY3RzIGhhdmUgYSBgZm9ybWF0YCBtZXRob2QgdGhhdCBjYW4gYmUgdXNlZCB0byBzdWJzdGl0dXRlIGZvcm1hdHRlZCBhcmd1bWVudHMgaW50byB0aGUgc3RyaW5nLCBwcm9kdWNpbmcgYSBuZXcgc3RyaW5nOgoKYGBge3B5dGhvbn0KdGVtcGxhdGUgPSAiezA6LjJmfSB7MTpzfSBhcmUgd29ydGggVVMkezI6ZH0iCmBgYAoKSW4gdGhpcyBzdHJpbmcsCgotICAgYHswOi4yZn1gIG1lYW5zIHRvIGZvcm1hdCB0aGUgZmlyc3QgYXJndW1lbnQgYXMgYSBmbG9hdGluZy1wb2ludCBudW1iZXIgd2l0aCB0d28gZGVjaW1hbCBwbGFjZXMKCi0gICBgezE6c31gIG1lYW5zIHRvIGZvcm1hdCB0aGUgc2Vjb25kIGFyZ3VtZW50IGFzIGEgc3RyaW5nCgotICAgYHsyOmR9YCBtZWFucyB0byBmb3JtYXQgdGhlIHRoaXJkIGFyZ3VtZW50IGFzIGFuIGV4YWN0IGludGVnZXIKClRvIHN1YnN0aXR1dGUgYXJndW1lbnRzIGZvciB0aGVzZSBmb3JtYXQgcGFyYW1ldGVycywgd2UgcGFzcyBhIHNlcXVlbmNlIG9mIGFyZ3VtZW50cyB0b3QgaGUgYGZvcm1hdGAgbWV0aG9kOgoKYGBge3B5dGhvbn0KdGVtcGxhdGUuZm9ybWF0KDQuNTU2MCwgIkFyZ2VudGluZSBQZXNvcyIsIDEpCmBgYAoKIyMjIyBCeXRlcyBhbmQgVW5pY29kZQoKVW5pY29kZSBoYXMgYmVjb21lIHRoZSBmaXJzdC1jbGFzcyBzdHJpbmcgdHlwZSB0byBlbmFibGUgbW9yZSBjb25zaXN0ZW50IGhhbmRsaW5nIG9mIEFTQ0lJIGFuZCBub24tQVNDSUkgdGV4dC4KCmBgYHtweXRob259CnZhbCA9ICJlc3Bhw7FvbCIKdmFsCmBgYAoKV2UgY2FuIGNvbnZlcnQgdGhpcyBVbmljb2RlIHN0cmluZyB0byBpdHMgVVRGLTggYnl0ZXMgcmVwcmVzZW50YXRpb24gdXNpbmcgdGhlIGBlbmNvZGVgIG1ldGhvZDoKCmBgYHtweXRob259CnZhbF91dGY4ID0gdmFsLmVuY29kZSgidXRmLTgiKQp2YWxfdXRmOAoKdHlwZSh2YWxfdXRmOCkKYGBgCgpBc3N1bWluZyB5b3Uga25vdyB0aGUgVW5pY29kZSBlbmNvZGluZyBvZiBhIGBieXRlc2Agb2JqZWN0LCB5b3UgY2FuIGdvIGJhY2sgdXNpbmcgdGhlIGBkZWNvZGVgIG1ldGhvZDoKCmBgYHtweXRob259CnZhbF91dGY4LmRlY29kZSgidXRmLTgiKQpgYGAKCiMjIyMgQm9vbGVhbnMKClRoZSB0d28gYm9vbGVhbiB2YWx1ZXMgaW4gUHl0aG9uIGFyZSB3cml0dGVuIGFzIGBUcnVlYCBhbmQgYEZhbHNlYC4gQ29tcGFyaXNvbnMgYW5kIG90aGVyIGNvbmRpdGlvbmFsIGV4cHJlc3Npb25zIGV2YWx1YXRlIHRvIGVpdGhlciBgVHJ1ZWAgb3IgYEZhbHNlYC4gQm9vbGVhbiB2YWx1ZXMgYXJlIGNvbWJpbmVkIHdpdGggdGhlIGBhbmRgIGFuZCBgb3JgIGtleXdvcmRzOgoKYGBge3B5dGhvbn0KVHJ1ZSBhbmQgVHJ1ZQoKRmFsc2Ugb3IgVHJ1ZQpgYGAKCiMjIyMgVHlwZSBjYXN0aW5nCgpUaGUgYHN0cmAsIGBib29sYCwgYGludGAsIGFuZCBgZmxvYXRgIHR5cGVzIGFyZSBhbHNvIGZ1bmN0aW9ucyB0aGF0IGNhbiBiZSB1c2VkIHRvIGNhc3QgdmFsdWVzIHRvIHRob3NlIHR5cGVzOgoKYGBge3B5dGhvbn0KcyA9ICIzLjE0MTU5IgoKZnZhbCA9IGZsb2F0KHMpCgp0eXBlKGZ2YWwpCgppbnQoZnZhbCkKCmJvb2woZnZhbCkKCmJvb2woMCkKYGBgCgojIyMjIE5vbmUKCmBOb25lYCBpcyB0aGUgUHl0aG9uIG51bGwgdmFsdWUgdHlwZS4gSWYgYSBmdW5jdGlvbiBkb2VzIG5vdCBleHBsaWNpdGx5IHJldHVybiBhIHZhbHVlLCBpdCBpbXBsaWNpdGx5IHJldHVybnMgYE5vbmVgOgoKYGBge3B5dGhvbn0KYSA9IE5vbmUKCmEgaXMgTm9uZQoKYiA9IDUKCmIgaXMgTm9uZQpgYGAKCmBOb25lYCBpcyBhbHNvIGEgY29tbW9uIGRlZmF1bHQgdmFsdWUgZm9yIGZ1bmN0aW9uIGFyZ3VtZW50czoKCmBgYHtweXRob259CmRlZiBhZGRfYW5kX21heWJlX211bHRpcGx5KGEsIGIsIGMgPSBOb25lKToKICAgIHJlc3VsdCA9IGEgKyBiCiAgICAKICAgIGlmIGMgaXMgbm90IE5vbmU6CiAgICAgICAgcmVzdWx0ID0gcmVzdWx0ICogYwogICAgCiAgICByZXR1cm4gcmVzdWx0CmBgYAoKIyMjIyBEYXRlcyBhbmQgdGltZXMKClRoZSBidWlsdC1pbiBQeXRob24gYGRhdGV0aW1lYCBtb2R1bGUgcHJvdmlkZXMgYGRhdGV0aW1lYCwgYGRhdGVgLCBhbmQgYHRpbWVgIHR5cGVzLiBUaGUgYGRhdGV0aW1lYCB0eXBlLCBhcyB5b3UgbWlnaHQgaW1hZ2luZSwgY29tYmluZXMgdGhlIGluZm9ybWF0aW9uIHN0b3JlZCBpbiBgZGF0ZWAgYW5kIGB0aW1lYCBhbmQgaXMgdGhlIG1vc3QgY29tbW9ubHkgdXNlZDoKCmBgYHtweXRob259CmZyb20gZGF0ZXRpbWUgaW1wb3J0IGRhdGV0aW1lLCBkYXRlLCB0aW1lCgpkdCA9IGRhdGV0aW1lKDIwMTEsIDEwLCAyOSwgMjAsIDMwLCAyMSkKCmR0LmRheQoKZHQubWludXRlCmBgYAoKR2l2ZW4gYSBgZGF0ZXRpbWVgIGluc3RhbmNlLCB5b3UgY2FuIGV4dHJhY3QgdGhlIGVxdWl2YWxlbnQgYGRhdGVgIGFuZCBgdGltZWAgb2JqZWN0cyBieSBjYWxsaW5nIG1ldGhvZHMgb24gdGhlIGBkYXRldGltZWAgb2YgdGhlIHNhbWUgbmFtZToKCmBgYHtweXRob259CmR0LmRhdGUoKQoKZHQudGltZSgpCmBgYAoKVGhlIGBzdHJmdGltZWAgbWV0aG9kIGZvcm1hdHMgYSBgZGF0ZXRpbWVgIGFzIGEgc3RyaW5nOgoKYGBge3B5dGhvbn0KZHQuc3RyZnRpbWUoIiVtLyVkLyVZICVIOiVNIikKYGBgCgpTdHJpbmdzIGNhbiBiZSBjb252ZXJ0ZWQgaW50byBgZGF0ZXRpbWVgIG9iamVjdHMgd2l0aCB0aGUgYHN0cnB0aW1lYCBmdW5jdGlvbjoKCmBgYHtweXRob259CmRhdGV0aW1lLnN0cnB0aW1lKCIyMDA5MTAzMSIsICIlWSVtJWQiKQpgYGAKCldoZW4geW91IGFyZSBncm91cGluZyBvciBhZ2dyZWdhdGluZyB0aW1lIHNlcmllcyBkYXRhLCBpdCB3aWxsIG9jY2FzaW9uYWxseSBiZSB1c2VmdWwgdG8gcmVwbGFjZSB0aW1lIGZpZWxkcyBvZiBhIHNlcmllcyBvZiBgZGF0ZXRpbWVzYC4gRm9yIGV4YW1wbGUsIHJlcGxhY2luZyB0aGUgbWludXRlIGFuZCBzZWNvbmQgZmllbGRzIHdpdGggemVybzoKCmBgYHtweXRob259CmR0LnJlcGxhY2UobWludXRlID0gMCwgc2Vjb25kID0gMCkKYGBgCgpTaW5jZSBgZGF0ZXRpbWUuZGF0ZXRpbWVgIGlzIGFuIGltbXV0YWJsZSB0eXBlLCBtZXRob2RzIGxpa2UgdGhlc2Ugd2lsbCBhbHdheXMgcHJvZHVjZSBuZXcgb2JqZWN0cy4gVGhlIGRpZmZlcmVuY2Ugb2YgdHdvIGBkYXRldGltZWAgb2JqZWN0cyBwcm9kdWNlcyBhIGBkYXRldGltZS50aW1lZGVsdGFgIHR5cGU6CgpgYGB7cHl0aG9ufQpkdDIgPSBkYXRldGltZSgyMDExLCAxMSwgMTUsIDIyLCAzMCkKCmRlbHRhID0gZHQyIC0gZHQKCmRlbHRhCgp0eXBlKGRlbHRhKQpgYGAKCkFkZGluZyBhIGB0aW1lZGVsdGFgIHRvIGEgYGRhdGV0aW1lYCBwcm9kdWNlcyBhIG5ldyBzaGlmdGVkIGBkYXRldGltZWA6CgpgYGB7cHl0aG9ufQpkdAoKZHQgKyBkZWx0YQpgYGAKCiMjIyBDb250cm9sIEZsb3cKClB5dGhvbiBoYXMgc2V2ZXJhbCBidWlsdC1pbiBrZXl3b3JkcyBmb3IgY29uZGl0aW9uYWwgbG9naWMsIGxvb3BzLCBhbmQgb3RoZXIgc3RhbmRhcmQgKmNvbnRyb2wgZmxvdyogY29uY2VwdHMgZm91bmQgaW4gb3RoZXIgcHJvZ3JhbW1pbmcgbGFuZ3VhZ2VzLgoKIyMjIyBpZiwgZWxpZiwgYW5kIGVsc2UKClRoZSBgaWZgIHN0YXRlbWVudCBpcyBvbmUgb2YgdGhlIG1vc3Qgd2VsbC1rbm93biBjb250cm9sIGZsb3cgc3RhdGVtZW50IHR5cGVzLiBJdCBjaGVja3MgYSBjb25kaXRpb24gdGhhdCBpZiBgVHJ1ZWAsIGV2YWx1YXRlcyB0aGUgY29kZSBpbiB0aGUgYmxvY2sgdGhhdCBmb2xsb3dzOgoKYGBge3B5dGhvbn0KaWYgeCA8IDA6CiAgICBwcmludCgiaXQncyBuZWdhdGl2ZSIpCgpgYGAKCkFuIGBpZmAgc3RhdGVtZW50IGNhbiBiZSBvcHRpb25hbGx5IGZvbGxvd2VkIGJ5IG9uZSBvZiBtb3JlIGBlbGlmYCBibG9ja3MgYW5kIGEgY2F0Y2gtYWxsIGBlbHNlYCBibG9jayBpZiBhbGwgb2YgdGhlIGNvbmRpdGlvbnMgYXJlIGBGYWxzZWA6CgpgYGB7cHl0aG9ufQppZiB4IDwgMDoKICAgIHByaW50KCJpdCdzIG5lZ2F0aXZlIikKZWxpZiB4ID09IDA6CiAgICBwcmludCgiZXF1YWwgdG8gemVybyIpCmVsaWYgMCA8IHggPCA1OgogICAgcHJpbnQoInBvc2l0aXZlIGJ1dCBzbWFsbGVyIHRoYW4gNSIpCmVsc2U6CiAgICBwcmludCgicG9zaXRpdmUgYW5kIGxhcmdlciB0aGFuIG9yIGVxdWFsIHRvIDUiKQoKYGBgCgpJZiBhbnkgb2YgdGhlIGNvbmRpdGlvbnMgYXJlIGBUcnVlYCwgbm8gZnVydGhlciBgZWxpZmAgb3IgYGVsc2VgIGJsb2NrcyB3aWxsIGJlIHJlYWNoZWQuCgpgYGB7cHl0aG9ufQphID0gNTsgYiA9IDcKCmMgPSA4OyBkID0gNAoKaWYgYSA8IGIgb3IgYyA+IGQ6CiAgICBwcmludCgibWFkZSBpdCIpCmBgYAoKIyMjIyBmb3IgbG9vcHMKCmBmb3JgIGxvb3BzIGFyZSBmb3IgaXRlcmF0aW5nIG92ZXIgYSBjb2xsZWN0aW9uIG9yIGFuIGl0ZXJhdG9yLiBUaGUgc3RhbmRhcmQgc3ludGF4IGZvciBhIGBmb3JgIGxvb3AgaXM6CgpgYGB7cHl0aG9ufQpmb3IgdmFsdWUgaW4gY29sbGVjdGlvbjoKICAgICMgZG8gc29tZXRoaW5nIHdpdGggdmFsdWUKYGBgCgpZb3UgY2FuIGFkdmFuY2UgYSBgZm9yYCBsb29wIHRvIHRoZSBuZXh0IGl0ZXJhdGlvbiwgc2tpcHBpbmcgdGhlIHJlbWFpbmRlciBvZiB0aGUgYmxvY2ssIHVzaW5nIHRoZSBgY29udGludWVgIGtleXdvcmQuIENvbnNpZGVyIHRoaXMgY29kZSwgd2hpY2ggc3VtcyB1cCBpbnRlZ2VycyBpbiBhIGxpc3QgYW5kIHNraXBzIGBOb25lYCB2YWx1ZXM6CgpgYGB7cHl0aG9ufQpzZXF1ZW5jZSA9IFsxLCAyLCBOb25lLCA0LCBOb25lLCA1XQp0b3RhbCA9IDAKCmZvciB2YWx1ZSBpbiBzZXF1ZW5jZToKICAgIGlmIHZhbHVlIGlzIE5vbmU6CiAgICAgICAgY29udGludWUKICAgIHRvdGFsICs9IHZhbHVlCgpgYGAKCkEgYGZvcmAgbG9vcCBjYW4gYmUgZXhpdGVkIHdpdGggdGhlIGBicmVha2Aga2V5d29yZC4gVGhpcyBjb2RlIHN1bXMgZWxlbWVudHMgb2YgdGhlIGxpc3QgdW50aWwgYSA1IGlzIHJlYWNoZWQ6CgpgYGB7cHl0aG9ufQpzZXF1ZW5jZSA9IFsxLCAyLCAwLCA0LCA2LCA1LCAyLCAxXQp0b3RhbF91bnRpbF81ID0gMAoKZm9yIHZhbHVlIGluIHNlcXVlbmNlOgogICAgaWYgdmFsdWUgPT0gNToKICAgICAgICBicmVhawogICAgdG90YWxfdW50aWxfNSArPSB2YWx1ZQoKYGBgCgojIyMjIHdoaWxlIGxvb3BzCgpBIGB3aGlsZWAgbG9wIHNwZWNpZmllcyBhIGNvbmRpdGlvbiBhbmQgYSBibG9jayBvZiBjb2RlIHRoYXQgaXMgdG8gYmUgZXhlY3V0ZWQgdW50aWwgdGhlIGNvbmRpdGlvbiBldmFsdWF0ZXMgdG8gYEZhbHNlYCBvciB0aGUgbG9vcCBpcyBleHBsaWNpdGx5IGVuZGVkIHdpdGggYGJyZWFrYDoKCmBgYHtweXRob259CnggPSAyNTYKdG90YWwgPSAwCndoaWxlIHggPiAwOgogICAgaWYgdG90YWwgPiA1MDA6CiAgICAgICAgYnJlYWsKICAgIHRvdGFsICs9IHgKICAgIHggPSB4IC8vIDIKCmBgYAoKIyMjIyBwYXNzCgpcYHBhc3MxIGlzIHRoZSAibm8tb3AiIHN0YXRlbWVudCBpbiBQeXRob24uIEl0IGNhbiBiZSB1c2VkIGluIGJsb2NrcyB3aGVyZSBubyBhY3Rpb24gaXMgdG8gYmUgdGFrZW47IGl0IGlzIG9ubHkgcmVxdWlyZWQgYmVjYXVzZSBQeXRob24gdXNlcyB3aGl0ZXNwYWNlIHRvIGRlbGltaXQgYmxvY2tzOgoKYGBge3B5dGhvbn0KaWYgeCA8IDA6CiAgICBwcmludCgibmVnYXRpdmUhIikKZWxpZiB4ID09IDA6CiAgICAjIFRPRE86IHB1dCBzb21ldGhpbmcgc21hcnQgaGVyZQogICAgcGFzcwplbHNlOgogICAgcHJpbnQoInBvc2l0aXZlISIpCgpgYGAKCiMjIyMgcmFuZ2UKClRoZSBgcmFuZ2VgIGZ1bmN0aW9uIHJldHVybnMgYW4gaXRlcmF0b3IgdGhhdCB5aWVsZHMgYSBzZXF1ZW5jZSBvZiBldmVubHkgc3BhY2VkIGludGVnZXJzOgoKYGBge3B5dGhvbn0KcmFuZ2UoMTApCgpsaXN0KHJhbmdlKDEwKSkKYGBgCgpCb3RoIGEgc3RhcnQsIGVuZCwgYW5kIHN0ZXAgY2FuIGJlIGdpdmVuOgoKYGBge3B5dGhvbn0KbGlzdChyYW5nZSgwLCAyMCwgMikpCmBgYAoKQSBjb21tb24gdXNlIGZvciByYW5nZSBpcyBpdGVyYXRpbmcgdGhyb3VnaCBhIHNlcXVlbmNlIGJ5IGluZGV4OgoKYGBge3B5dGhvbn0Kc2VxID0gWzEsIDIsIDMsIDRdCmZvciBpIGluIHJhbmdlKGxlbihzZXEpKToKICAgIHZhbCA9IHNlcVtpXQoKYGBgCgojIyMjIFRlcm5hcnkgZXhwcmVzc2lvbnMKCkEgKnRlcm5hcnkgZXhwcmVzc2lvbiogaW4gUHl0aG9uIGFsbG93cyB5b3UgdG8gY29tYmluZSBhbiBgaWYtZWxzZWAgYmxvY2sgdGhhdCBwcm9kdWNlcyBhIHZhbHVlIGludG8gYSBzaW5nbGUgbGluZSBvciBleHByZXNzaW9uLgoKYHZhbHVlID0gdHJ1ZS1leHByIGlmIGNvbmRpdGlvbiBlbHNlIGZhbHNlLWV4cHJgCgpIZXJlIGlzIGFuIGV4YW1wbGU6CgpgYGB7cHl0aG9ufQp4ID0gNQoKIk5vbi1uZWdhdGl2ZSIgaWYgeCA+PSAwIGVsc2UgIk5lZ2F0aXZlIgpgYGAK</div>
 
 
 
