@@ -1,0 +1,27 @@
+---
+title: "Chapter 5: Getting Started with pandas"
+output: html_notebook
+---
+
+pandas is specifically designed for working with tabular data.
+
+## Introduction to pandas Data Structures
+
+### Series
+
+A Series is a one-dimensional array-like object containing a sequence of values and an associated array of data labels, called its *index*.
+
+```{python}
+import pandas as pd
+
+obj = pd.Series([4, 7, -5, 3])
+obj
+```
+
+You can get the array representation and index object of the Series via its values and index attributes, respectively:
+
+```{python}
+obj.values
+
+obj.index # like range(4)
+```
