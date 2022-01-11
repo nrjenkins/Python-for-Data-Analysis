@@ -1,0 +1,491 @@
+---
+title: "Chapter 6: Data Loading, Storage, and File Formats"
+output: html_notebook
+---
+
+## Setup `reticulate`
+
+```{r}
+library(reticulate)
+```
+
+## Reading and Writing Data in Text Format
+
+pandas offers a number of functions for reading tabular data. `read_csv` may be the most common. All of the read functions have the following categories of optional arguments:
+
+-   Indexing
+
+-   Type inference and data conversion
+
+-   Datetime parsing
+
+-   Iterating
+
+-   Unclean data issues
+
+```{python}
+import pandas as pd
+
+df = pd.read_csv("examples/ex1.csv")
+df
+```
+
+To read files without header rows, you can allow pandas to assign default column names, or specify the names yourself:
+
+```{python}
+pd.read_csv("examples/ex2.csv", header = None)
+
+pd.read_csv("examples/ex2.csv", names = ["a", "b", "c", "d", "message"])
+```
+
+If you wanted the `message` column to be the index of the DataFrame, you can either indicate that you want the column at index 4 or named `message` using the `index_col` argument:
+
+```{python}
+names = ["a", "b", "c", "d", "message"]
+
+pd.read_csv("examples/ex2.csv", names = names, index_col = "message")
+```
+
+You can also form a hierarchical index from multiple columns:
+
+```{python}
+parsed = pd.read_csv("examples/csv_mindex.csv", index_col = ["key1", "key2"])
+parsed
+```
+
+Not all files have a fixed delimiter, using whitespace or some other pattern to separate fields.
+
+```{python}
+list(open("examples/ex3.csv"))
+```
+
+You can pass a regular expression as a delimiter for `read_csv`:
+
+```{python}
+result = pd.read_csv("examples/ex3.txt", sep = "\s+")
+result
+```
+
+You can also skip the first, third, and fourth rows of a file with `skiprows`:
+
+```{python}
+pd.read_csv("examples/ex4.csv", skiprows = [0, 2, 3])
+```
+
+Missing values are also handled by `read_csv`. By default, pandas uses a set of commonly occurring sentinels, such as `NA` and `NULL`:
+
+```{python}
+result = pd.read_csv("examples/ex5.csv")
+result
+
+pd.isnull(result)
+```
+
+Missing values are handled by the `na_values` option.
+
+```{python}
+result = pd.read_csv("examples/ex5.csv", na_values = ["NULL"])
+result
+```
+
+You can specify different `NA` sentinels for each column in a dict:
+
+```{python}
+sentinels = {"message": ["foo", "NA"], "something": ["two"]}
+pd.read_csv("examples/ex5.csv", na_values = sentinels)
+```
+
+### Reading Text Files in Pieces
+
+When working with very large files, you may only want to read in a small piece of a file or iterate through smaller chunks of the file.
+
+```{python}
+# limits pandas's display settings
+pd.options.display.max_rows = 10
+
+result = pd.read_csv("examples/ex6.csv")
+result
+```
+
+If you only wanted to read a small number of rows, specify that with `nrows`:
+
+```{python}
+pd.read_csv("examples/ex6.csv", nrows = 5)
+```
+
+To read in a file in pieces, specify a `chunksize` as a number of rows:
+
+```{python}
+chunker = pd.read_csv("examples/ex6.csv", chunksize = 1000)
+chunker
+```
+
+The `TextFileReader` object returned by `read_csv` allows you to iterate over the parts of the file according to the `chunksize`. For example, we can iterate over ex6.csv, aggregating the value counts in the `key` column like so:
+
+```{python}
+tot = pd.Series([])
+for piece in chunker:
+    tot = tot.add(piece["key"].value_counts(), fill_value = 0)
+    
+tot = tot.sort_values(ascending = False)
+tot[:10]
+```
+
+### Writing Data to Text Format
+
+Data can be exported to a delimited format with the `to_csv` method:
+
+```{python}
+data = pd.read_csv("examples/ex5.csv")
+
+data.to_csv("examples/out.csv")
+```
+
+You can use delimiters other than a comma. For example:
+
+```{python}
+import sys
+
+data.to_csv(sys.stdout, sep = "|")
+```
+
+You can deal with missing values by assigning them a sentinel value:
+
+```{python}
+data.to_csv(sys.stdout, na_rep = "NULL")
+```
+
+You can prevent the writing of the row and column labels like this:
+
+```{python}
+data.to_csv(sys.stdout, index = False, header = False)
+```
+
+You can also write a subset of the columns in any order you want:
+
+```{python}
+data.to_csv(sys.stdout, index = False, columns = ["a", "b", "c"])
+```
+
+Series also has a `to_csv` method.
+
+### Working with Delimited Formats
+
+If files aren't formatted correctly, we might need to use Python's `csv` module. To use it, pass any open file of file-like object to `csv.reader`:
+
+```{python}
+import csv
+f = open("examples/ex7.csv")
+
+reader = csv.reader(f)
+reader
+```
+
+Iterating through the reader like a file yields tuples of values with any quote characters removed:
+
+```{python}
+for line in reader:
+    print(line)
+
+```
+
+From there, it's up to you to do the wrangling necessary to out the data in the form that you need it. Let's take this step by step. First, we read the file into a list of lines:
+
+```{python}
+with open("examples/ex7.csv") as f:
+    lines = list(csv.reader(f))
+
+
+```
+
+Then, we split the lines into the header line and the data lines:
+
+```{python}
+header, values = lines[0], lines[1:]
+```
+
+Then we can create a dictionary of data columns using a dictionary comprehension and the expression `zip(*values)`, which transposes rows to columns;
+
+```{python}
+data_dict = {h: v for h, v in zip(header, zip(*values))}
+data_dict
+```
+
+To import a CSV file with a custom delimiter, we define a subclass of `csv.Dialect`:
+
+```{python}
+class my_dialect(csv.Dialect):
+    lineterminator = "\n"
+    delimiter = ";"
+    quotechar = '"'
+    quoting = csv.QUOTE_MINIMAL
+    
+reader = csv.reader(f, dialect = my_dialect)
+```
+
+We can also give individual CSV dialect parameters as keywords to `csv.reader` without having to define a subclass:
+
+```{python}
+reader = csv.reader(f, delimiter = "|")
+```
+
+To *write* delimited files manually, you can use `csv.writer`.
+
+```{python}
+with open("mydata.csv", "w") as f:
+    writer = csv.writer(f, dialect = my_dialect)
+    writer.writerow(("one", "two", "three"))
+    writer.writerow(("1", "2", "3"))
+    
+```
+
+### JSON Data
+
+JSON is very nearly valid Python code:
+
+```{python}
+obj = """
+{"name": "Wes",
+ "places_lived": ["United States", "Spain", "Germany"],
+ "pet": null,
+ "siblings": [{"name": "Scott", "age": 30, "pets": ["Zeus", "Zuko"]},
+              {"name": "Katie", "age": 38,
+               "pets": ["Sixes", "Stache", "Cisco"]}]
+}
+"""
+```
+
+There are several libraries for reading JSON data. Here we use `json`. To convert a JSON string to Python form, use `json.loads`:
+
+```{python}
+import json
+
+result = json.loads(obj)
+result
+```
+
+`json.dumps` converts a Python object back to JSON.
+
+You can pass a list of dicts to the DataFrame constructor and select a subset of the data fields:
+
+```{python}
+siblings = pd.DataFrame(result["siblings"], columns = ["name", "age"])
+siblings
+```
+
+The `pandas.read_json` can automatically convert JSON datasets in specific arrangements into a Series of DataFrame.
+
+```{python}
+data = pd.read_json("examples/example.json")
+data
+```
+
+You can export from pandas to JSON with the `to_json` method.
+
+### XML and HTML: Web Scraping
+
+pandas has a built-in function, `read_html`, which uses libraries to automatically parse tables out of HTML files as DataFrame objects. We'll see an example of this, but first we need to install the libraries used by `read_html`.
+
+`read_html` automatically searchers for all tabular data contained within `<table>` tags.
+
+```{python}
+tables = pd.read_html("examples/fdic_failed_bank_list.html")
+len(tables)
+
+failures = tables[0]
+failures.head()
+```
+
+#### Parsing XML with lxml.objectify
+
+Using `lxml.objectify`, we parse the file and get a reference to the root node of the XML file with `getroot`:
+
+```{python}
+from lxml import objectify
+
+path = "datasets/mta_perf/Performance_MNR.xml"
+parsed = objectify.parse(open(path))
+root = parsed.getroot()
+```
+
+`root.INDICATOR` returns a generator yielding each `<INDICATOR>` XML element. For each record, we can populate a dict of tag names like `YTD_ACTUAL` to data values:
+
+```{python}
+data = []
+
+skip_fields = ["PARENT_SEQ", "INDICATOR_SEQ", "DESIRED_CHANGE", "DECIMAL_PLACES"]
+
+for elt in root.INDICATOR:
+    el_data = {}
+    for child in elt.getchildren():
+        if child.tag in skip_fields:
+            continue
+        el_data[child.tag] = child.pyval
+    data.append(el_data)
+    
+
+```
+
+Now we convert this to a DataFrame:
+
+```{python}
+perf = pd.DataFrame(data)
+
+perf.head()
+```
+
+## Binary Data Formats
+
+Storing data in a binary format can be done with Pythons built-in `pickle` serialization.
+
+```{python}
+frame = pd.read_csv("examples/ex1.csv")
+frame
+
+frame.to_pickle("examples/frame_pickle")
+```
+
+You can read any "pickled" object with `pandas.read_pickle`:
+
+```{python}
+pd.read_pickle("examples/frame_pickle")
+```
+
+### Using HDF5 Format
+
+HDF stands for hierarchical data format. The `HDFStore` class works like a dict and handles the low-level details:
+
+```{python}
+import numpy as np
+
+frame = pd.DataFrame({"a" : np.random.randn(100)})
+
+store = pd.HDFStore("mydata.h5")
+
+store["obj1"] = frame
+
+store["obj1_col"] = frame["a"]
+
+store
+```
+
+Objects stored in the HPDF5 file can be retrieved with the same dict-like API:
+
+```{python}
+store["obj1"]
+```
+
+### Reading Microsoft Excel Files
+
+pandas supports reading Excel files using `ExcelFile` class of `pandas.read_excel`.
+
+```{python}
+xlsx = pd.ExcelFile("examples/ex1.xlsx")
+xlsx
+
+pd.read_excel(xlsx, "Sheet1")
+```
+
+You can also pass the filename to `pandas.read_excel`:
+
+```{python}
+frame = pd.read_excel("examples/ex1.xlsx", "Sheet1")
+frame
+```
+
+To write data to Excel format, you must create an `ExcelWriter`, then write data to it using pandas objects' `to_excel` method:
+
+```{python}
+writer = pd.ExcelWriter("examples/ex2.xlsx")
+
+frame.to_excel(writer, "Sheet1")
+
+writer.save()
+```
+
+You can also pass a file path `to_excel` and avoid the `ExcetWriter`:
+
+```{python}
+frame.to_excel("examples/ex2.xlsx")
+```
+
+## Interacting with Web APIs
+
+One of the easiest ways to access APIs from Python is with the `requests` package. TO find the last 30 GitHub issues for pandas on GitHub, we can make a `GET HTTP` request using the `requests` library:
+
+```{python}
+import requests
+
+url = "https://api.github.com/repos/pandas-dev/pandas/issues"
+
+resp = requests.get(url)
+resp
+```
+
+The Response object's `json` method will return a dictionary containing JSON parssed into native Python objects:
+
+```{python}
+data = resp.json()
+
+data[0]["title"]
+```
+
+Now we pass `data` directly to a DataFrame and extract fields of interest:
+
+```{python}
+issues = pd.DataFrame(data, columns = ["number", "title", "labels", "state"])
+issues
+```
+
+## Interacting with Databases
+
+Loading data from SQL into a DataFrame is straightforward with pandas. To show an example, we first need to create a SQLite database with Python's `sqlite3` driver:
+
+```{python}
+import sqlite3
+
+query = """
+CREATE TABLE test
+(a VARCHAR(20), b VARCHAR(20),
+c REAL, d INTEGER
+);
+"""
+
+con = sqlite3.connect("mydata.sqlite")
+
+con.execute(query)
+
+con.commit()
+```
+
+Then, insert a few rows of data:
+
+```{python}
+data = [("Atlanta", "Georgia", 1.25, 6),
+        ("Tallahassee", "Florida", 2.6, 3),
+        ("Sacramento", "California", 1.7, 5)]
+
+stmt = "INSERT INTO test VALUES(?, ?, ?, ?)"
+
+con.executemany(stmt, data)
+
+con.commit()
+```
+
+```{python}
+cursor = con.execute("select * from test")
+
+rows = cursor.fetchall()
+
+rows
+```
+
+pandas also has a `read_sql` function that enables you to read data from a general SQLAlchemy connection.
+
+```{python}
+import sqlalchemy as sqla
+
+db = sqla.create_engine("sqlite:///mydata.sqlite")
+
+pd.read_sql("select * from test", db)
+```

@@ -25,3 +25,668 @@ obj.values
 
 obj.index # like range(4)
 ```
+
+We might want to create a Series, matching each data point with a label:
+
+```{python}
+obj2 = pd.Series([4, 7, -5, 3], index = ["d", "b", "a", "c"])
+obj2
+```
+
+You can use the index to select single values:
+
+```{python}
+obj2["a"]
+```
+
+If you have data in a Python dict, you can create a Series from it by passing the dict:
+
+```{python}
+sdata = {"Ohio" : 35000, "Texas": 71000, "Oregon": 16000, "Utah": 5000}
+
+obj3 = pd.Series(sdata)
+obj3
+```
+
+When you are only passing a dict, the index in the Series will have the dict's keys in sorted order. You can override this by passing the dict keys in the order you want them to appear in the resulting Series:
+
+```{python}
+states = ["California", "Ohio", "Oregon", "Texas"]
+
+obj4 = pd.Series(sdata, index = states)
+obj4
+```
+
+The `isnull` and `notnull` functions in pandas should be used to detect missing data:
+
+```{python}
+pd.isnull(obj4)
+
+pd.notnull(obj4)
+```
+
+Both the Series object itself and its index have a `name` attribute, which integrates with other key areas of pandas functionality:
+
+```{python}
+obj4.name = "population"
+obj4.index.name = "state"
+obj4
+```
+
+### DataFrame
+
+The DataFrame is a collection of columns which can be different types. It has a row and column index and can be thought of as a dict of Series all sharing the same index. We can construct a DataFrame like this:
+
+```{python}
+data = {"state" : ["Ohio", "Ohio", "Ohio", "Nevada", "Nevada", "Nevada"],
+        "year" : [2000, 2001, 2002, 2001, 2002, 2003],
+        "pop" : [1.5, 1.7, 3.6, 2.4, 2.9, 3.2]}
+
+frame = pd.DataFrame(data)
+frame
+```
+
+The `head` method selects only the first 5 rows:
+
+```{python}
+frame.head()
+```
+
+If you specify a sequence of columns, the DataFrame's columns will be arranged in that order:
+
+```{python}
+pd.DataFrame(data, columns = ["year", "state", "pop"])
+```
+
+If you pass a column that isn't contained in the dict, it will appear with missing values in the result:
+
+```{python}
+frame2 = pd.DataFrame(data, columns = ["year", "state", "pop", "debt"],
+                      index = ["one", "two", "three", "four", "five", "six"])
+
+frame2
+```
+
+You can retrieve a column in a DataFrame as a Series with dict-like notation:
+
+```{python}
+frame["state"]
+```
+
+Rows can also be retrieved by position or name with the special `loc` attribute:
+
+```{python}
+frame2.loc["three"]
+```
+
+Columns can be modified by assignment:
+
+```{python}
+frame2["debt"] = 16.5
+frame2
+
+frame2["debt"] = np.arange(6.)
+frame2
+```
+
+All lists or arrays must have the same length of the DataFrame when making assignments.
+
+```{python}
+val = pd.Series([-1.2, -1.5, -1.7], index = ["two", "four", "five"])
+
+frame2["debt"] = val
+frame2
+```
+
+Assigning a column that doesn't exist will create a new column. The `del` keyword will delete columns as with a dict.
+
+```{python}
+frame2["eastern"] = frame2.state == "Ohio"
+frame2
+
+del frame2["eastern"]
+frame2.columns
+```
+
+You can also have a nested dict of dicts:
+
+```{python}
+pop = {"Nevada": {2001: 2.4, 2002: 2.9},
+       "Ohio": {2000: 1.5, 2001: 1.7, 2002: 3.6}}
+
+pop
+```
+
+If the nested dict is passed to a DataFrame, pandas will interpret the outer dict keys as the columns and the inner keys as the row indicies:
+
+```{python}
+frame3 = pd.DataFrame(pop)
+frame3
+```
+
+You can transpose a DataFrame with `T`:
+
+```{python}
+frame3.T
+```
+
+If a DataFrame's `index` and `columns` have their `name` attributes set, these will also be displayed:
+
+```{python}
+frame3.index.name = "year"; frame3.columns.name = "state"
+frame3
+```
+
+### Index Objects
+
+pandas's index objects hold the axis labels and other metadata. Any array of sequence of labels is converted to an Index:
+
+```{python}
+obj = pd.Series(range(3), index = ["a", "b", "c"])
+
+index = obj.index
+index
+
+index[1:]
+```
+
+You can share index objects among data structures:
+
+```{python}
+labels = pd.Index(np.arange(3))
+labels
+
+obj2 = pd.Series([1.5, -2.5, 0], index = labels)
+obj2
+```
+
+## Essential Functionality
+
+### Reindexing
+
+In pandas, `reindex` is an important method for creating a new object with the data *conformed* to a new index.
+
+```{python}
+obj = pd.Series([4.5, 7.2, -5.3, 3.6], index = ["d", "b", "a", "c"])
+obj
+```
+
+Calling `reindex` on this Series rearranges the data according to the new index, which can introduce missing values if index values are not already present:
+
+```{python}
+obj2 = obj.reindex(["a", "b", "c", "d", "e"])
+obj2
+```
+
+For ordered data like time series, it is helpful to do some interpolation of values when reindexing. We can do this with the `method` options.
+
+```{python}
+obj3 = pd.Series(["blue", "purple", "yellow"], index = [0, 2, 4])
+obj3
+
+obj3.reindex(range(6), method = "ffill")
+```
+
+We can `reindex` either by the (row) index, columns, or both.
+
+```{python}
+frame = pd.DataFrame(np.arange(9).reshape((3, 3)),
+                     index = ["a", "c", "d"],
+                     columns = ["Ohio", "Texas", "California"])
+
+frame
+
+frame2 = frame.reindex(["a", "b", "c", "d"])
+frame2
+```
+
+Columns can also be reindexed with the `columns` keyword.
+
+```{python}
+states = ["Texas", "Utah", "California"]
+
+frame.reindex(columns = states)
+```
+
+Reindexing can be done more succinctly by label-indexing with `loc`, and many users prefer to use it exclusively:
+
+```{python}
+frame2.loc[["a", "b", "c", "d"], states]
+```
+
+### Dropping Entries from an Axis
+
+The `drop` method will return a new object with the indicated value or values deleted from an axis:
+
+```{python}
+obj = pd.Series(np.arange(5.), index = ["a", "b", "c", "d", "e"])
+obj
+
+new_obj = obj.drop("c")
+new_obj
+
+obj.drop(["d", "c"])
+```
+
+With a DataFrame, index values can be deleted from either axis.
+
+```{python}
+data = pd.DataFrame(np.arange(16).reshape((4, 4)),
+                    index = ["Ohio", "Colorado", "Utah", "New York"],
+                    columns = ["one", "two", "three", "four"])
+
+data
+```
+
+Calling a `drop` with a sequence of labels will drop values from the row labels (axis 0):
+
+```{python}
+data.drop(["Colorado", "Ohio"])
+```
+
+You can drop values from the columns by passing `axis = 1` or `axis = "columns"`:
+
+```{python}
+data.drop("two", axis = 1)
+```
+
+`drop` can manipulate an object *in-place* without returning a new object:
+
+```{python}
+obj.drop("c", inplace = True)
+obj
+```
+
+### Indexing, Selection, and Filtering
+
+Series indexing works the same as NumPy but you can use the Series's index values instead of only integers.
+
+```{python}
+obj = pd.Series(np.arange(4.), index = ["a", "b", "c", "d"])
+obj
+
+obj["b"]
+
+obj[2:4]
+```
+
+#### Selection with loc and iloc
+
+`loc` and `iloc` enable you to select a subset of the rows and columns from a DataFrame with NumPy-like notation.
+
+```{python}
+data.loc["Colorado", ["two", "three"]]
+```
+
+We can perform some similar selections with integers using `iloc`
+
+```{python}
+data.iloc[2, [3, 0, 1]]
+
+data.iloc[2]
+```
+
+### Integer Indexes
+
+This code generates an error:
+
+```{python}
+ser = pd.Series(np.arange(3.))
+ser
+
+ser[-1]
+```
+
+If you have an axis index containing integers, data selection will always be label-oriented. For more precise handling, use `loc` (for labels) or `iloc` (for integers). Slicing with integers is always integer-oriented.
+
+### Arithmetic and Data Alignment
+
+When adding objects, if any index pairs are not the same, the respective index in the result will be the union of the index pairs.
+
+```{python}
+s1 = pd.Series([7.3, -2.5, 3.4, 1.5], index = ["a", "c", "d", "e"])
+
+s2 = pd.Series([-2.1, 3.6, -1.5, 4, 3.1], index = ["a", "c", "e", "f", "g"])
+
+s1
+
+s2
+
+s1 + s2
+```
+
+In the case of a DataFrame, alignment is performed on both the rows and the columns:
+
+```{python}
+df1 = pd.DataFrame(np.arange(9.).reshape((3, 3)), 
+                   columns = list("bcd"),
+                   index = ["Ohio", "Texas", "Colorado"])
+
+df2 = pd.DataFrame(np.arange(12.).reshape((4, 3)), 
+                   columns = list("bde"),
+                   index = ["Utah", "Ohio", "Texas", "Oregon"])
+
+df1
+
+df2
+
+df1 + df2
+```
+
+#### Arithmetic methods with fill values
+
+You can fill a special value, like 0, when an axis label is found in one object, but not the other:
+
+```{python}
+df1 = pd.DataFrame(np.arange(12.).reshape((3, 4)), 
+                   columns = list("abcd"))
+
+df2 = pd.DataFrame(np.arange(20.).reshape((4, 5)), 
+                   columns = list("abcde"))
+
+df2.loc[1, "b"] = np.nan
+
+df1
+
+df2
+
+df1 + df2
+
+df1.add(df2, fill_value = 0)
+```
+
+#### Operations between DataFrame and Series
+
+Consider the difference between a two-dimensional array and one of its rows:
+
+```{python}
+arr = np.arange(12.).reshape((3, 4))
+arr
+
+arr[0]
+
+arr - arr[0]
+```
+
+When we subtract `arr[0]` from `arr`, the subtraction is performed once for each row. Operations between a DataFrame and a Series are similar:
+
+```{python}
+frame = pd.DataFrame(np.arange(12.).reshape((4, 3)),
+                               columns = list("bde"),
+                               index = ["Utah", "Ohio", "Texas", "Oregon"])
+
+series = frame.iloc[0]
+
+frame
+
+series
+```
+
+The arithmetic between DataFrame and Series matches the index of the Series on the DataFrame's columns, broadcasting down the rows:
+
+```{python}
+frame - series
+```
+
+If an index value is not found in either the DataFrame's columns or the Series's index, the objects will be reindexed to form the union:
+
+```{python}
+series2 = pd.Series(range(3), index = ["b", "e", "f"])
+
+frame + series2
+```
+
+### Function Application and Mapping
+
+NumPy ufuncs also work with pandas objects:
+
+```{python}
+frame = pd.DataFrame(np.random.randn(4, 3), 
+                     columns = list("bde"),
+                     index = ["Utah", "Ohio", "Texas", "Oregon"])
+
+frame
+
+np.abs(frame)
+```
+
+You can also apply a function on one-dimensional arrays to each column or row with DataFrame's `apply` method:
+
+```{python}
+f = lambda x: x.max() - x.min()
+
+frame.apply(f)
+```
+
+The function is applied along the each column of the DataFrame resulting in a Series having the columns of `frame` as its index. If you pass `axis = "columns"` to apply, the function will be invoked once per row instead:
+
+```{python}
+frame.apply(f, axis = "columns")
+```
+
+### Sorting and Ranking
+
+To sort lexicographically by row or column index, use the `sort_index` method, which returns a new, sorted object:
+
+```{python}
+obj = pd.Series(range(4), index = ["d", "a", "b", "c"])
+
+obj.sort_index()
+```
+
+With a DataFrame, you can sort by index on either axis:
+
+```{python}
+frame = pd.DataFrame(np.arange(8).reshape((2, 4)),
+                     index = ["three", "one"],
+                     columns = ["d", "a", "b", "c"])
+
+frame.sort_index()
+
+frame.sort_index(axis = 1)
+```
+
+To sort in descending order:
+
+```{python}
+frame.sort_index(axis = 1, ascending = False)
+```
+
+To sort a series by its values, use its `sort_values` method:
+
+```{python}
+obj = pd.Series([4, 7, -3, 2])
+
+obj.sort_values()
+```
+
+Any missing values are sorted to the end by default.
+
+When sorting a DataFrame, you can use the data in one or more columns as the sort keys.
+
+```{python}
+frame = pd.DataFrame({"b": [4, 7, -3, 2], "a": [0, 1, 0, 1]})
+frame
+
+frame.sort_values(by = "b")
+```
+
+To sort by multiple columns, pass a list of names:
+
+```{python}
+frame.sort_values(by = ["a", "b"])
+```
+
+*Ranking* assigns ranks from one through the number of valid data points in an array. The `rank` methods for Series and DataFrame are the place to look; by default `rank` breaks ties by assigning each group the mean rank:
+
+```{python}
+obj = pd.Series([7, -5, 7, 4, 2, 0, 4])
+
+obj.rank()
+```
+
+### Axis Indexes with Duplicate Labels
+
+While many pandas functions require that the labels be unique, it's not mandatory. Let's consider a small Series with duplicate indices:
+
+```{python}
+obj = pd.Series(range(5), index = ["a", "a", "b", "b", "c"])
+
+obj
+```
+
+Use `is_unique` to see if the labels are unique or not:
+
+```{python}
+obj.index.is_unique
+```
+
+## Summarizing and Computing Descriptive Statistics
+
+pandas is capable of common statistical methods. Consider a small DataFrame:
+
+```{python}
+df = pd.DataFrame([[1.4, np.nan], [7.1, -4.5], [np.nan, np.nan], [0.75, -1.3]],
+                  index = ["a", "b", "c", "d"],
+                  columns = ["one", "two"])
+
+df
+```
+
+Calculate column sums:
+
+```{python}
+df.sum()
+```
+
+Or by rows instead:
+
+```{python}
+df.sum(axis = "columns")
+```
+
+NA values are excluded unless the entire slice is NA.
+
+Another method is `describe`:
+
+```{python}
+df.describe()
+```
+
+On non-numeric data, `describe` produces alternative summary statistics:
+
+```{python}
+obj = pd.Series(["a", "a", "b", "c"] * 4)
+
+obj.describe()
+```
+
+### Correlation and Covariance
+
+Let's consider some DataFrames of stock prices and volumns obtained from Yahoo! Finance using the add-on `pandas-datareader` package.
+
+I use the `pandas_datareader` module to download some data for a few stock tickers:
+
+```{python}
+import pandas_datareader.data as web
+all_data = {ticker: web.get_data_yahoo(ticker)
+            for ticker in ["AAPL", "IBM", "MSFT", "GOOG"]}
+
+price = pd.DataFrame({ticker: data["Adj Close"]
+                      for ticker, data in all_data.items()})
+
+volume = pd.DataFrame({ticker: data["Volume"]
+                      for ticker, data in all_data.items()})
+```
+
+Now compute the percent changes of the prices:
+
+```{python}
+returns = price.pct_change()
+returns.tail()
+```
+
+The `corr` method of Series computes the correlation of the overlapping, non-NA aligned-by-index values in two Series.
+
+```{python}
+returns["MSFT"].corr(returns["IBM"])
+
+returns["MSFT"].cov(returns["IBM"])
+```
+
+Since `MSFT` is a valid Python attributw, we can also select these columns using more concise syntax:
+
+```{python}
+returns.MSFT.corr(returns.IBM)
+```
+
+DataFrame's `corr` and `cov` methods, on the other hand, return a full correlation or covariance matrix as a DataFrame:
+
+```{python}
+returns.corr()
+```
+
+You can compute pairwise correlations between a DataFrame's columns or rows with another Series or DataFrame with the `corrwith` method.
+
+```{python}
+returns.corrwith(returns.IBM)
+```
+
+Passing a DataFrame computes the correlations of matching column names:
+
+```{python}
+volume.head()
+returns.head()
+
+returns.corrwith(volume)
+```
+
+Passing `axis = columns` does things row-by-row instead.
+
+### Unique Values, Value Counts, and Membership
+
+Another class of related methods extracts information about the values contained in a one-dimensional Series.
+
+```{python}
+obj = pd.Series(["c", "a", "d", "a", "a", "b", "b", "c", "c"])
+```
+
+The first is the `unique` function:
+
+```{python}
+uniques = obj.unique()
+uniques
+```
+
+The unique values are not returned in sorted order, but could be after the face if needed with `uniques.sort()`. `value_counts()` computes a Series containing value frequencies:
+
+```{python}
+obj.value_counts()
+```
+
+`value_counts` is also available as a top-level pandas method:
+
+```{python}
+pd.value_counts(obj.values, sort = False)
+```
+
+`isin` performs a vectorized set membership check and be useful in filtering a dataset down to a subset of values in a Series of column in a DataFrame:
+
+```{python}
+obj
+
+mask = obj.isin(["b", "c"])
+mask
+
+obj[mask]
+```
+
+The `Index.get_indexer` method gives you an array from an array of possibly non-distinct values into another array of distinct values:
+
+```{python}
+to_match = pd.Series(["c", "a", "b", "b", "c", "a"])
+
+unique_vals = pd.Series(["c", "b", "a"])
+
+pd.Index(unique_vals).get_indexer(to_match)
+```
